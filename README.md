@@ -6,6 +6,14 @@ The main methodological finding is deliberately bounded. An initial apparent com
 
 The repository does not claim that LLMs are free of omission difficulty. It is a record of the frozen data, code, and analyses behind the reported numbers, not a general-purpose benchmark release.
 
+## Archival Release
+
+Version v1.0.0 is archived on Zenodo.
+
+- DOI: 10.5281/zenodo.23192501 (refers to this artifact release, not to the paper)
+- GitHub repository: https://github.com/Taewan627/cba-benchmark-validity
+- GitHub release: https://github.com/Taewan627/cba-benchmark-validity/releases/tag/v1.0.0
+
 ## Paper
 
 **Title:** Benchmark Validity and Commission–Omission Asymmetry in LLM-Based Narrative Auditing
@@ -102,7 +110,7 @@ See also `CITATION.cff`.
 
 ## License
 
-License information will be added before archival release.
+No repository-level license file is currently included.
 
 ## Contact
 

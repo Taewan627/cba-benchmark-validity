@@ -10,4 +10,10 @@ authors:
     given-names: "Taehoon"
     affiliation: "Graduate School of Virtual Convergence, Sogang University"
 year: 2026
-notes: "Reproducibility artifacts for a manuscript prepared for submission to IEEE Access. License and archival release details to be added."
+repository-code: "https://github.com/Taewan627/cba-benchmark-validity"
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.23192501"
+    description: "Zenodo archive of the v1.0.0 artifact release (not the manuscript DOI)"
+version: "v1.0.0"
+notes: "Reproducibility artifacts for a manuscript prepared for submission to IEEE Access."

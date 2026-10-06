@@ -6,8 +6,8 @@ SHA-256 hashes are given for every published file except this manifest. Frozen r
 |---|---|---|---|---|---|
 | `.gitattributes` | Repository metadata | All | n/a | No | `6ac6d7789cd46c10a9f76c65a5da74817384ab51238c6700eb5621646da4c8bd` |
 | `.gitignore` | Repository metadata | All | n/a | No | `b8832b2f3b12a0235c25e0d5dcfb1ab63017c3294015809ecddc668054d78d66` |
-| `CITATION.cff` | Repository metadata | All | n/a | No | `deae2f1af690502ec3e17fb1dcce7c919991edd19c66344b954d0d20deed11af` |
-| `README.md` | Repository metadata | All | n/a | No | `448740983e014b28d48ae08c3c6d7cbb023e0a81151d169d561b11c769bbfdad` |
+| `CITATION.cff` | Repository metadata | All | n/a | No | `749afe80e942e0bb242a64d1f6c61898e17fa232591be166160a5dd21f94ad7b` |
+| `README.md` | Repository metadata | All | n/a | No | `cd986dcc28bd9c16fc3ab12990936c0f2e362510c22915b1973e578dcd3a36bd` |
 | `README_REPRODUCE.md` | Original review-package reproduction notes | All | n/a | No | `ba9818348fb8b7347ca02f753cd8cffaa9fe8e8ca64f8d8d29515537db226809` |
 | `SHA256SUMS.csv` | Integrity hashes of the review package | All | n/a | Yes | `771b20d80ecf4b50ac84742ce3ffc76be437b84cdaf255425632155d4bc9ed50` |
 | `audits/study1_omission_miss_audit.md` | Study 1 omission-miss audit (post-hoc, not independently adjudicated) | Study 1 | Post-hoc | No (documentation) | `a1dd95986594e09e11fc642652847726349f73f20f2efc5d228dfd7fc3dbc322` |
