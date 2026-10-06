@@ -1,0 +1,147 @@
+{
+  "audit": {
+    "by_condition": {
+      "CLEAN": 120,
+      "COMMISSION": 120,
+      "OMISSION": 120
+    },
+    "by_model": {
+      "anthropic/claude-sonnet-5": 180,
+      "google/gemini-3.8-flash": 180
+    },
+    "by_protocol": {
+      "P2": 360
+    },
+    "completed_unique_cells": 360,
+    "duplicate_cells": [],
+    "latency_ms": {
+      "max": 19757,
+      "mean": 3728.9,
+      "min": 2210
+    },
+    "model_mismatches": [],
+    "planned": 360,
+    "raw_record_count": 360,
+    "retries": 0,
+    "total_cost_usd": 0.87419125,
+    "total_input_tokens": 175120,
+    "total_output_tokens": 118819,
+    "transport_failures": 0,
+    "truncations": 0
+  },
+  "clean_quality": {
+    "claude": 0.0167,
+    "claude_point": 0.0,
+    "claude_scope": 0.0333,
+    "gemini": 0.0,
+    "gemini_point": 0.0,
+    "gemini_scope": 0.0,
+    "point": 0.0,
+    "pooled": 0.0083,
+    "scope": 0.0167,
+    "shared_fp_cases": []
+  },
+  "family": {
+    "across_scope_required_event": {
+      "comm_recall": 1.0,
+      "gap": 0.0,
+      "n_comm": 20,
+      "n_om": 20,
+      "om_recall": 1.0
+    },
+    "any_of_scope_obligation": {
+      "comm_recall": 1.0,
+      "gap": 0.0,
+      "n_comm": 20,
+      "n_om": 20,
+      "om_recall": 1.0
+    },
+    "by_end_resolution": {
+      "comm_recall": 0.95,
+      "gap": -0.050000000000000044,
+      "n_comm": 20,
+      "n_om": 20,
+      "om_recall": 1.0
+    },
+    "identity_checkpoint": {
+      "comm_recall": 0.95,
+      "gap": -0.050000000000000044,
+      "n_comm": 20,
+      "n_om": 20,
+      "om_recall": 1.0
+    },
+    "placement_checkpoint": {
+      "comm_recall": 1.0,
+      "gap": 0.0,
+      "n_comm": 20,
+      "n_om": 20,
+      "om_recall": 1.0
+    },
+    "recipient_checkpoint": {
+      "comm_recall": 0.95,
+      "gap": -0.050000000000000044,
+      "n_comm": 20,
+      "n_om": 20,
+      "om_recall": 1.0
+    }
+  },
+  "per_model": {
+    "anthropic/claude-sonnet-5": {
+      "Delta": 0.06666666666666667,
+      "G_point": -0.06666666666666667,
+      "G_scope": 0.0,
+      "comm_point": 0.9333333333333333,
+      "comm_scope": 1.0,
+      "delta_ci": [
+        0.0,
+        0.16666666666666666
+      ],
+      "fpr_point": 0.0,
+      "fpr_scope": 0.03333333333333333,
+      "n_point": 30,
+      "n_scope": 30,
+      "om_point": 1.0,
+      "om_scope": 1.0
+    },
+    "google/gemini-3.8-flash": {
+      "Delta": -0.03333333333333333,
+      "G_point": 0.0,
+      "G_scope": -0.03333333333333333,
+      "comm_point": 1.0,
+      "comm_scope": 0.9666666666666667,
+      "delta_ci": [
+        -0.1,
+        0.0
+      ],
+      "fpr_point": 0.0,
+      "fpr_scope": 0.0,
+      "n_point": 30,
+      "n_scope": 30,
+      "om_point": 1.0,
+      "om_scope": 1.0
+    }
+  },
+  "primary": {
+    "Delta": 0.016666666666666666,
+    "G_point": -0.03333333333333333,
+    "G_scope": -0.016666666666666666,
+    "delta_ci": [
+      -0.03333333333333334,
+      0.06666666666666667
+    ],
+    "fpr_point": 0.0,
+    "fpr_scope": 0.016666666666666666,
+    "n_point": 30,
+    "n_scope": 30
+  },
+  "reasons": [
+    "delta_scope_ruled_out"
+  ],
+  "run_id": "study2b_scope_v1",
+  "sha256": {
+    "data/study2b_scope_cases.jsonl": "0f2f087c19cd327383cbac0c1c04504f6576e4562350865c20798207a86b0cad",
+    "outputs/study2b_scope_v1/raw_attempts.jsonl": "02e5187549ff2b2b8f28539ac5ba9102f981877ff47b7d5557252c60691b6a63"
+  },
+  "study": "study2b",
+  "verdict": "KILL"
+}

@@ -1,0 +1,13 @@
+cff-version: 1.2.0
+message: "If you use these artifacts, please cite the associated manuscript."
+title: "Benchmark Validity and Commission–Omission Asymmetry in LLM-Based Narrative Auditing"
+type: software
+authors:
+  - family-names: "Kim"
+    given-names: "Taewan"
+    affiliation: "Graduate School of Virtual Convergence, Sogang University"
+  - family-names: "Kim"
+    given-names: "Taehoon"
+    affiliation: "Graduate School of Virtual Convergence, Sogang University"
+year: 2026
+notes: "Reproducibility artifacts for a manuscript prepared for submission to IEEE Access. License and archival release details to be added."

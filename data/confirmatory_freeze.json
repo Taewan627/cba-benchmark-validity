@@ -1,0 +1,16 @@
+{
+  "created": "2026-09-19",
+  "files": {
+    "config/evaluators.yaml": "e4cfc1737a5a59082f9fc6e4dd976ec0d5ef24bfe1086fafd89175ed24f27587",
+    "data/confirmatory_cases.jsonl": "bfc28c7c0cf628f0112ec430143e49f1fbe5bbcaa5eb4c34ab33da851e49a8e1",
+    "data/confirmatory_manifest.json": "4bc0ab167d13b5dfa1eafb946d577b1be6f8b9cf3feb8d4e3f9062077f70f52e",
+    "data/rule_families.yaml": "eb2ed1f3e9a6e4da21c41e7dbf11d60c9518b9a6142a1455c829ef823306e70c",
+    "docs/author_qa.md": "68dfaa2e7c5f799ae5c95db760c46cd11094928e51c251dbaf6a0716a2f3fe82",
+    "src/analysis.py": "b4627605efee6433b8221911bd810a620ce031f50772c68e25fb64e1334c2b92",
+    "src/deterministic_scoring.py": "3a3f9e9a6faf69213f8cb47fe743af186333b93168407e523452323fda6c7664",
+    "src/parser.py": "331e596090ca32ff9361e4e35a4123bda9dc53423e2a0352e35a0fb631e61e72",
+    "src/protocol_construction.py": "f14dafe8d4b8a49cdd8e0da65322f2f8c91432967402d3b32ed05e8a3917eaa7"
+  },
+  "freeze_version": "1",
+  "note": "confirmatory held-out freeze; exploratory Stage-1 results observed but NOT used to alter hypothesis or thresholds."
+}

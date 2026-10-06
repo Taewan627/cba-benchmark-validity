@@ -1,0 +1,134 @@
+{
+  "audit": {
+    "by_condition": {
+      "CLEAN": 120,
+      "COMMISSION": 120,
+      "OMISSION": 120
+    },
+    "by_model": {
+      "anthropic/claude-sonnet-5": 180,
+      "google/gemini-3.8-flash": 180
+    },
+    "by_protocol": {
+      "P2": 360
+    },
+    "completed_unique_cells": 360,
+    "duplicate_cells": [],
+    "latency_ms": {
+      "max": 45204,
+      "mean": 8695.2,
+      "min": 2757
+    },
+    "model_mismatches": [],
+    "planned": 360,
+    "raw_record_count": 360,
+    "retries": 1,
+    "total_cost_usd": 2.06605575,
+    "total_input_tokens": 184556,
+    "total_output_tokens": 375896,
+    "transport_failures": 0,
+    "truncations": 12
+  },
+  "family": {
+    "across_scope_required_event": {
+      "comm_recall": 1.0,
+      "gap": 0.0,
+      "n_comm": 20,
+      "n_om": 20,
+      "om_recall": 1.0
+    },
+    "any_of_scope_obligation": {
+      "comm_recall": 0.9,
+      "gap": 0.0,
+      "n_comm": 20,
+      "n_om": 20,
+      "om_recall": 0.9
+    },
+    "by_end_resolution": {
+      "comm_recall": 0.95,
+      "gap": 0.04999999999999993,
+      "n_comm": 20,
+      "n_om": 20,
+      "om_recall": 0.9
+    },
+    "identity_checkpoint": {
+      "comm_recall": 1.0,
+      "gap": 0.0,
+      "n_comm": 20,
+      "n_om": 20,
+      "om_recall": 1.0
+    },
+    "placement_checkpoint": {
+      "comm_recall": 1.0,
+      "gap": 0.0,
+      "n_comm": 20,
+      "n_om": 20,
+      "om_recall": 1.0
+    },
+    "recipient_checkpoint": {
+      "comm_recall": 1.0,
+      "gap": 0.050000000000000044,
+      "n_comm": 20,
+      "n_om": 20,
+      "om_recall": 0.95
+    }
+  },
+  "per_model": {
+    "anthropic/claude-sonnet-5": {
+      "Delta": 0.0,
+      "G_point": 0.0,
+      "G_scope": 0.0,
+      "comm_point": 1.0,
+      "comm_scope": 0.9666666666666667,
+      "delta_ci": [
+        -0.1,
+        0.1
+      ],
+      "fpr_point": 0.36666666666666664,
+      "fpr_scope": 0.16666666666666666,
+      "n_point": 30,
+      "n_scope": 30,
+      "om_point": 1.0,
+      "om_scope": 0.9666666666666667
+    },
+    "google/gemini-3.8-flash": {
+      "Delta": 0.0,
+      "G_point": 0.03333333333333333,
+      "G_scope": 0.03333333333333333,
+      "comm_point": 1.0,
+      "comm_scope": 0.9333333333333333,
+      "delta_ci": [
+        -0.13333333333333333,
+        0.13333333333333333
+      ],
+      "fpr_point": 0.43333333333333335,
+      "fpr_scope": 0.7,
+      "n_point": 30,
+      "n_scope": 30,
+      "om_point": 0.9666666666666667,
+      "om_scope": 0.9
+    }
+  },
+  "primary": {
+    "Delta": 0.0,
+    "G_point": 0.016666666666666666,
+    "G_scope": 0.016666666666666666,
+    "delta_ci": [
+      -0.08333333333333334,
+      0.08333333333333333
+    ],
+    "fpr_point": 0.4,
+    "fpr_scope": 0.43333333333333335,
+    "n_point": 30,
+    "n_scope": 30
+  },
+  "reasons": [
+    "clean_fpr_exceeded"
+  ],
+  "run_id": "study2_scope_v1",
+  "sha256": {
+    "data/study2_scope_cases.jsonl": "5cc8bdee6dd4a8b98bacfb85ab6b84822e77a0e871249abe0d1cc9d474a012b1",
+    "outputs/study2_scope_v1/raw_attempts.jsonl": "5056acf021635a58a3d389bbfba8155e10dc4224322211c2e528f72aa0b6dc82"
+  },
+  "verdict": "INCONCLUSIVE"
+}

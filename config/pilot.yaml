@@ -1,0 +1,65 @@
+project: CBA
+design_gate: CONDITIONAL PASS
+api_enabled: true
+api_budget_ceiling_usd: 5
+budget_unlock_required: false
+models:
+  - role: A
+    requested_model: google/gemini-3.8-flash
+    provider: google
+  - role: B
+    requested_model: anthropic/claude-sonnet-5
+    provider: anthropic
+evaluator_config: config/evaluators.yaml
+protocols: [P1, P2, P3, P4]
+conditions: [CLEAN, COMMISSION, OMISSION]
+base_cases: 40
+rule_families: 5
+cases_per_family: 8
+pilot_size_candidates:
+  MINIMAL:
+    base_cases: 40
+    variants: 120
+    calls: 960
+  SAFER:
+    base_cases: 64
+    variants: 192
+    calls: 1536
+initial_calls: 960
+responses_per_cell: 1
+seeds:
+  dataset: 1729
+  order: 1730
+  evaluator_requested: 1731
+  bootstrap: 1732
+decoding:
+  temperature: 0
+  max_output_tokens: 6000
+  unsupported_settings: record_without_claiming_determinism
+retry:
+  max_transport_retries: 1
+  retry_valid_responses: false
+analysis:
+  bootstrap_seed: 1732
+  bootstrap_replicates: 10000
+  confidence_level: 0.95
+  finite_sample_interval: newcombe_paired_method10
+  cluster: independent_base_case_or_shared_template
+  stratify: rule_family
+thresholds_provisional:
+  ordinary_gap: 0.20
+  residual_gap: 0.10
+  equivalence_margin: 0.10
+  max_clean_conservative_fpr: 0.10
+  max_invalid_fraction: 0.05
+  rescue_min_recall: 0.80
+  ranking_difference: 0.10
+paths:
+  dataset: data/pilot.jsonl
+  case_schema: data/case_schema.json
+  synthetic_dataset: data/synthetic_triplets.jsonl
+  manifest: data/manifest.json
+  raw_attempts: outputs/raw_attempts.jsonl
+  scores: outputs/scores.csv
+  summaries: outputs/summaries.csv
+  gate_record: docs/pilot_gate.md

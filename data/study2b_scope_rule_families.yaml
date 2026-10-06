@@ -1,0 +1,55 @@
+# Study-2b rule-family taxonomy (defect-informed replication)
+
+The scientific variable is VERIFICATION STRUCTURE (point vs scope). Every case
+has exactly ONE target rule; there are NO background/secondary rules, and no
+"throughout / stay / remain" persistence constraints.
+
+version: 1
+structures:
+  - name: point
+    definition: "One local checkpoint witness suffices to establish the judgment."
+  - name: scope
+    definition: "Absence is established only after the six-beat scope is exhausted."
+
+families:
+  - name: identity_checkpoint
+    structure: point
+    formal_rule_form: "At the {checkpoint}, the {record} must show {identity}."
+    clean_realization: "At the {checkpoint}, the {record} shows {identity}."
+    commission_mutation: "At the {checkpoint}, the {record} shows a different identity."
+    omission_mutation: "At the {checkpoint}, the {record} identity field is empty."
+
+  - name: placement_checkpoint
+    structure: point
+    formal_rule_form: "At the {checkpoint}, the {object} must be on the {location}."
+    clean_realization: "At the {checkpoint}, the {object} is on the {location}."
+    commission_mutation: "At the {checkpoint}, the {object} is on a different location."
+    omission_mutation: "At the {checkpoint}, the {location} stands empty."
+
+  - name: recipient_checkpoint
+    structure: point
+    formal_rule_form: "At the {checkpoint}, the {item} must be in the {recipient}'s hands."
+    clean_realization: "At the {checkpoint}, the {recipient} holds the {item}."
+    commission_mutation: "At the {checkpoint}, a different person holds the {item}."
+    omission_mutation: "At the {checkpoint}, the {recipient}'s hands are empty."
+
+  - name: any_of_scope_obligation
+    structure: scope
+    formal_rule_form: "During the six-beat {scope}, {action} must occur at least once."
+    clean_realization: "The action occurs at one beat within the scope."
+    commission_mutation: "An incompatible action occurs within the scope."
+    omission_mutation: "The action is absent from all six beats."
+
+  - name: by_end_resolution
+    structure: scope
+    formal_rule_form: "By the end of the six-beat {scope}, {obligation} must be resolved."
+    clean_realization: "The obligation is resolved at one beat."
+    commission_mutation: "The obligation is resolved incorrectly."
+    omission_mutation: "The obligation is never resolved across the six beats."
+
+  - name: across_scope_required_event
+    structure: scope
+    formal_rule_form: "Somewhere across the six-beat {scope}, {event} must occur."
+    clean_realization: "The event occurs at one beat in the sequence."
+    commission_mutation: "An incompatible event occurs in the sequence."
+    omission_mutation: "The event is absent from the entire sequence."

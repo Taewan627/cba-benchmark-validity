@@ -1,0 +1,68 @@
+# Study-2 (scope) rule-family taxonomy
+
+The scientific variable is VERIFICATION STRUCTURE (point vs scope), not family.
+Families are balanced descriptive groupings (10 each).
+
+## POINT-VERIFIABLE
+
+A violation/fulfillment is determined from one explicit local piece of evidence;
+a single witness is sufficient.
+
+## SCOPE-VERIFIABLE
+
+The auditor must inspect the complete relevant scope before concluding that a
+required event/fact is absent; no single local sentence is sufficient.
+
+version: 1
+structures:
+  - name: point
+    definition: >
+      One local witness is sufficient to establish the judgment (violation or
+      fulfillment) at a single checkpoint.
+  - name: scope
+    definition: >
+      Absence of the required event can be established only after the relevant
+      search scope is exhausted; no single beat is sufficient.
+
+families:
+  - name: identity_checkpoint
+    structure: point
+    formal_rule_form: "At the checkpoint, record X must show identity Y (and no other)."
+    clean_realization: "The correct identity appears at the checkpoint."
+    commission_mutation: "An incorrect identity appears at the checkpoint."
+    omission_mutation: "The record is completed with the identity field absent."
+
+  - name: placement_checkpoint
+    structure: point
+    formal_rule_form: "At the checkpoint, object X must be located at Y."
+    clean_realization: "The object is at the required location."
+    commission_mutation: "The object is at an incompatible location."
+    omission_mutation: "The task proceeds with the object not placed."
+
+  - name: recipient_checkpoint
+    structure: point
+    formal_rule_form: "At the checkpoint, item X must be delivered to recipient Y."
+    clean_realization: "The item is delivered to the correct recipient."
+    commission_mutation: "The item is delivered to an incorrect recipient."
+    omission_mutation: "The task proceeds with the item not delivered."
+
+  - name: any_of_scope_obligation
+    structure: scope
+    formal_rule_form: "Before the scope ends, action X must occur at least once."
+    clean_realization: "The action occurs at one valid beat within the scope."
+    commission_mutation: "An explicit incompatible action occurs within the scope."
+    omission_mutation: "The whole scope proceeds and terminates without X occurring anywhere."
+
+  - name: by_end_resolution
+    structure: scope
+    formal_rule_form: "Before the scope terminates, obligation X must be resolved."
+    clean_realization: "The obligation is resolved at one beat within the scope."
+    commission_mutation: "The obligation is resolved incorrectly within the scope."
+    omission_mutation: "The scope terminates with the obligation never resolved."
+
+  - name: across_scope_required_event
+    structure: scope
+    formal_rule_form: "Somewhere across the defined sequence, required event X must occur."
+    clean_realization: "The event occurs at one beat in the sequence."
+    commission_mutation: "An incompatible event occurs in the sequence."
+    omission_mutation: "The event is absent from the entire sequence."

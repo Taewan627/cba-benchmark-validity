@@ -1,0 +1,8 @@
+# Offline reproduction (reproduce_reported_results.py, scripts/) uses only the
+# Python standard library (Python >= 3.10).
+#
+# Optional: figure scripts under figures/source/
+matplotlib>=3.5
+numpy
+# Optional: original configuration handling / re-execution only
+PyYAML

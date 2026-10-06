@@ -1,0 +1,59 @@
+{
+  "author_qa_status": "COMPLETE",
+  "base_case_ids": [
+    "b01",
+    "b03",
+    "b04",
+    "b08",
+    "b13",
+    "b16",
+    "b17",
+    "b18",
+    "b22",
+    "b26",
+    "b32",
+    "b34",
+    "b36",
+    "b37",
+    "b39",
+    "b41",
+    "b42",
+    "b43",
+    "b44",
+    "b45"
+  ],
+  "confirmatory_version": "1",
+  "creation_date": "2026-09-19",
+  "expected_evaluator_calls": 480,
+  "max_output_tokens": 6000,
+  "note": "20 previously-unevaluated cases (15 held-out + 5 replacements); zero overlap with corrected Stage-1 v2.",
+  "num_base_cases": 20,
+  "num_variants": 60,
+  "parent_benchmark_sha256": "707cdb034e6404faa1aa65d86c0fb64f9c114d3379ffa95957ab87ecfe15baa5",
+  "position_counts": {
+    "early": 6,
+    "late": 6,
+    "middle": 8
+  },
+  "replacements": [
+    "b41",
+    "b42",
+    "b43",
+    "b44",
+    "b45"
+  ],
+  "retired_cases": {
+    "b12": "reversed ordering is physically awkward and a detectability confound",
+    "b15": "unsafe salient reversal is a detectability confound",
+    "b20": "throughout state is not cleanly rendered as a single obligation",
+    "b25": "wrong vs blank name severity differs strongly",
+    "b31": "wrong vs blank name severity differs strongly"
+  },
+  "rule_family_counts": {
+    "commitment": 4,
+    "identification": 4,
+    "placement": 4,
+    "preservation": 4,
+    "temporal_ordering": 4
+  }
+}

@@ -1,0 +1,136 @@
+{
+  "audit": {
+    "by_condition": {
+      "CLEAN": 160,
+      "COMMISSION": 159,
+      "OMISSION": 159
+    },
+    "by_model": {
+      "anthropic/claude-sonnet-5": 240,
+      "google/gemini-3.8-flash": 238
+    },
+    "by_protocol": {
+      "P1": 120,
+      "P2": 120,
+      "P3": 119,
+      "P4": 119
+    },
+    "completed_unique_cells": 478,
+    "duplicate_cells": [],
+    "invalid_fractions": {
+      "by_condition": {
+        "CLEAN": 0.0,
+        "COMMISSION": 0.00625,
+        "OMISSION": 0.0125
+      },
+      "by_model": {
+        "anthropic/claude-sonnet-5": 0.004167,
+        "google/gemini-3.8-flash": 0.008333
+      },
+      "by_protocol": {
+        "P1": 0.0,
+        "P2": 0.0,
+        "P3": 0.016667,
+        "P4": 0.008333
+      },
+      "cells": {
+        "('anthropic/claude-sonnet-5', 'P1', 'CLEAN')": 0.0,
+        "('anthropic/claude-sonnet-5', 'P1', 'COMMISSION')": 0.0,
+        "('anthropic/claude-sonnet-5', 'P1', 'OMISSION')": 0.0,
+        "('anthropic/claude-sonnet-5', 'P2', 'CLEAN')": 0.0,
+        "('anthropic/claude-sonnet-5', 'P2', 'COMMISSION')": 0.0,
+        "('anthropic/claude-sonnet-5', 'P2', 'OMISSION')": 0.0,
+        "('anthropic/claude-sonnet-5', 'P3', 'CLEAN')": 0.0,
+        "('anthropic/claude-sonnet-5', 'P3', 'COMMISSION')": 0.0,
+        "('anthropic/claude-sonnet-5', 'P3', 'OMISSION')": 0.05,
+        "('anthropic/claude-sonnet-5', 'P4', 'CLEAN')": 0.0,
+        "('anthropic/claude-sonnet-5', 'P4', 'COMMISSION')": 0.0,
+        "('anthropic/claude-sonnet-5', 'P4', 'OMISSION')": 0.0,
+        "('google/gemini-3.8-flash', 'P1', 'CLEAN')": 0.0,
+        "('google/gemini-3.8-flash', 'P1', 'COMMISSION')": 0.0,
+        "('google/gemini-3.8-flash', 'P1', 'OMISSION')": 0.0,
+        "('google/gemini-3.8-flash', 'P2', 'CLEAN')": 0.0,
+        "('google/gemini-3.8-flash', 'P2', 'COMMISSION')": 0.0,
+        "('google/gemini-3.8-flash', 'P2', 'OMISSION')": 0.0,
+        "('google/gemini-3.8-flash', 'P3', 'CLEAN')": 0.0,
+        "('google/gemini-3.8-flash', 'P3', 'COMMISSION')": 0.05,
+        "('google/gemini-3.8-flash', 'P3', 'OMISSION')": 0.0,
+        "('google/gemini-3.8-flash', 'P4', 'CLEAN')": 0.0,
+        "('google/gemini-3.8-flash', 'P4', 'COMMISSION')": 0.0,
+        "('google/gemini-3.8-flash', 'P4', 'OMISSION')": 0.05
+      },
+      "global": 0.00625
+    },
+    "latency_ms": {
+      "max": 42483,
+      "mean": 5237.7,
+      "min": 2136
+    },
+    "model_mismatches": [],
+    "parser_invalid_count": 3,
+    "parser_invalid_fraction": 0.00625,
+    "planned": 480,
+    "raw_record_count": 480,
+    "retries": 0,
+    "total_cost_usd": 1.738635,
+    "total_input_tokens": 248160,
+    "total_output_tokens": 256695,
+    "transport_failures": 2,
+    "truncations": 0
+  },
+  "family": {
+    "commitment": {
+      "comm_recall": 1.0,
+      "gap": 0.0,
+      "n_comm": 16,
+      "n_om": 16,
+      "om_recall": 1.0
+    },
+    "identification": {
+      "comm_recall": 1.0,
+      "gap": 0.0,
+      "n_comm": 16,
+      "n_om": 16,
+      "om_recall": 1.0
+    },
+    "placement": {
+      "comm_recall": 1.0,
+      "gap": 0.0625,
+      "n_comm": 16,
+      "n_om": 16,
+      "om_recall": 0.9375
+    },
+    "preservation": {
+      "comm_recall": 1.0,
+      "gap": 0.375,
+      "n_comm": 16,
+      "n_om": 16,
+      "om_recall": 0.625
+    },
+    "temporal_ordering": {
+      "comm_recall": 1.0,
+      "gap": 0.25,
+      "n_comm": 16,
+      "n_om": 16,
+      "om_recall": 0.75
+    }
+  },
+  "git_hash": null,
+  "manifest_version": "1",
+  "reasons": [
+    "INCONCLUSIVE: no KILL or GO pattern met"
+  ],
+  "run_id": "confirmatory_v1",
+  "sha256": {
+    "config/evaluators.yaml": "e4cfc1737a5a59082f9fc6e4dd976ec0d5ef24bfe1086fafd89175ed24f27587",
+    "data/confirmatory_cases.jsonl": "bfc28c7c0cf628f0112ec430143e49f1fbe5bbcaa5eb4c34ab33da851e49a8e1",
+    "data/rule_families.yaml": "eb2ed1f3e9a6e4da21c41e7dbf11d60c9518b9a6142a1455c829ef823306e70c",
+    "docs/author_qa.md": "68dfaa2e7c5f799ae5c95db760c46cd11094928e51c251dbaf6a0716a2f3fe82",
+    "outputs/confirmatory_v1/raw_attempts.jsonl": "bc4c4903b02c7e089ecb9f8b882f5480baf036ac978166eef6be94d989f5c258",
+    "src/analysis.py": "b4627605efee6433b8221911bd810a620ce031f50772c68e25fb64e1334c2b92",
+    "src/deterministic_scoring.py": "3a3f9e9a6faf69213f8cb47fe743af186333b93168407e523452323fda6c7664",
+    "src/parser.py": "331e596090ca32ff9361e4e35a4123bda9dc53423e2a0352e35a0fb631e61e72",
+    "src/protocol_construction.py": "f14dafe8d4b8a49cdd8e0da65322f2f8c91432967402d3b32ed05e8a3917eaa7"
+  },
+  "verdict": "INCONCLUSIVE"
+}

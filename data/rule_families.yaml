@@ -1,0 +1,65 @@
+# CBA rule-family taxonomy
+#
+# Five families, each supporting a single-terminal-fact rule with genuinely
+# comparable COMMISSION and OMISSION violations. A family is included only when
+# the two corrupt forms leave the same obligation unsatisfied: COMMISSION adds
+# an explicit incompatible terminal fact, OMISSION supplies neither the required
+# fact nor an incompatible one.
+#
+# Names are stable identifiers used in data/pilot.jsonl (rule_family field).
+
+version: 1
+
+families:
+  - name: placement
+    formal_rule_form: "Object X must be located in receptacle/location Y at the terminal state of the scene."
+    clean_realization: "The required object is placed in the required location at the target slot."
+    commission_mutation: "The required object is placed in a different, incompatible location at the target slot."
+    omission_mutation: "The target slot contains a neutral action; the object is never placed anywhere."
+    comparability_rationale: >
+      In both corrupt forms the object ends the scene outside the required
+      location, so the same terminal obligation is unsatisfied. The only
+      difference is whether a wrong location is explicitly asserted.
+
+  - name: temporal_ordering
+    formal_rule_form: "Action A must be performed before action B."
+    clean_realization: "A occurs, then B, at the target slot."
+    commission_mutation: "B occurs before A (explicit reversed ordering) at the target slot."
+    omission_mutation: "Only a neutral action occurs at the target slot; A never occurs before B."
+    comparability_rationale: >
+      In both corrupt forms the required before-ordering does not hold. The
+      reversed ordering makes the ordering failure explicit; the neutral
+      replacement simply never establishes it. The protected causal relation
+      fails either way.
+
+  - name: preservation
+    formal_rule_form: "Object/state X must remain intact and present throughout the scene."
+    clean_realization: "X is verified intact/present and left untouched at the target slot."
+    commission_mutation: "X is explicitly removed, opened, or damaged at the target slot."
+    omission_mutation: "A neutral action occurs at the target slot; X's integrity is never established."
+    comparability_rationale: >
+      In both corrupt forms X does not survive intact for the whole scene. The
+      commission form shows an explicit destructive act; the omission form
+      never demonstrates that X was protected. The protection obligation fails
+      either way.
+
+  - name: identification
+    formal_rule_form: "Record/entity X must carry identity Y, and not any other identity."
+    clean_realization: "The correct identity Y is written/assigned at the target slot."
+    commission_mutation: "A different, incorrect identity is written/assigned at the target slot."
+    omission_mutation: "A neutral action occurs at the target slot; no identity is recorded."
+    comparability_rationale: >
+      In both corrupt forms the record does not carry the required identity. The
+      wrong identity makes the failure explicit; the neutral replacement leaves
+      the record without the required identity. Either way the correct identity
+      is absent from the record.
+
+  - name: commitment
+    formal_rule_form: "Obligation/transfer/notification X must be delivered to recipient Y."
+    clean_realization: "The obligation is fulfilled to the correct recipient at the target slot."
+    commission_mutation: "The obligation is fulfilled to a different, incorrect recipient at the target slot."
+    omission_mutation: "A neutral action occurs at the target slot; the obligation is never fulfilled."
+    comparability_rationale: >
+      In both corrupt forms the correct recipient does not receive X. The wrong
+      recipient makes the failure explicit; the neutral replacement never
+      fulfills the obligation at all. The delivery obligation fails either way.

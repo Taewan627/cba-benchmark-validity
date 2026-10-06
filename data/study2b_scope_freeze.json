@@ -1,0 +1,20 @@
+{
+  "created": "2026-09-19",
+  "files": {
+    "config/evaluators.yaml": "e4cfc1737a5a59082f9fc6e4dd976ec0d5ef24bfe1086fafd89175ed24f27587",
+    "data/study2b_scope_cases.jsonl": "0f2f087c19cd327383cbac0c1c04504f6576e4562350865c20798207a86b0cad",
+    "data/study2b_scope_manifest.json": "d736cfc17982ca74561d8c9abc6c07fe3ba4bbb756adaac28b245530581265f2",
+    "data/study2b_scope_rule_families.yaml": "b9c0ed41a66a2dd9363ce994f3430142226ee2d9099bb49ef5466bddb72bea71",
+    "docs/study2b_author_qa.md": "97dc385c685de91a8966cf9ca1d3552863fb577a0dd049b8237d64fc10f8968c",
+    "docs/study2b_scope_design.md": "34dd48664105a92fda26165d49375b65153e81627fdd3d09043ce467d3f276b4",
+    "docs/study2b_scope_gate.md": "e4b4be7a05835f2bf79ee46e8f78586a49e0054f67caa434fa32dd36d02e9516",
+    "src/deterministic_scoring.py": "3a3f9e9a6faf69213f8cb47fe743af186333b93168407e523452323fda6c7664",
+    "src/parser.py": "331e596090ca32ff9361e4e35a4123bda9dc53423e2a0352e35a0fb631e61e72",
+    "src/protocol_construction.py": "f14dafe8d4b8a49cdd8e0da65322f2f8c91432967402d3b32ed05e8a3917eaa7",
+    "src/study2_scope.py": "a7c818511a7fddfe0db8b611073b67b8ac6f9a44f5f1ea275abed1aeb1878276",
+    "src/study2b_scope.py": "e12a603723b65c7f6234df128affba0eff06398670025a734203d801335a005d",
+    "src/study2b_scope_cases.py": "a1f6f8071227a1d30760a07354708d659a5e7e8b565f71609f0dd27d419f1a04"
+  },
+  "freeze_version": "1",
+  "note": "Study-2b frozen benchmark; author QA pending; no paid API executed."
+}
