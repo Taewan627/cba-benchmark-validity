@@ -1,3 +1,4 @@
-* text=auto eol=lf
+# Store files byte-for-byte: frozen records are hash-verified (SHA256SUMS.csv)
+* -text
 *.png binary
 *.pdf binary

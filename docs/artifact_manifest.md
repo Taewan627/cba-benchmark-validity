@@ -4,7 +4,7 @@ SHA-256 hashes are given for every published file except this manifest. Frozen r
 
 | Path | Purpose | Study | Status | Needed for reproduction | SHA-256 |
 |---|---|---|---|---|---|
-| `.gitattributes` | Repository metadata | All | n/a | No | `ced447a891638bf2cc804146c15fd5b0d6f511be94c9d2369e4be0e6d8abf09e` |
+| `.gitattributes` | Repository metadata | All | n/a | No | `6ac6d7789cd46c10a9f76c65a5da74817384ab51238c6700eb5621646da4c8bd` |
 | `.gitignore` | Repository metadata | All | n/a | No | `b8832b2f3b12a0235c25e0d5dcfb1ab63017c3294015809ecddc668054d78d66` |
 | `CITATION.cff` | Repository metadata | All | n/a | No | `deae2f1af690502ec3e17fb1dcce7c919991edd19c66344b954d0d20deed11af` |
 | `README.md` | Repository metadata | All | n/a | No | `448740983e014b28d48ae08c3c6d7cbb023e0a81151d169d561b11c769bbfdad` |
