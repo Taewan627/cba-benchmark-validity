@@ -1,0 +1,18 @@
+{
+ "frozen_at_utc": "2026-11-18T15:16:34Z",
+ "frozen_at_kst": "2026-11-19T00:16:34+09:00",
+ "files_sent_to_annotators": [
+  "Annotation_Guide.docx",
+  "annotation_sheet.xlsx"
+ ],
+ "sent_before_freeze": false,
+ "sha256": {
+  "ANNOTATION_PREREG.md": "d388f96849569ba2ec442191193d8f775c755498c5ee528dad73a791888eabd6",
+  "Annotation_Guide.docx": "24dbca90ed67f39e2ead101b1486ecc0da92ad304fd634ff6ae7bc7f7a899fd6",
+  "annotation_sheet.xlsx": "02b50fd8df25d1083fa250e04514f4357bb122af25e4b079751712992559aa38",
+  "KEY_PRIVATE_do_not_send.json": "73e2995497a689ed4ab1a31daa01d32ae97954eeca4124e34d04f4d80085b84e",
+  "items_full_PRIVATE.json": "7e7e810ad320d32ca567a93b0c47479f86315e9a7ae432b181d6cdd0927a212d",
+  "build_packet.py": "2c23c0d30374a7565444b18af2bb7b20746c047edc7f88d47e8ff841687fe7f5",
+  "build_guide.py": "64933537d7437b10cb418b5ed22b2304e536d8933f42c3418e085f0bfb6ec41b"
+ }
+}

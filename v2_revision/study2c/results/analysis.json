@@ -1,0 +1,462 @@
+{
+ "strict": {
+  "pooled": {
+   "label": "pooled",
+   "n_rows": 1920,
+   "invalid_rate": 0.0031250000000000444,
+   "truncation_rate": 0.0010416666666666667,
+   "point": {
+    "COMMISSION": 0.9958333333333333,
+    "OMISSION": 0.9916666666666667,
+    "ADD": 0.9958333333333333,
+    "CLEAN_target_fpr": 0.004166666666666667,
+    "CLEAN_any_fpr": 0.004166666666666667,
+    "G": 0.004166666666666652
+   },
+   "scope": {
+    "COMMISSION": 0.9958333333333333,
+    "OMISSION": 1.0,
+    "ADD": 0.9958333333333333,
+    "CLEAN_target_fpr": 0.004166666666666667,
+    "CLEAN_any_fpr": 0.004166666666666667,
+    "G": -0.004166666666666652
+   },
+   "delta": -0.008333333333333304,
+   "delta_ci": [
+    -0.029166666666666674,
+    0.008333333333333304
+   ],
+   "pooled_omission_recall": 0.9958333333333333,
+   "ceiling": true,
+   "clean_target_fpr_pooled": 0.004166666666666667,
+   "decision": "CEILING_UNINFORMATIVE",
+   "add_vs_commission_gap_point": 0.0,
+   "add_vs_commission_gap_scope": 0.0,
+   "delta_ADD_based": -0.008333333333333304,
+   "delta_ADD_ci": [
+    -0.029166666666666674,
+    0.008333333333333304
+   ]
+  },
+  "anthropic/claude-sonnet-5": {
+   "label": "anthropic/claude-sonnet-5",
+   "n_rows": 384,
+   "invalid_rate": 0.0,
+   "truncation_rate": 0.0,
+   "point": {
+    "COMMISSION": 1.0,
+    "OMISSION": 1.0,
+    "ADD": 1.0,
+    "CLEAN_target_fpr": 0.0,
+    "CLEAN_any_fpr": 0.0,
+    "G": 0.0
+   },
+   "scope": {
+    "COMMISSION": 1.0,
+    "OMISSION": 1.0,
+    "ADD": 1.0,
+    "CLEAN_target_fpr": 0.0,
+    "CLEAN_any_fpr": 0.0,
+    "G": 0.0
+   },
+   "delta": 0.0,
+   "delta_ci": [
+    0.0,
+    0.0
+   ],
+   "pooled_omission_recall": 1.0,
+   "ceiling": true,
+   "clean_target_fpr_pooled": 0.0,
+   "decision": "CEILING_UNINFORMATIVE",
+   "add_vs_commission_gap_point": 0.0,
+   "add_vs_commission_gap_scope": 0.0,
+   "delta_ADD_based": 0.0,
+   "delta_ADD_ci": [
+    0.0,
+    0.0
+   ]
+  },
+  "deepseek/deepseek-v4.1-flash-1017": {
+   "label": "deepseek/deepseek-v4.1-flash-1017",
+   "n_rows": 384,
+   "invalid_rate": 0.0,
+   "truncation_rate": 0.0,
+   "point": {
+    "COMMISSION": 1.0,
+    "OMISSION": 1.0,
+    "ADD": 1.0,
+    "CLEAN_target_fpr": 0.0,
+    "CLEAN_any_fpr": 0.0,
+    "G": 0.0
+   },
+   "scope": {
+    "COMMISSION": 1.0,
+    "OMISSION": 1.0,
+    "ADD": 1.0,
+    "CLEAN_target_fpr": 0.0,
+    "CLEAN_any_fpr": 0.0,
+    "G": 0.0
+   },
+   "delta": 0.0,
+   "delta_ci": [
+    0.0,
+    0.0
+   ],
+   "pooled_omission_recall": 1.0,
+   "ceiling": true,
+   "clean_target_fpr_pooled": 0.0,
+   "decision": "CEILING_UNINFORMATIVE",
+   "add_vs_commission_gap_point": 0.0,
+   "add_vs_commission_gap_scope": 0.0,
+   "delta_ADD_based": 0.0,
+   "delta_ADD_ci": [
+    0.0,
+    0.0
+   ]
+  },
+  "google/gemini-3.8-flash": {
+   "label": "google/gemini-3.8-flash",
+   "n_rows": 384,
+   "invalid_rate": 0.0026041666666666297,
+   "truncation_rate": 0.0,
+   "point": {
+    "COMMISSION": 1.0,
+    "OMISSION": 0.9583333333333334,
+    "ADD": 0.9791666666666666,
+    "CLEAN_target_fpr": 0.0,
+    "CLEAN_any_fpr": 0.0,
+    "G": 0.04166666666666663
+   },
+   "scope": {
+    "COMMISSION": 1.0,
+    "OMISSION": 1.0,
+    "ADD": 1.0,
+    "CLEAN_target_fpr": 0.0,
+    "CLEAN_any_fpr": 0.0,
+    "G": 0.0
+   },
+   "delta": -0.04166666666666663,
+   "delta_ci": [
+    -0.125,
+    0.0
+   ],
+   "pooled_omission_recall": 0.9791666666666666,
+   "ceiling": true,
+   "clean_target_fpr_pooled": 0.0,
+   "decision": "CEILING_UNINFORMATIVE",
+   "add_vs_commission_gap_point": 0.02083333333333337,
+   "add_vs_commission_gap_scope": 0.0,
+   "delta_ADD_based": -0.02083333333333326,
+   "delta_ADD_ci": [
+    -0.125,
+    0.0625
+   ]
+  },
+  "openai/gpt-6.1-sol": {
+   "label": "openai/gpt-6.1-sol",
+   "n_rows": 384,
+   "invalid_rate": 0.0,
+   "truncation_rate": 0.0,
+   "point": {
+    "COMMISSION": 1.0,
+    "OMISSION": 1.0,
+    "ADD": 1.0,
+    "CLEAN_target_fpr": 0.0,
+    "CLEAN_any_fpr": 0.0,
+    "G": 0.0
+   },
+   "scope": {
+    "COMMISSION": 1.0,
+    "OMISSION": 1.0,
+    "ADD": 1.0,
+    "CLEAN_target_fpr": 0.0,
+    "CLEAN_any_fpr": 0.0,
+    "G": 0.0
+   },
+   "delta": 0.0,
+   "delta_ci": [
+    0.0,
+    0.0
+   ],
+   "pooled_omission_recall": 1.0,
+   "ceiling": true,
+   "clean_target_fpr_pooled": 0.0,
+   "decision": "CEILING_UNINFORMATIVE",
+   "add_vs_commission_gap_point": 0.0,
+   "add_vs_commission_gap_scope": 0.0,
+   "delta_ADD_based": 0.0,
+   "delta_ADD_ci": [
+    0.0,
+    0.0
+   ]
+  },
+  "qwen/qwen3.8-27b": {
+   "label": "qwen/qwen3.8-27b",
+   "n_rows": 384,
+   "invalid_rate": 0.01302083333333337,
+   "truncation_rate": 0.005208333333333333,
+   "point": {
+    "COMMISSION": 0.9791666666666666,
+    "OMISSION": 1.0,
+    "ADD": 1.0,
+    "CLEAN_target_fpr": 0.020833333333333332,
+    "CLEAN_any_fpr": 0.020833333333333332,
+    "G": -0.02083333333333337
+   },
+   "scope": {
+    "COMMISSION": 0.9791666666666666,
+    "OMISSION": 1.0,
+    "ADD": 0.9791666666666666,
+    "CLEAN_target_fpr": 0.020833333333333332,
+    "CLEAN_any_fpr": 0.020833333333333332,
+    "G": -0.02083333333333337
+   },
+   "delta": 0.0,
+   "delta_ci": [
+    -0.0625,
+    0.0625
+   ],
+   "pooled_omission_recall": 1.0,
+   "ceiling": true,
+   "clean_target_fpr_pooled": 0.020833333333333332,
+   "decision": "CEILING_UNINFORMATIVE",
+   "add_vs_commission_gap_point": -0.02083333333333337,
+   "add_vs_commission_gap_scope": 0.0,
+   "delta_ADD_based": -0.02083333333333337,
+   "delta_ADD_ci": [
+    -0.0625,
+    0.0
+   ]
+  }
+ },
+ "lenient": {
+  "pooled": {
+   "label": "pooled",
+   "n_rows": 1920,
+   "invalid_rate": 0.0031250000000000444,
+   "truncation_rate": 0.0010416666666666667,
+   "point": {
+    "COMMISSION": 0.9958333333333333,
+    "OMISSION": 0.9916666666666667,
+    "ADD": 0.9958333333333333,
+    "CLEAN_target_fpr": 0.004166666666666667,
+    "CLEAN_any_fpr": 0.004166666666666667,
+    "G": 0.004166666666666652
+   },
+   "scope": {
+    "COMMISSION": 0.9958333333333333,
+    "OMISSION": 1.0,
+    "ADD": 0.9958333333333333,
+    "CLEAN_target_fpr": 0.004166666666666667,
+    "CLEAN_any_fpr": 0.004166666666666667,
+    "G": -0.004166666666666652
+   },
+   "delta": -0.008333333333333304,
+   "delta_ci": [
+    -0.029166666666666674,
+    0.008333333333333304
+   ],
+   "pooled_omission_recall": 0.9958333333333333,
+   "ceiling": true,
+   "clean_target_fpr_pooled": 0.004166666666666667,
+   "decision": "CEILING_UNINFORMATIVE",
+   "add_vs_commission_gap_point": 0.0,
+   "add_vs_commission_gap_scope": 0.0,
+   "delta_ADD_based": -0.008333333333333304,
+   "delta_ADD_ci": [
+    -0.029166666666666674,
+    0.008333333333333304
+   ]
+  },
+  "anthropic/claude-sonnet-5": {
+   "label": "anthropic/claude-sonnet-5",
+   "n_rows": 384,
+   "invalid_rate": 0.0,
+   "truncation_rate": 0.0,
+   "point": {
+    "COMMISSION": 1.0,
+    "OMISSION": 1.0,
+    "ADD": 1.0,
+    "CLEAN_target_fpr": 0.0,
+    "CLEAN_any_fpr": 0.0,
+    "G": 0.0
+   },
+   "scope": {
+    "COMMISSION": 1.0,
+    "OMISSION": 1.0,
+    "ADD": 1.0,
+    "CLEAN_target_fpr": 0.0,
+    "CLEAN_any_fpr": 0.0,
+    "G": 0.0
+   },
+   "delta": 0.0,
+   "delta_ci": [
+    0.0,
+    0.0
+   ],
+   "pooled_omission_recall": 1.0,
+   "ceiling": true,
+   "clean_target_fpr_pooled": 0.0,
+   "decision": "CEILING_UNINFORMATIVE",
+   "add_vs_commission_gap_point": 0.0,
+   "add_vs_commission_gap_scope": 0.0,
+   "delta_ADD_based": 0.0,
+   "delta_ADD_ci": [
+    0.0,
+    0.0
+   ]
+  },
+  "deepseek/deepseek-v4.1-flash-1017": {
+   "label": "deepseek/deepseek-v4.1-flash-1017",
+   "n_rows": 384,
+   "invalid_rate": 0.0,
+   "truncation_rate": 0.0,
+   "point": {
+    "COMMISSION": 1.0,
+    "OMISSION": 1.0,
+    "ADD": 1.0,
+    "CLEAN_target_fpr": 0.0,
+    "CLEAN_any_fpr": 0.0,
+    "G": 0.0
+   },
+   "scope": {
+    "COMMISSION": 1.0,
+    "OMISSION": 1.0,
+    "ADD": 1.0,
+    "CLEAN_target_fpr": 0.0,
+    "CLEAN_any_fpr": 0.0,
+    "G": 0.0
+   },
+   "delta": 0.0,
+   "delta_ci": [
+    0.0,
+    0.0
+   ],
+   "pooled_omission_recall": 1.0,
+   "ceiling": true,
+   "clean_target_fpr_pooled": 0.0,
+   "decision": "CEILING_UNINFORMATIVE",
+   "add_vs_commission_gap_point": 0.0,
+   "add_vs_commission_gap_scope": 0.0,
+   "delta_ADD_based": 0.0,
+   "delta_ADD_ci": [
+    0.0,
+    0.0
+   ]
+  },
+  "google/gemini-3.8-flash": {
+   "label": "google/gemini-3.8-flash",
+   "n_rows": 384,
+   "invalid_rate": 0.0026041666666666297,
+   "truncation_rate": 0.0,
+   "point": {
+    "COMMISSION": 1.0,
+    "OMISSION": 0.9583333333333334,
+    "ADD": 0.9791666666666666,
+    "CLEAN_target_fpr": 0.0,
+    "CLEAN_any_fpr": 0.0,
+    "G": 0.04166666666666663
+   },
+   "scope": {
+    "COMMISSION": 1.0,
+    "OMISSION": 1.0,
+    "ADD": 1.0,
+    "CLEAN_target_fpr": 0.0,
+    "CLEAN_any_fpr": 0.0,
+    "G": 0.0
+   },
+   "delta": -0.04166666666666663,
+   "delta_ci": [
+    -0.125,
+    0.0
+   ],
+   "pooled_omission_recall": 0.9791666666666666,
+   "ceiling": true,
+   "clean_target_fpr_pooled": 0.0,
+   "decision": "CEILING_UNINFORMATIVE",
+   "add_vs_commission_gap_point": 0.02083333333333337,
+   "add_vs_commission_gap_scope": 0.0,
+   "delta_ADD_based": -0.02083333333333326,
+   "delta_ADD_ci": [
+    -0.125,
+    0.0625
+   ]
+  },
+  "openai/gpt-6.1-sol": {
+   "label": "openai/gpt-6.1-sol",
+   "n_rows": 384,
+   "invalid_rate": 0.0,
+   "truncation_rate": 0.0,
+   "point": {
+    "COMMISSION": 1.0,
+    "OMISSION": 1.0,
+    "ADD": 1.0,
+    "CLEAN_target_fpr": 0.0,
+    "CLEAN_any_fpr": 0.0,
+    "G": 0.0
+   },
+   "scope": {
+    "COMMISSION": 1.0,
+    "OMISSION": 1.0,
+    "ADD": 1.0,
+    "CLEAN_target_fpr": 0.0,
+    "CLEAN_any_fpr": 0.0,
+    "G": 0.0
+   },
+   "delta": 0.0,
+   "delta_ci": [
+    0.0,
+    0.0
+   ],
+   "pooled_omission_recall": 1.0,
+   "ceiling": true,
+   "clean_target_fpr_pooled": 0.0,
+   "decision": "CEILING_UNINFORMATIVE",
+   "add_vs_commission_gap_point": 0.0,
+   "add_vs_commission_gap_scope": 0.0,
+   "delta_ADD_based": 0.0,
+   "delta_ADD_ci": [
+    0.0,
+    0.0
+   ]
+  },
+  "qwen/qwen3.8-27b": {
+   "label": "qwen/qwen3.8-27b",
+   "n_rows": 384,
+   "invalid_rate": 0.01302083333333337,
+   "truncation_rate": 0.005208333333333333,
+   "point": {
+    "COMMISSION": 0.9791666666666666,
+    "OMISSION": 1.0,
+    "ADD": 1.0,
+    "CLEAN_target_fpr": 0.020833333333333332,
+    "CLEAN_any_fpr": 0.020833333333333332,
+    "G": -0.02083333333333337
+   },
+   "scope": {
+    "COMMISSION": 0.9791666666666666,
+    "OMISSION": 1.0,
+    "ADD": 0.9791666666666666,
+    "CLEAN_target_fpr": 0.020833333333333332,
+    "CLEAN_any_fpr": 0.020833333333333332,
+    "G": -0.02083333333333337
+   },
+   "delta": 0.0,
+   "delta_ci": [
+    -0.0625,
+    0.0625
+   ],
+   "pooled_omission_recall": 1.0,
+   "ceiling": true,
+   "clean_target_fpr_pooled": 0.020833333333333332,
+   "decision": "CEILING_UNINFORMATIVE",
+   "add_vs_commission_gap_point": -0.02083333333333337,
+   "add_vs_commission_gap_scope": 0.0,
+   "delta_ADD_based": -0.02083333333333337,
+   "delta_ADD_ci": [
+    -0.0625,
+    0.0
+   ]
+  }
+ }
+}

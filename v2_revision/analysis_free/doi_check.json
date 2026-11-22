@@ -1,0 +1,235 @@
+{
+ "Northcutt2021": {
+  "status": "OK",
+  "title": "Pervasive Label Errors in Test Sets Destabilize Machine Learning Benchmarks",
+  "authors_first4": [
+   "Northcutt",
+   "Athalye",
+   "Mueller"
+  ],
+  "year": 2021,
+  "venue": "arXiv",
+  "pages": null,
+  "vol": null,
+  "issue": null
+ },
+ "Gema2025": {
+  "status": "OK",
+  "title": "Are We Done with MMLU?",
+  "authors_first4": [
+   "Gema",
+   "Leang",
+   "Hong",
+   "Devoto"
+  ],
+  "year": 2025,
+  "venue": "Proceedings of the 2025 Conference of the Nations of the Americas Chapter of the Association for Computational Linguistics: Human Language Technologies (Volume 1: Long Papers)",
+  "pages": "5069-5096",
+  "vol": null,
+  "issue": null
+ },
+ "Vendrow2025": {
+  "status": "OK",
+  "title": "Do Large Language Model Benchmarks Test Reliability?",
+  "authors_first4": [
+   "Vendrow",
+   "Vendrow",
+   "Beery",
+   "Madry"
+  ],
+  "year": 2025,
+  "venue": "arXiv",
+  "pages": null,
+  "vol": null,
+  "issue": null
+ },
+ "Bean2025": {
+  "status": "OK",
+  "title": "Measuring what Matters: Construct Validity in Large Language Model Benchmarks",
+  "authors_first4": [
+   "Bean",
+   "Kearns",
+   "Romanou",
+   "Hafner"
+  ],
+  "year": 2025,
+  "venue": "arXiv",
+  "pages": null,
+  "vol": null,
+  "issue": null
+ },
+ "BowmanDahl2021": {
+  "status": "OK",
+  "title": "What Will it Take to Fix Benchmarking in Natural Language Understanding?",
+  "authors_first4": [
+   "Bowman",
+   "Dahl"
+  ],
+  "year": 2021,
+  "venue": "Proceedings of the 2021 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies",
+  "pages": "4843-4855",
+  "vol": null,
+  "issue": null
+ },
+ "Zou2023": {
+  "status": "OK",
+  "title": "Towards Understanding Omission in Dialogue Summarization",
+  "authors_first4": [
+   "Zou",
+   "Song",
+   "Tan",
+   "Fu"
+  ],
+  "year": 2023,
+  "venue": "Proceedings of the 61st Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)",
+  "pages": "14268-14286",
+  "vol": null,
+  "issue": null
+ },
+ "Ahuja2025": {
+  "status": "OK",
+  "title": "Finding Flawed Fictions: Evaluating Complex Reasoning in Language Models via Plot Hole Detection",
+  "authors_first4": [
+   "Ahuja",
+   "Sclar",
+   "Tsvetkov"
+  ],
+  "year": 2025,
+  "venue": "arXiv",
+  "pages": null,
+  "vol": null,
+  "issue": null
+ },
+ "KimSchuster2023": {
+  "status": "OK",
+  "title": "Entity Tracking in Language Models",
+  "authors_first4": [
+   "Kim",
+   "Schuster"
+  ],
+  "year": 2023,
+  "venue": "Proceedings of the 61st Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)",
+  "pages": "3835-3855",
+  "vol": null,
+  "issue": null
+ },
+ "Dwyer1999": {
+  "status": "OK",
+  "title": "Patterns in property specifications for finite-state verification",
+  "authors_first4": [
+   "Dwyer",
+   "Avrunin",
+   "Corbett"
+  ],
+  "year": 1999,
+  "venue": "Proceedings of the 21st international conference on Software engineering",
+  "pages": "411-420",
+  "vol": null,
+  "issue": null
+ },
+ "Newcombe1998": {
+  "status": "OK",
+  "title": "Improved confidence intervals for the difference between binomial proportions based on paired data",
+  "authors_first4": [
+   "Newcombe"
+  ],
+  "year": 1998,
+  "venue": "Statistics in Medicine",
+  "pages": "2635-2650",
+  "vol": "17",
+  "issue": "22"
+ },
+ "FieldWelsh2007": {
+  "status": "OK",
+  "title": "Bootstrapping Clustered Data",
+  "authors_first4": [
+   "Field",
+   "Welsh"
+  ],
+  "year": 2007,
+  "venue": "Journal of the Royal Statistical Society Series B: Statistical Methodology",
+  "pages": "369-390",
+  "vol": "69",
+  "issue": "3"
+ },
+ "Lakens2017": {
+  "status": "OK",
+  "title": "Equivalence Tests",
+  "authors_first4": [
+   "Lakens"
+  ],
+  "year": 2017,
+  "venue": "Social Psychological and Personality Science",
+  "pages": "355-362",
+  "vol": "8",
+  "issue": "4"
+ },
+ "Miller2024": {
+  "status": "OK",
+  "title": "Adding Error Bars to Evals: A Statistical Approach to Language Model Evaluations",
+  "authors_first4": [
+   "Miller"
+  ],
+  "year": 2024,
+  "venue": "arXiv",
+  "pages": null,
+  "vol": null,
+  "issue": null
+ },
+ "Gururangan2018": {
+  "status": "OK",
+  "title": "Annotation Artifacts in Natural Language Inference Data",
+  "authors_first4": [
+   "Gururangan",
+   "Swayamdipta",
+   "Levy",
+   "Schwartz"
+  ],
+  "year": 2018,
+  "venue": "Proceedings of the 2018 Conference of the North American Chapter of\n          the Association for Computational Linguistics: Human Language\n          Technologies, Volume 2 (Short Papers)",
+  "pages": "107-112",
+  "vol": null,
+  "issue": null
+ },
+ "PavlickKwiatkowski2019": {
+  "status": "OK",
+  "title": "Inherent Disagreements in Human Textual Inferences",
+  "authors_first4": [
+   "Pavlick",
+   "Kwiatkowski"
+  ],
+  "year": 2019,
+  "venue": "Transactions of the Association for Computational Linguistics",
+  "pages": "677-694",
+  "vol": "7",
+  "issue": null
+ },
+ "Ribeiro2020": {
+  "status": "OK",
+  "title": "Beyond Accuracy: Behavioral Testing of NLP Models with CheckList",
+  "authors_first4": [
+   "Ribeiro",
+   "Wu",
+   "Guestrin",
+   "Singh"
+  ],
+  "year": 2020,
+  "venue": "Proceedings of the 58th Annual Meeting of the Association for Computational Linguistics",
+  "pages": "4902-4912",
+  "vol": null,
+  "issue": null
+ },
+ "KarakasSimsek2026(skip)": {
+  "status": "OK",
+  "title": "Supervision versus Demonstration-Based In-Context Learning for Multiword Expression Classification",
+  "authors_first4": [
+   "Karakaş",
+   "Şimşek"
+  ],
+  "year": 2026,
+  "venue": "Proceedings of the 64th Annual Meeting of the Association for Computational Linguistics (Volume 4: Student Research Workshop)",
+  "pages": "800-815",
+  "vol": null,
+  "issue": null
+ }
+}

@@ -1,0 +1,19 @@
+{
+ "frozen_at_utc": "2026-11-12T16:02:11Z",
+ "frozen_at_kst": "2026-11-13T01:02:11+09:00",
+ "model_calls_before_freeze": 0,
+ "sha256": {
+  "PREREG.md": "e1f382754227c56a99f1746d5a93fbb091f1c02d949b48006ab72eeac00418a4",
+  "data/study3_cases.jsonl": "2f32f9f1edb0e147240e437f8cce20750e53d9e82b4945186b9569a1e4f02fc1",
+  "src/build_cases.py": "0b3397beb53a0ae4cee38f66f61616901f567513f51ae49da637b31e8ea8f47c",
+  "src/frozen.py": "c5abe82f35f9938feecb183f302d355085c91ea007dbb1d91f4a7addbfe02266",
+  "src/check_leakage.py": "0a107302eaa3a705ce970a682e8f10162863425e129ced2ce3fb9271bf24edd8",
+  "src/run.py": "ccd953e95f5ae61b78e3b5ee765432df7e06dc8eedc2c1e593481673a775d94d",
+  "src/analyze.py": "cd3433546e0be86f30bbd9f2a73f96bcd51f9f6b9dd8bde52c9d9b333f88ffe8",
+  "../../public_release/code/protocol_construction.py": "f14dafe8d4b8a49cdd8e0da65322f2f8c91432967402d3b32ed05e8a3917eaa7",
+  "../../public_release/code/parser.py": "331e596090ca32ff9361e4e35a4123bda9dc53423e2a0352e35a0fb631e61e72",
+  "../../public_release/code/deterministic_scoring.py": "3a3f9e9a6faf69213f8cb47fe743af186333b93168407e523452323fda6c7664",
+  "../../public_release/data/confirmatory_cases.jsonl": "bfc28c7c0cf628f0112ec430143e49f1fbe5bbcaa5eb4c34ab33da851e49a8e1"
+ },
+ "note": "timestamp field corrected before any model call (initial write mislabeled UTC as +09:00)"
+}

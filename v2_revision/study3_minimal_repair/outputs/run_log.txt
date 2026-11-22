@@ -1,0 +1,6 @@
+planned=1920 done=10 todo=1910 spent=$0.0271
+50 calls, $0.108, 22s
+100 calls, $0.190, 42s
+150 calls, $0.294, 68s
+200 calls, $0.415, 92s
+250 calls, $0.500, 118s

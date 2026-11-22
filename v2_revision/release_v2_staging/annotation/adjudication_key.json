@@ -1,0 +1,108 @@
+[
+ {
+  "adj_id": "A01",
+  "item_id": "S010",
+  "role": "context",
+  "case": "b18",
+  "condition": "CLEAN",
+  "rule_order": [
+   "r01",
+   "r02"
+  ],
+  "target_rule": "r01",
+  "gold": null
+ },
+ {
+  "adj_id": "A02",
+  "item_id": "S070",
+  "role": "contested",
+  "case": "b22",
+  "condition": "OMISSION",
+  "rule_order": [
+   "r02",
+   "r01"
+  ],
+  "target_rule": "r01",
+  "gold": null
+ },
+ {
+  "adj_id": "A03",
+  "item_id": "S045",
+  "role": "attention",
+  "case": "att5",
+  "condition": "ATTENTION",
+  "rule_order": [
+   "r01"
+  ],
+  "target_rule": null,
+  "gold": {
+   "r01": "VIOLATED"
+  }
+ },
+ {
+  "adj_id": "A04",
+  "item_id": "S057",
+  "role": "contested",
+  "case": "b18",
+  "condition": "OMISSION",
+  "rule_order": [
+   "r02",
+   "r01"
+  ],
+  "target_rule": "r01",
+  "gold": null
+ },
+ {
+  "adj_id": "A05",
+  "item_id": "S013",
+  "role": "anchor",
+  "case": "b16",
+  "condition": "OMISSION",
+  "rule_order": [
+   "r01",
+   "r02"
+  ],
+  "target_rule": "r01",
+  "gold": null
+ },
+ {
+  "adj_id": "A06",
+  "item_id": "S052",
+  "role": "attention",
+  "case": "att3",
+  "condition": "ATTENTION",
+  "rule_order": [
+   "r01"
+  ],
+  "target_rule": null,
+  "gold": {
+   "r01": "SATISFIED"
+  }
+ },
+ {
+  "adj_id": "A07",
+  "item_id": "S046",
+  "role": "anchor",
+  "case": "b13",
+  "condition": "OMISSION",
+  "rule_order": [
+   "r02",
+   "r01"
+  ],
+  "target_rule": "r01",
+  "gold": null
+ },
+ {
+  "adj_id": "A08",
+  "item_id": "S034",
+  "role": "context",
+  "case": "b22",
+  "condition": "CLEAN",
+  "rule_order": [
+   "r02",
+   "r01"
+  ],
+  "target_rule": "r01",
+  "gold": null
+ }
+]

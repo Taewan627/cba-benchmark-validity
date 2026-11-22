@@ -1,0 +1,14 @@
+study=2brerun planned=1260 done=0 todo=1260 spent=$0.0000 budget=$4.0
+100 calls $0.149 62s
+200 calls $0.298 129s
+300 calls $0.448 187s
+400 calls $0.598 242s
+500 calls $0.748 301s
+600 calls $0.903 362s
+700 calls $1.071 420s
+800 calls $1.289 495s
+900 calls $1.462 556s
+1000 calls $1.654 623s
+1100 calls $1.831 683s
+1200 calls $2.024 753s
+batch done: 1260 calls, total spent $2.1661

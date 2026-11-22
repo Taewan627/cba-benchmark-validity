@@ -1,0 +1,1345 @@
+[
+ {
+  "item_id": "S001",
+  "study": "S2b",
+  "case": "q039",
+  "condition": "CLEAN",
+  "reason": "study2b_sample",
+  "target_rule": "r01",
+  "oracle_target_violation": false,
+  "gold": null,
+  "rule_order": [
+   "r01"
+  ]
+ },
+ {
+  "item_id": "S002",
+  "study": "S1",
+  "case": "b36",
+  "condition": "OMISSION",
+  "reason": "random_control_case",
+  "target_rule": "r01",
+  "oracle_target_violation": true,
+  "gold": null,
+  "rule_order": [
+   "r01",
+   "r02"
+  ]
+ },
+ {
+  "item_id": "S003",
+  "study": "S2v1",
+  "case": "c27",
+  "condition": "CLEAN",
+  "reason": "study2v1_flagged_clean",
+  "target_rule": "r01",
+  "oracle_target_violation": false,
+  "gold": null,
+  "rule_order": [
+   "r01",
+   "r02"
+  ]
+ },
+ {
+  "item_id": "S004",
+  "study": "S1",
+  "case": "b22",
+  "condition": "COMMISSION",
+  "reason": "audited_omission_case",
+  "target_rule": "r01",
+  "oracle_target_violation": true,
+  "gold": null,
+  "rule_order": [
+   "r02",
+   "r01"
+  ]
+ },
+ {
+  "item_id": "S005",
+  "study": "S2b",
+  "case": "q026",
+  "condition": "COMMISSION",
+  "reason": "study2b_q026",
+  "target_rule": "r01",
+  "oracle_target_violation": true,
+  "gold": null,
+  "rule_order": [
+   "r01"
+  ]
+ },
+ {
+  "item_id": "S006",
+  "study": "S2b",
+  "case": "q032",
+  "condition": "CLEAN",
+  "reason": "study2b_sample",
+  "target_rule": "r01",
+  "oracle_target_violation": false,
+  "gold": null,
+  "rule_order": [
+   "r01"
+  ]
+ },
+ {
+  "item_id": "S007",
+  "study": "S2v1",
+  "case": "p09",
+  "condition": "CLEAN",
+  "reason": "study2v1_unflagged_clean_control",
+  "target_rule": "r01",
+  "oracle_target_violation": false,
+  "gold": null,
+  "rule_order": [
+   "r02",
+   "r01"
+  ]
+ },
+ {
+  "item_id": "S008",
+  "study": "S2v1",
+  "case": "c19",
+  "condition": "CLEAN",
+  "reason": "study2v1_flagged_clean",
+  "target_rule": "r01",
+  "oracle_target_violation": false,
+  "gold": null,
+  "rule_order": [
+   "r01",
+   "r02"
+  ]
+ },
+ {
+  "item_id": "S009",
+  "study": "S2v1",
+  "case": "p13",
+  "condition": "CLEAN",
+  "reason": "study2v1_flagged_clean",
+  "target_rule": "r01",
+  "oracle_target_violation": false,
+  "gold": null,
+  "rule_order": [
+   "r01",
+   "r02"
+  ]
+ },
+ {
+  "item_id": "S010",
+  "study": "S1",
+  "case": "b18",
+  "condition": "CLEAN",
+  "reason": "audited_omission_case",
+  "target_rule": "r01",
+  "oracle_target_violation": false,
+  "gold": null,
+  "rule_order": [
+   "r01",
+   "r02"
+  ]
+ },
+ {
+  "item_id": "S011",
+  "study": "S2v1",
+  "case": "c15",
+  "condition": "CLEAN",
+  "reason": "study2v1_flagged_clean",
+  "target_rule": "r01",
+  "oracle_target_violation": false,
+  "gold": null,
+  "rule_order": [
+   "r02",
+   "r01"
+  ]
+ },
+ {
+  "item_id": "S012",
+  "study": "S1",
+  "case": "b34",
+  "condition": "CLEAN",
+  "reason": "audited_omission_case",
+  "target_rule": "r01",
+  "oracle_target_violation": false,
+  "gold": null,
+  "rule_order": [
+   "r02",
+   "r01"
+  ]
+ },
+ {
+  "item_id": "S013",
+  "study": "S1",
+  "case": "b16",
+  "condition": "OMISSION",
+  "reason": "audited_omission_case",
+  "target_rule": "r01",
+  "oracle_target_violation": true,
+  "gold": null,
+  "rule_order": [
+   "r01",
+   "r02"
+  ]
+ },
+ {
+  "item_id": "S014",
+  "study": "ATTN",
+  "case": "att2",
+  "condition": "ATTENTION",
+  "reason": "attention_check",
+  "target_rule": null,
+  "oracle_target_violation": null,
+  "gold": {
+   "r01": "VIOLATED",
+   "r02": "SATISFIED"
+  },
+  "rule_order": [
+   "r01",
+   "r02"
+  ]
+ },
+ {
+  "item_id": "S015",
+  "study": "S1",
+  "case": "b34",
+  "condition": "OMISSION",
+  "reason": "audited_omission_case",
+  "target_rule": "r01",
+  "oracle_target_violation": true,
+  "gold": null,
+  "rule_order": [
+   "r01",
+   "r02"
+  ]
+ },
+ {
+  "item_id": "S016",
+  "study": "S1",
+  "case": "b17",
+  "condition": "CLEAN",
+  "reason": "audited_omission_case",
+  "target_rule": "r01",
+  "oracle_target_violation": false,
+  "gold": null,
+  "rule_order": [
+   "r01",
+   "r02"
+  ]
+ },
+ {
+  "item_id": "S017",
+  "study": "S2v1",
+  "case": "p12",
+  "condition": "CLEAN",
+  "reason": "study2v1_flagged_clean",
+  "target_rule": "r01",
+  "oracle_target_violation": false,
+  "gold": null,
+  "rule_order": [
+   "r02",
+   "r01"
+  ]
+ },
+ {
+  "item_id": "S018",
+  "study": "S2v1",
+  "case": "c07",
+  "condition": "CLEAN",
+  "reason": "study2v1_flagged_clean",
+  "target_rule": "r01",
+  "oracle_target_violation": false,
+  "gold": null,
+  "rule_order": [
+   "r02",
+   "r01"
+  ]
+ },
+ {
+  "item_id": "S019",
+  "study": "S2v1",
+  "case": "c03",
+  "condition": "CLEAN",
+  "reason": "study2v1_flagged_clean",
+  "target_rule": "r01",
+  "oracle_target_violation": false,
+  "gold": null,
+  "rule_order": [
+   "r02",
+   "r01"
+  ]
+ },
+ {
+  "item_id": "S020",
+  "study": "S2v1",
+  "case": "c02",
+  "condition": "CLEAN",
+  "reason": "study2v1_flagged_clean",
+  "target_rule": "r01",
+  "oracle_target_violation": false,
+  "gold": null,
+  "rule_order": [
+   "r01",
+   "r02"
+  ]
+ },
+ {
+  "item_id": "S021",
+  "study": "S1",
+  "case": "b43",
+  "condition": "CLEAN",
+  "reason": "random_control_case",
+  "target_rule": "r01",
+  "oracle_target_violation": false,
+  "gold": null,
+  "rule_order": [
+   "r02",
+   "r01"
+  ]
+ },
+ {
+  "item_id": "S022",
+  "study": "S2v1",
+  "case": "p14",
+  "condition": "CLEAN",
+  "reason": "study2v1_flagged_clean",
+  "target_rule": "r01",
+  "oracle_target_violation": false,
+  "gold": null,
+  "rule_order": [
+   "r02",
+   "r01"
+  ]
+ },
+ {
+  "item_id": "S023",
+  "study": "S1",
+  "case": "b17",
+  "condition": "COMMISSION",
+  "reason": "audited_omission_case",
+  "target_rule": "r01",
+  "oracle_target_violation": true,
+  "gold": null,
+  "rule_order": [
+   "r01",
+   "r02"
+  ]
+ },
+ {
+  "item_id": "S024",
+  "study": "S2b",
+  "case": "q029",
+  "condition": "OMISSION",
+  "reason": "study2b_sample",
+  "target_rule": "r01",
+  "oracle_target_violation": true,
+  "gold": null,
+  "rule_order": [
+   "r01"
+  ]
+ },
+ {
+  "item_id": "S025",
+  "study": "S2v1",
+  "case": "c12",
+  "condition": "CLEAN",
+  "reason": "study2v1_flagged_clean",
+  "target_rule": "r01",
+  "oracle_target_violation": false,
+  "gold": null,
+  "rule_order": [
+   "r02",
+   "r01"
+  ]
+ },
+ {
+  "item_id": "S026",
+  "study": "S2v1",
+  "case": "c16",
+  "condition": "CLEAN",
+  "reason": "study2v1_flagged_clean",
+  "target_rule": "r01",
+  "oracle_target_violation": false,
+  "gold": null,
+  "rule_order": [
+   "r02",
+   "r01"
+  ]
+ },
+ {
+  "item_id": "S027",
+  "study": "S2v1",
+  "case": "p03",
+  "condition": "CLEAN",
+  "reason": "study2v1_flagged_clean",
+  "target_rule": "r01",
+  "oracle_target_violation": false,
+  "gold": null,
+  "rule_order": [
+   "r01",
+   "r02"
+  ]
+ },
+ {
+  "item_id": "S028",
+  "study": "S2v1",
+  "case": "c14",
+  "condition": "CLEAN",
+  "reason": "study2v1_flagged_clean",
+  "target_rule": "r01",
+  "oracle_target_violation": false,
+  "gold": null,
+  "rule_order": [
+   "r01",
+   "r02"
+  ]
+ },
+ {
+  "item_id": "S029",
+  "study": "S2b",
+  "case": "q029",
+  "condition": "COMMISSION",
+  "reason": "study2b_sample",
+  "target_rule": "r01",
+  "oracle_target_violation": true,
+  "gold": null,
+  "rule_order": [
+   "r01"
+  ]
+ },
+ {
+  "item_id": "S030",
+  "study": "S1",
+  "case": "b18",
+  "condition": "COMMISSION",
+  "reason": "audited_omission_case",
+  "target_rule": "r01",
+  "oracle_target_violation": true,
+  "gold": null,
+  "rule_order": [
+   "r01",
+   "r02"
+  ]
+ },
+ {
+  "item_id": "S031",
+  "study": "S2v1",
+  "case": "p25",
+  "condition": "CLEAN",
+  "reason": "study2v1_unflagged_clean_control",
+  "target_rule": "r01",
+  "oracle_target_violation": false,
+  "gold": null,
+  "rule_order": [
+   "r02",
+   "r01"
+  ]
+ },
+ {
+  "item_id": "S032",
+  "study": "S1",
+  "case": "b36",
+  "condition": "CLEAN",
+  "reason": "random_control_case",
+  "target_rule": "r01",
+  "oracle_target_violation": false,
+  "gold": null,
+  "rule_order": [
+   "r02",
+   "r01"
+  ]
+ },
+ {
+  "item_id": "S033",
+  "study": "S2v1",
+  "case": "c23",
+  "condition": "CLEAN",
+  "reason": "study2v1_flagged_clean",
+  "target_rule": "r01",
+  "oracle_target_violation": false,
+  "gold": null,
+  "rule_order": [
+   "r02",
+   "r01"
+  ]
+ },
+ {
+  "item_id": "S034",
+  "study": "S1",
+  "case": "b22",
+  "condition": "CLEAN",
+  "reason": "audited_omission_case",
+  "target_rule": "r01",
+  "oracle_target_violation": false,
+  "gold": null,
+  "rule_order": [
+   "r02",
+   "r01"
+  ]
+ },
+ {
+  "item_id": "S035",
+  "study": "S1",
+  "case": "b13",
+  "condition": "COMMISSION",
+  "reason": "audited_omission_case",
+  "target_rule": "r01",
+  "oracle_target_violation": true,
+  "gold": null,
+  "rule_order": [
+   "r01",
+   "r02"
+  ]
+ },
+ {
+  "item_id": "S036",
+  "study": "S2v1",
+  "case": "p30",
+  "condition": "CLEAN",
+  "reason": "study2v1_flagged_clean",
+  "target_rule": "r01",
+  "oracle_target_violation": false,
+  "gold": null,
+  "rule_order": [
+   "r02",
+   "r01"
+  ]
+ },
+ {
+  "item_id": "S037",
+  "study": "ATTN",
+  "case": "att1",
+  "condition": "ATTENTION",
+  "reason": "attention_check",
+  "target_rule": null,
+  "oracle_target_violation": null,
+  "gold": {
+   "r01": "SATISFIED",
+   "r02": "SATISFIED"
+  },
+  "rule_order": [
+   "r01",
+   "r02"
+  ]
+ },
+ {
+  "item_id": "S038",
+  "study": "S1",
+  "case": "b36",
+  "condition": "COMMISSION",
+  "reason": "random_control_case",
+  "target_rule": "r01",
+  "oracle_target_violation": true,
+  "gold": null,
+  "rule_order": [
+   "r02",
+   "r01"
+  ]
+ },
+ {
+  "item_id": "S039",
+  "study": "S2b",
+  "case": "q039",
+  "condition": "OMISSION",
+  "reason": "study2b_sample",
+  "target_rule": "r01",
+  "oracle_target_violation": true,
+  "gold": null,
+  "rule_order": [
+   "r01"
+  ]
+ },
+ {
+  "item_id": "S040",
+  "study": "S1",
+  "case": "b43",
+  "condition": "COMMISSION",
+  "reason": "random_control_case",
+  "target_rule": "r01",
+  "oracle_target_violation": true,
+  "gold": null,
+  "rule_order": [
+   "r01",
+   "r02"
+  ]
+ },
+ {
+  "item_id": "S041",
+  "study": "S2v1",
+  "case": "p21",
+  "condition": "CLEAN",
+  "reason": "study2v1_flagged_clean",
+  "target_rule": "r01",
+  "oracle_target_violation": false,
+  "gold": null,
+  "rule_order": [
+   "r01",
+   "r02"
+  ]
+ },
+ {
+  "item_id": "S042",
+  "study": "S2v1",
+  "case": "p19",
+  "condition": "CLEAN",
+  "reason": "study2v1_flagged_clean",
+  "target_rule": "r01",
+  "oracle_target_violation": false,
+  "gold": null,
+  "rule_order": [
+   "r01",
+   "r02"
+  ]
+ },
+ {
+  "item_id": "S043",
+  "study": "S2v1",
+  "case": "p17",
+  "condition": "CLEAN",
+  "reason": "study2v1_flagged_clean",
+  "target_rule": "r01",
+  "oracle_target_violation": false,
+  "gold": null,
+  "rule_order": [
+   "r02",
+   "r01"
+  ]
+ },
+ {
+  "item_id": "S044",
+  "study": "S2b",
+  "case": "q012",
+  "condition": "CLEAN",
+  "reason": "study2b_sample",
+  "target_rule": "r01",
+  "oracle_target_violation": false,
+  "gold": null,
+  "rule_order": [
+   "r01"
+  ]
+ },
+ {
+  "item_id": "S045",
+  "study": "ATTN",
+  "case": "att5",
+  "condition": "ATTENTION",
+  "reason": "attention_check",
+  "target_rule": null,
+  "oracle_target_violation": null,
+  "gold": {
+   "r01": "VIOLATED"
+  },
+  "rule_order": [
+   "r01"
+  ]
+ },
+ {
+  "item_id": "S046",
+  "study": "S1",
+  "case": "b13",
+  "condition": "OMISSION",
+  "reason": "audited_omission_case",
+  "target_rule": "r01",
+  "oracle_target_violation": true,
+  "gold": null,
+  "rule_order": [
+   "r02",
+   "r01"
+  ]
+ },
+ {
+  "item_id": "S047",
+  "study": "S1",
+  "case": "b08",
+  "condition": "COMMISSION",
+  "reason": "audited_omission_case",
+  "target_rule": "r01",
+  "oracle_target_violation": true,
+  "gold": null,
+  "rule_order": [
+   "r01",
+   "r02"
+  ]
+ },
+ {
+  "item_id": "S048",
+  "study": "S1",
+  "case": "b26",
+  "condition": "CLEAN",
+  "reason": "study1_clean_fp",
+  "target_rule": "r01",
+  "oracle_target_violation": false,
+  "gold": null,
+  "rule_order": [
+   "r02",
+   "r01"
+  ]
+ },
+ {
+  "item_id": "S049",
+  "study": "S2v1",
+  "case": "p08",
+  "condition": "CLEAN",
+  "reason": "study2v1_flagged_clean",
+  "target_rule": "r01",
+  "oracle_target_violation": false,
+  "gold": null,
+  "rule_order": [
+   "r02",
+   "r01"
+  ]
+ },
+ {
+  "item_id": "S050",
+  "study": "S2v1",
+  "case": "c20",
+  "condition": "CLEAN",
+  "reason": "study2v1_flagged_clean",
+  "target_rule": "r01",
+  "oracle_target_violation": false,
+  "gold": null,
+  "rule_order": [
+   "r02",
+   "r01"
+  ]
+ },
+ {
+  "item_id": "S051",
+  "study": "S2v1",
+  "case": "p10",
+  "condition": "CLEAN",
+  "reason": "study2v1_flagged_clean",
+  "target_rule": "r01",
+  "oracle_target_violation": false,
+  "gold": null,
+  "rule_order": [
+   "r02",
+   "r01"
+  ]
+ },
+ {
+  "item_id": "S052",
+  "study": "ATTN",
+  "case": "att3",
+  "condition": "ATTENTION",
+  "reason": "attention_check",
+  "target_rule": null,
+  "oracle_target_violation": null,
+  "gold": {
+   "r01": "SATISFIED"
+  },
+  "rule_order": [
+   "r01"
+  ]
+ },
+ {
+  "item_id": "S053",
+  "study": "S2v1",
+  "case": "c18",
+  "condition": "CLEAN",
+  "reason": "study2v1_flagged_clean",
+  "target_rule": "r01",
+  "oracle_target_violation": false,
+  "gold": null,
+  "rule_order": [
+   "r01",
+   "r02"
+  ]
+ },
+ {
+  "item_id": "S054",
+  "study": "S1",
+  "case": "b08",
+  "condition": "OMISSION",
+  "reason": "audited_omission_case",
+  "target_rule": "r01",
+  "oracle_target_violation": true,
+  "gold": null,
+  "rule_order": [
+   "r01",
+   "r02"
+  ]
+ },
+ {
+  "item_id": "S055",
+  "study": "S1",
+  "case": "b34",
+  "condition": "COMMISSION",
+  "reason": "audited_omission_case",
+  "target_rule": "r01",
+  "oracle_target_violation": true,
+  "gold": null,
+  "rule_order": [
+   "r01",
+   "r02"
+  ]
+ },
+ {
+  "item_id": "S056",
+  "study": "ATTN",
+  "case": "att4",
+  "condition": "ATTENTION",
+  "reason": "attention_check",
+  "target_rule": null,
+  "oracle_target_violation": null,
+  "gold": {
+   "r01": "SATISFIED",
+   "r02": "VIOLATED"
+  },
+  "rule_order": [
+   "r02",
+   "r01"
+  ]
+ },
+ {
+  "item_id": "S057",
+  "study": "S1",
+  "case": "b18",
+  "condition": "OMISSION",
+  "reason": "audited_omission_case",
+  "target_rule": "r01",
+  "oracle_target_violation": true,
+  "gold": null,
+  "rule_order": [
+   "r02",
+   "r01"
+  ]
+ },
+ {
+  "item_id": "S058",
+  "study": "S2v1",
+  "case": "c10",
+  "condition": "CLEAN",
+  "reason": "study2v1_flagged_clean",
+  "target_rule": "r01",
+  "oracle_target_violation": false,
+  "gold": null,
+  "rule_order": [
+   "r01",
+   "r02"
+  ]
+ },
+ {
+  "item_id": "S059",
+  "study": "S2v1",
+  "case": "p02",
+  "condition": "CLEAN",
+  "reason": "study2v1_flagged_clean",
+  "target_rule": "r01",
+  "oracle_target_violation": false,
+  "gold": null,
+  "rule_order": [
+   "r02",
+   "r01"
+  ]
+ },
+ {
+  "item_id": "S060",
+  "study": "S2b",
+  "case": "q039",
+  "condition": "COMMISSION",
+  "reason": "study2b_sample",
+  "target_rule": "r01",
+  "oracle_target_violation": true,
+  "gold": null,
+  "rule_order": [
+   "r01"
+  ]
+ },
+ {
+  "item_id": "S061",
+  "study": "S2v1",
+  "case": "c29",
+  "condition": "CLEAN",
+  "reason": "study2v1_flagged_clean",
+  "target_rule": "r01",
+  "oracle_target_violation": false,
+  "gold": null,
+  "rule_order": [
+   "r02",
+   "r01"
+  ]
+ },
+ {
+  "item_id": "S062",
+  "study": "S2v1",
+  "case": "c22",
+  "condition": "CLEAN",
+  "reason": "study2v1_flagged_clean",
+  "target_rule": "r01",
+  "oracle_target_violation": false,
+  "gold": null,
+  "rule_order": [
+   "r01",
+   "r02"
+  ]
+ },
+ {
+  "item_id": "S063",
+  "study": "S2v1",
+  "case": "p20",
+  "condition": "CLEAN",
+  "reason": "study2v1_flagged_clean",
+  "target_rule": "r01",
+  "oracle_target_violation": false,
+  "gold": null,
+  "rule_order": [
+   "r02",
+   "r01"
+  ]
+ },
+ {
+  "item_id": "S064",
+  "study": "S1",
+  "case": "b17",
+  "condition": "OMISSION",
+  "reason": "audited_omission_case",
+  "target_rule": "r01",
+  "oracle_target_violation": true,
+  "gold": null,
+  "rule_order": [
+   "r02",
+   "r01"
+  ]
+ },
+ {
+  "item_id": "S065",
+  "study": "S2v1",
+  "case": "c01",
+  "condition": "CLEAN",
+  "reason": "study2v1_flagged_clean",
+  "target_rule": "r01",
+  "oracle_target_violation": false,
+  "gold": null,
+  "rule_order": [
+   "r01",
+   "r02"
+  ]
+ },
+ {
+  "item_id": "S066",
+  "study": "S1",
+  "case": "b43",
+  "condition": "OMISSION",
+  "reason": "random_control_case",
+  "target_rule": "r01",
+  "oracle_target_violation": true,
+  "gold": null,
+  "rule_order": [
+   "r02",
+   "r01"
+  ]
+ },
+ {
+  "item_id": "S067",
+  "study": "S2b",
+  "case": "q029",
+  "condition": "CLEAN",
+  "reason": "study2b_sample",
+  "target_rule": "r01",
+  "oracle_target_violation": false,
+  "gold": null,
+  "rule_order": [
+   "r01"
+  ]
+ },
+ {
+  "item_id": "S068",
+  "study": "S2v1",
+  "case": "p29",
+  "condition": "CLEAN",
+  "reason": "study2v1_unflagged_clean_control",
+  "target_rule": "r01",
+  "oracle_target_violation": false,
+  "gold": null,
+  "rule_order": [
+   "r01",
+   "r02"
+  ]
+ },
+ {
+  "item_id": "S069",
+  "study": "S2v1",
+  "case": "p22",
+  "condition": "CLEAN",
+  "reason": "study2v1_flagged_clean",
+  "target_rule": "r01",
+  "oracle_target_violation": false,
+  "gold": null,
+  "rule_order": [
+   "r02",
+   "r01"
+  ]
+ },
+ {
+  "item_id": "S070",
+  "study": "S1",
+  "case": "b22",
+  "condition": "OMISSION",
+  "reason": "audited_omission_case",
+  "target_rule": "r01",
+  "oracle_target_violation": true,
+  "gold": null,
+  "rule_order": [
+   "r02",
+   "r01"
+  ]
+ },
+ {
+  "item_id": "S071",
+  "study": "S2b",
+  "case": "q026",
+  "condition": "CLEAN",
+  "reason": "study2b_q026",
+  "target_rule": "r01",
+  "oracle_target_violation": false,
+  "gold": null,
+  "rule_order": [
+   "r01"
+  ]
+ },
+ {
+  "item_id": "S072",
+  "study": "S2b",
+  "case": "q012",
+  "condition": "COMMISSION",
+  "reason": "study2b_sample",
+  "target_rule": "r01",
+  "oracle_target_violation": true,
+  "gold": null,
+  "rule_order": [
+   "r01"
+  ]
+ },
+ {
+  "item_id": "S073",
+  "study": "S2v1",
+  "case": "c21",
+  "condition": "CLEAN",
+  "reason": "study2v1_flagged_clean",
+  "target_rule": "r01",
+  "oracle_target_violation": false,
+  "gold": null,
+  "rule_order": [
+   "r01",
+   "r02"
+  ]
+ },
+ {
+  "item_id": "S074",
+  "study": "S2v1",
+  "case": "c11",
+  "condition": "CLEAN",
+  "reason": "study2v1_flagged_clean",
+  "target_rule": "r01",
+  "oracle_target_violation": false,
+  "gold": null,
+  "rule_order": [
+   "r01",
+   "r02"
+  ]
+ },
+ {
+  "item_id": "S075",
+  "study": "S1",
+  "case": "b04",
+  "condition": "CLEAN",
+  "reason": "study1_clean_fp",
+  "target_rule": "r01",
+  "oracle_target_violation": false,
+  "gold": null,
+  "rule_order": [
+   "r01",
+   "r02"
+  ]
+ },
+ {
+  "item_id": "S076",
+  "study": "S2b",
+  "case": "q012",
+  "condition": "OMISSION",
+  "reason": "study2b_sample",
+  "target_rule": "r01",
+  "oracle_target_violation": true,
+  "gold": null,
+  "rule_order": [
+   "r01"
+  ]
+ },
+ {
+  "item_id": "S077",
+  "study": "S2v1",
+  "case": "p15",
+  "condition": "CLEAN",
+  "reason": "study2v1_flagged_clean",
+  "target_rule": "r01",
+  "oracle_target_violation": false,
+  "gold": null,
+  "rule_order": [
+   "r02",
+   "r01"
+  ]
+ },
+ {
+  "item_id": "S078",
+  "study": "S1",
+  "case": "b44",
+  "condition": "COMMISSION",
+  "reason": "random_control_case",
+  "target_rule": "r01",
+  "oracle_target_violation": true,
+  "gold": null,
+  "rule_order": [
+   "r01",
+   "r02"
+  ]
+ },
+ {
+  "item_id": "S079",
+  "study": "S1",
+  "case": "b44",
+  "condition": "OMISSION",
+  "reason": "random_control_case",
+  "target_rule": "r01",
+  "oracle_target_violation": true,
+  "gold": null,
+  "rule_order": [
+   "r01",
+   "r02"
+  ]
+ },
+ {
+  "item_id": "S080",
+  "study": "S1",
+  "case": "b08",
+  "condition": "CLEAN",
+  "reason": "audited_omission_case",
+  "target_rule": "r01",
+  "oracle_target_violation": false,
+  "gold": null,
+  "rule_order": [
+   "r01",
+   "r02"
+  ]
+ },
+ {
+  "item_id": "S081",
+  "study": "S1",
+  "case": "b16",
+  "condition": "COMMISSION",
+  "reason": "audited_omission_case",
+  "target_rule": "r01",
+  "oracle_target_violation": true,
+  "gold": null,
+  "rule_order": [
+   "r01",
+   "r02"
+  ]
+ },
+ {
+  "item_id": "S082",
+  "study": "S1",
+  "case": "b44",
+  "condition": "CLEAN",
+  "reason": "random_control_case",
+  "target_rule": "r01",
+  "oracle_target_violation": false,
+  "gold": null,
+  "rule_order": [
+   "r01",
+   "r02"
+  ]
+ },
+ {
+  "item_id": "S083",
+  "study": "S2v1",
+  "case": "c05",
+  "condition": "CLEAN",
+  "reason": "study2v1_unflagged_clean_control",
+  "target_rule": "r01",
+  "oracle_target_violation": false,
+  "gold": null,
+  "rule_order": [
+   "r02",
+   "r01"
+  ]
+ },
+ {
+  "item_id": "S084",
+  "study": "S2v1",
+  "case": "c30",
+  "condition": "CLEAN",
+  "reason": "study2v1_unflagged_clean_control",
+  "target_rule": "r01",
+  "oracle_target_violation": false,
+  "gold": null,
+  "rule_order": [
+   "r02",
+   "r01"
+  ]
+ },
+ {
+  "item_id": "S085",
+  "study": "S2v1",
+  "case": "c08",
+  "condition": "CLEAN",
+  "reason": "study2v1_flagged_clean",
+  "target_rule": "r01",
+  "oracle_target_violation": false,
+  "gold": null,
+  "rule_order": [
+   "r02",
+   "r01"
+  ]
+ },
+ {
+  "item_id": "S086",
+  "study": "S2v1",
+  "case": "c13",
+  "condition": "CLEAN",
+  "reason": "study2v1_flagged_clean",
+  "target_rule": "r01",
+  "oracle_target_violation": false,
+  "gold": null,
+  "rule_order": [
+   "r01",
+   "r02"
+  ]
+ },
+ {
+  "item_id": "S087",
+  "study": "S2v1",
+  "case": "p18",
+  "condition": "CLEAN",
+  "reason": "study2v1_flagged_clean",
+  "target_rule": "r01",
+  "oracle_target_violation": false,
+  "gold": null,
+  "rule_order": [
+   "r01",
+   "r02"
+  ]
+ },
+ {
+  "item_id": "S088",
+  "study": "S2v1",
+  "case": "p16",
+  "condition": "CLEAN",
+  "reason": "study2v1_flagged_clean",
+  "target_rule": "r01",
+  "oracle_target_violation": false,
+  "gold": null,
+  "rule_order": [
+   "r02",
+   "r01"
+  ]
+ },
+ {
+  "item_id": "S089",
+  "study": "ATTN",
+  "case": "att6",
+  "condition": "ATTENTION",
+  "reason": "attention_check",
+  "target_rule": null,
+  "oracle_target_violation": null,
+  "gold": {
+   "r01": "SATISFIED",
+   "r02": "SATISFIED"
+  },
+  "rule_order": [
+   "r01",
+   "r02"
+  ]
+ },
+ {
+  "item_id": "S090",
+  "study": "S1",
+  "case": "b13",
+  "condition": "CLEAN",
+  "reason": "audited_omission_case",
+  "target_rule": "r01",
+  "oracle_target_violation": false,
+  "gold": null,
+  "rule_order": [
+   "r02",
+   "r01"
+  ]
+ },
+ {
+  "item_id": "S091",
+  "study": "S2v1",
+  "case": "c04",
+  "condition": "CLEAN",
+  "reason": "study2v1_flagged_clean",
+  "target_rule": "r01",
+  "oracle_target_violation": false,
+  "gold": null,
+  "rule_order": [
+   "r02",
+   "r01"
+  ]
+ },
+ {
+  "item_id": "S092",
+  "study": "S1",
+  "case": "b37",
+  "condition": "CLEAN",
+  "reason": "study1_clean_fp",
+  "target_rule": "r01",
+  "oracle_target_violation": false,
+  "gold": null,
+  "rule_order": [
+   "r01",
+   "r02"
+  ]
+ },
+ {
+  "item_id": "S093",
+  "study": "S2b",
+  "case": "q032",
+  "condition": "COMMISSION",
+  "reason": "study2b_sample",
+  "target_rule": "r01",
+  "oracle_target_violation": true,
+  "gold": null,
+  "rule_order": [
+   "r01"
+  ]
+ },
+ {
+  "item_id": "S094",
+  "study": "S2b",
+  "case": "q032",
+  "condition": "OMISSION",
+  "reason": "study2b_sample",
+  "target_rule": "r01",
+  "oracle_target_violation": true,
+  "gold": null,
+  "rule_order": [
+   "r01"
+  ]
+ },
+ {
+  "item_id": "S095",
+  "study": "S1",
+  "case": "b16",
+  "condition": "CLEAN",
+  "reason": "audited_omission_case",
+  "target_rule": "r01",
+  "oracle_target_violation": false,
+  "gold": null,
+  "rule_order": [
+   "r02",
+   "r01"
+  ]
+ },
+ {
+  "item_id": "S096",
+  "study": "S2b",
+  "case": "q026",
+  "condition": "OMISSION",
+  "reason": "study2b_q026",
+  "target_rule": "r01",
+  "oracle_target_violation": true,
+  "gold": null,
+  "rule_order": [
+   "r01"
+  ]
+ }
+]

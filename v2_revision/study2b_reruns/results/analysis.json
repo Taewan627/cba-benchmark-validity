@@ -1,0 +1,412 @@
+{
+ "strict": {
+  "pooled": {
+   "label": "pooled",
+   "n_rows": 1260,
+   "invalid_rate": 0.0031746031746031633,
+   "truncation_rate": 0.0,
+   "point": {
+    "COMMISSION": 0.9714285714285714,
+    "OMISSION": 0.9904761904761905,
+    "CLEAN_target_fpr": 0.004761904761904762,
+    "CLEAN_any_fpr": 0.004761904761904762,
+    "G": -0.01904761904761909
+   },
+   "scope": {
+    "COMMISSION": 0.9809523809523809,
+    "OMISSION": 1.0,
+    "CLEAN_target_fpr": 0.009523809523809525,
+    "CLEAN_any_fpr": 0.009523809523809525,
+    "G": -0.01904761904761909
+   },
+   "delta": 0.0,
+   "delta_ci": [
+    -0.052380952380952306,
+    0.06190476190476191
+   ],
+   "pooled_omission_recall": 0.9952380952380953,
+   "ceiling": true,
+   "clean_target_fpr_pooled": 0.007142857142857143,
+   "decision": "CEILING_UNINFORMATIVE"
+  },
+  "anthropic/claude-sonnet-5": {
+   "label": "anthropic/claude-sonnet-5",
+   "n_rows": 360,
+   "invalid_rate": 0.011111111111111072,
+   "truncation_rate": 0.0,
+   "point": {
+    "COMMISSION": 0.95,
+    "OMISSION": 0.9666666666666667,
+    "CLEAN_target_fpr": 0.016666666666666666,
+    "CLEAN_any_fpr": 0.016666666666666666,
+    "G": -0.01666666666666672
+   },
+   "scope": {
+    "COMMISSION": 0.9833333333333333,
+    "OMISSION": 1.0,
+    "CLEAN_target_fpr": 0.03333333333333333,
+    "CLEAN_any_fpr": 0.03333333333333333,
+    "G": -0.01666666666666672
+   },
+   "delta": 0.0,
+   "delta_ci": [
+    -0.08333333333333337,
+    0.09999999999999998
+   ],
+   "pooled_omission_recall": 0.9833333333333333,
+   "ceiling": true,
+   "clean_target_fpr_pooled": 0.025,
+   "decision": "CEILING_UNINFORMATIVE"
+  },
+  "deepseek/deepseek-v4.1-flash-1017": {
+   "label": "deepseek/deepseek-v4.1-flash-1017",
+   "n_rows": 180,
+   "invalid_rate": 0.0,
+   "truncation_rate": 0.0,
+   "point": {
+    "COMMISSION": 0.9666666666666667,
+    "OMISSION": 1.0,
+    "CLEAN_target_fpr": 0.0,
+    "CLEAN_any_fpr": 0.0,
+    "G": -0.033333333333333326
+   },
+   "scope": {
+    "COMMISSION": 0.9333333333333333,
+    "OMISSION": 1.0,
+    "CLEAN_target_fpr": 0.0,
+    "CLEAN_any_fpr": 0.0,
+    "G": -0.06666666666666665
+   },
+   "delta": -0.033333333333333326,
+   "delta_ci": [
+    -0.1333333333333333,
+    0.06666666666666665
+   ],
+   "pooled_omission_recall": 1.0,
+   "ceiling": true,
+   "clean_target_fpr_pooled": 0.0,
+   "decision": "CEILING_UNINFORMATIVE"
+  },
+  "google/gemini-3.8-flash": {
+   "label": "google/gemini-3.8-flash",
+   "n_rows": 360,
+   "invalid_rate": 0.0,
+   "truncation_rate": 0.0,
+   "point": {
+    "COMMISSION": 1.0,
+    "OMISSION": 1.0,
+    "CLEAN_target_fpr": 0.0,
+    "CLEAN_any_fpr": 0.0,
+    "G": 0.0
+   },
+   "scope": {
+    "COMMISSION": 1.0,
+    "OMISSION": 1.0,
+    "CLEAN_target_fpr": 0.0,
+    "CLEAN_any_fpr": 0.0,
+    "G": 0.0
+   },
+   "delta": 0.0,
+   "delta_ci": [
+    0.0,
+    0.0
+   ],
+   "pooled_omission_recall": 1.0,
+   "ceiling": true,
+   "clean_target_fpr_pooled": 0.0,
+   "decision": "CEILING_UNINFORMATIVE"
+  },
+  "openai/gpt-6.1-sol": {
+   "label": "openai/gpt-6.1-sol",
+   "n_rows": 180,
+   "invalid_rate": 0.0,
+   "truncation_rate": 0.0,
+   "point": {
+    "COMMISSION": 0.9666666666666667,
+    "OMISSION": 1.0,
+    "CLEAN_target_fpr": 0.0,
+    "CLEAN_any_fpr": 0.0,
+    "G": -0.033333333333333326
+   },
+   "scope": {
+    "COMMISSION": 1.0,
+    "OMISSION": 1.0,
+    "CLEAN_target_fpr": 0.0,
+    "CLEAN_any_fpr": 0.0,
+    "G": 0.0
+   },
+   "delta": 0.033333333333333326,
+   "delta_ci": [
+    0.0,
+    0.09999999999999998
+   ],
+   "pooled_omission_recall": 1.0,
+   "ceiling": true,
+   "clean_target_fpr_pooled": 0.0,
+   "decision": "CEILING_UNINFORMATIVE"
+  },
+  "qwen/qwen3.8-27b": {
+   "label": "qwen/qwen3.8-27b",
+   "n_rows": 180,
+   "invalid_rate": 0.0,
+   "truncation_rate": 0.0,
+   "point": {
+    "COMMISSION": 0.9666666666666667,
+    "OMISSION": 1.0,
+    "CLEAN_target_fpr": 0.0,
+    "CLEAN_any_fpr": 0.0,
+    "G": -0.033333333333333326
+   },
+   "scope": {
+    "COMMISSION": 0.9666666666666667,
+    "OMISSION": 1.0,
+    "CLEAN_target_fpr": 0.0,
+    "CLEAN_any_fpr": 0.0,
+    "G": -0.033333333333333326
+   },
+   "delta": 0.0,
+   "delta_ci": [
+    -0.09999999999999998,
+    0.09999999999999998
+   ],
+   "pooled_omission_recall": 1.0,
+   "ceiling": true,
+   "clean_target_fpr_pooled": 0.0,
+   "decision": "CEILING_UNINFORMATIVE"
+  },
+  "orig_body_two_models": {
+   "label": "orig_body_two_models",
+   "n_rows": 720,
+   "invalid_rate": 0.005555555555555536,
+   "truncation_rate": 0.0,
+   "point": {
+    "COMMISSION": 0.975,
+    "OMISSION": 0.9833333333333333,
+    "CLEAN_target_fpr": 0.008333333333333333,
+    "CLEAN_any_fpr": 0.008333333333333333,
+    "G": -0.008333333333333304
+   },
+   "scope": {
+    "COMMISSION": 0.9916666666666667,
+    "OMISSION": 1.0,
+    "CLEAN_target_fpr": 0.016666666666666666,
+    "CLEAN_any_fpr": 0.016666666666666666,
+    "G": -0.008333333333333304
+   },
+   "delta": 0.0,
+   "delta_ci": [
+    -0.04166666666666674,
+    0.050000000000000044
+   ],
+   "pooled_omission_recall": 0.9916666666666667,
+   "ceiling": true,
+   "clean_target_fpr_pooled": 0.0125,
+   "decision": "CEILING_UNINFORMATIVE"
+  }
+ },
+ "lenient": {
+  "pooled": {
+   "label": "pooled",
+   "n_rows": 1260,
+   "invalid_rate": 0.0,
+   "truncation_rate": 0.0,
+   "point": {
+    "COMMISSION": 0.9761904761904762,
+    "OMISSION": 1.0,
+    "CLEAN_target_fpr": 0.0,
+    "CLEAN_any_fpr": 0.0,
+    "G": -0.023809523809523836
+   },
+   "scope": {
+    "COMMISSION": 0.9809523809523809,
+    "OMISSION": 1.0,
+    "CLEAN_target_fpr": 0.009523809523809525,
+    "CLEAN_any_fpr": 0.009523809523809525,
+    "G": -0.01904761904761909
+   },
+   "delta": 0.004761904761904745,
+   "delta_ci": [
+    -0.042857142857142816,
+    0.06666666666666665
+   ],
+   "pooled_omission_recall": 1.0,
+   "ceiling": true,
+   "clean_target_fpr_pooled": 0.004761904761904762,
+   "decision": "CEILING_UNINFORMATIVE"
+  },
+  "anthropic/claude-sonnet-5": {
+   "label": "anthropic/claude-sonnet-5",
+   "n_rows": 360,
+   "invalid_rate": 0.0,
+   "truncation_rate": 0.0,
+   "point": {
+    "COMMISSION": 0.9666666666666667,
+    "OMISSION": 1.0,
+    "CLEAN_target_fpr": 0.0,
+    "CLEAN_any_fpr": 0.0,
+    "G": -0.033333333333333326
+   },
+   "scope": {
+    "COMMISSION": 0.9833333333333333,
+    "OMISSION": 1.0,
+    "CLEAN_target_fpr": 0.03333333333333333,
+    "CLEAN_any_fpr": 0.03333333333333333,
+    "G": -0.01666666666666672
+   },
+   "delta": 0.016666666666666607,
+   "delta_ci": [
+    -0.050000000000000044,
+    0.09999999999999998
+   ],
+   "pooled_omission_recall": 1.0,
+   "ceiling": true,
+   "clean_target_fpr_pooled": 0.016666666666666666,
+   "decision": "CEILING_UNINFORMATIVE"
+  },
+  "deepseek/deepseek-v4.1-flash-1017": {
+   "label": "deepseek/deepseek-v4.1-flash-1017",
+   "n_rows": 180,
+   "invalid_rate": 0.0,
+   "truncation_rate": 0.0,
+   "point": {
+    "COMMISSION": 0.9666666666666667,
+    "OMISSION": 1.0,
+    "CLEAN_target_fpr": 0.0,
+    "CLEAN_any_fpr": 0.0,
+    "G": -0.033333333333333326
+   },
+   "scope": {
+    "COMMISSION": 0.9333333333333333,
+    "OMISSION": 1.0,
+    "CLEAN_target_fpr": 0.0,
+    "CLEAN_any_fpr": 0.0,
+    "G": -0.06666666666666665
+   },
+   "delta": -0.033333333333333326,
+   "delta_ci": [
+    -0.1333333333333333,
+    0.06666666666666665
+   ],
+   "pooled_omission_recall": 1.0,
+   "ceiling": true,
+   "clean_target_fpr_pooled": 0.0,
+   "decision": "CEILING_UNINFORMATIVE"
+  },
+  "google/gemini-3.8-flash": {
+   "label": "google/gemini-3.8-flash",
+   "n_rows": 360,
+   "invalid_rate": 0.0,
+   "truncation_rate": 0.0,
+   "point": {
+    "COMMISSION": 1.0,
+    "OMISSION": 1.0,
+    "CLEAN_target_fpr": 0.0,
+    "CLEAN_any_fpr": 0.0,
+    "G": 0.0
+   },
+   "scope": {
+    "COMMISSION": 1.0,
+    "OMISSION": 1.0,
+    "CLEAN_target_fpr": 0.0,
+    "CLEAN_any_fpr": 0.0,
+    "G": 0.0
+   },
+   "delta": 0.0,
+   "delta_ci": [
+    0.0,
+    0.0
+   ],
+   "pooled_omission_recall": 1.0,
+   "ceiling": true,
+   "clean_target_fpr_pooled": 0.0,
+   "decision": "CEILING_UNINFORMATIVE"
+  },
+  "openai/gpt-6.1-sol": {
+   "label": "openai/gpt-6.1-sol",
+   "n_rows": 180,
+   "invalid_rate": 0.0,
+   "truncation_rate": 0.0,
+   "point": {
+    "COMMISSION": 0.9666666666666667,
+    "OMISSION": 1.0,
+    "CLEAN_target_fpr": 0.0,
+    "CLEAN_any_fpr": 0.0,
+    "G": -0.033333333333333326
+   },
+   "scope": {
+    "COMMISSION": 1.0,
+    "OMISSION": 1.0,
+    "CLEAN_target_fpr": 0.0,
+    "CLEAN_any_fpr": 0.0,
+    "G": 0.0
+   },
+   "delta": 0.033333333333333326,
+   "delta_ci": [
+    0.0,
+    0.09999999999999998
+   ],
+   "pooled_omission_recall": 1.0,
+   "ceiling": true,
+   "clean_target_fpr_pooled": 0.0,
+   "decision": "CEILING_UNINFORMATIVE"
+  },
+  "qwen/qwen3.8-27b": {
+   "label": "qwen/qwen3.8-27b",
+   "n_rows": 180,
+   "invalid_rate": 0.0,
+   "truncation_rate": 0.0,
+   "point": {
+    "COMMISSION": 0.9666666666666667,
+    "OMISSION": 1.0,
+    "CLEAN_target_fpr": 0.0,
+    "CLEAN_any_fpr": 0.0,
+    "G": -0.033333333333333326
+   },
+   "scope": {
+    "COMMISSION": 0.9666666666666667,
+    "OMISSION": 1.0,
+    "CLEAN_target_fpr": 0.0,
+    "CLEAN_any_fpr": 0.0,
+    "G": -0.033333333333333326
+   },
+   "delta": 0.0,
+   "delta_ci": [
+    -0.09999999999999998,
+    0.09999999999999998
+   ],
+   "pooled_omission_recall": 1.0,
+   "ceiling": true,
+   "clean_target_fpr_pooled": 0.0,
+   "decision": "CEILING_UNINFORMATIVE"
+  },
+  "orig_body_two_models": {
+   "label": "orig_body_two_models",
+   "n_rows": 720,
+   "invalid_rate": 0.0,
+   "truncation_rate": 0.0,
+   "point": {
+    "COMMISSION": 0.9833333333333333,
+    "OMISSION": 1.0,
+    "CLEAN_target_fpr": 0.0,
+    "CLEAN_any_fpr": 0.0,
+    "G": -0.01666666666666672
+   },
+   "scope": {
+    "COMMISSION": 0.9916666666666667,
+    "OMISSION": 1.0,
+    "CLEAN_target_fpr": 0.016666666666666666,
+    "CLEAN_any_fpr": 0.016666666666666666,
+    "G": -0.008333333333333304
+   },
+   "delta": 0.008333333333333415,
+   "delta_ci": [
+    -0.025000000000000022,
+    0.050000000000000044
+   ],
+   "pooled_omission_recall": 1.0,
+   "ceiling": true,
+   "clean_target_fpr_pooled": 0.008333333333333333,
+   "decision": "CEILING_UNINFORMATIVE"
+  }
+ }
+}

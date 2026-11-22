@@ -1,0 +1,21 @@
+study=2c planned=1920 done=0 todo=1920 spent=$0.0000 budget=$7.0
+100 calls $0.237 52s
+200 calls $0.482 110s
+300 calls $0.725 168s
+400 calls $0.971 228s
+500 calls $1.210 291s
+600 calls $1.454 347s
+700 calls $1.693 405s
+800 calls $1.933 467s
+900 calls $2.183 521s
+1000 calls $2.429 569s
+1100 calls $2.683 625s
+1200 calls $2.927 684s
+1300 calls $3.171 730s
+1400 calls $3.426 787s
+1500 calls $3.670 843s
+1600 calls $3.920 896s
+1700 calls $4.170 952s
+1800 calls $4.415 1006s
+1900 calls $4.659 1057s
+batch done: 1920 calls, total spent $4.7079

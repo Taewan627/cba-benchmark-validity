@@ -1,0 +1,17 @@
+{
+ "frozen_at_utc": "2026-11-18T16:55:53Z",
+ "frozen_at_kst": "2026-11-19T01:55:53+09:00",
+ "model_calls_before_freeze": 0,
+ "sha256": {
+  "study2c/PREREG.md": "ba402c35d73577a445835f6c1f8906fc0feadfb75105467e64a16abc496d9f2e",
+  "study2c/data/study2c_cases.jsonl": "4bbd9fdc85ea752156738b8e230d189a388d3483fefaafeff0854815b7336a2c",
+  "study2c/src/build_cases.py": "092f48b5baf8d5c1857f55f0d629790953a800f130a1b228236f4cdd87ba0992",
+  "study2c/src/validate.py": "3d53f9ad1f7b295c0859c6669bbc043eb1bee23460d3416e2fb34cd7a751c8b4",
+  "common_runner/run_calls.py": "ebd99dff1552f4e78db830b1caaed3db3c870b95b116ea7f8f805326090f2778",
+  "common_runner/analyze.py": "b48dc0c1ff20a3de2997dda4784132d6baee8e86ac7bdf3d5624103749e7f5d2",
+  "study3_minimal_repair/src/frozen.py": "c5abe82f35f9938feecb183f302d355085c91ea007dbb1d91f4a7addbfe02266",
+  "../public_release/code/protocol_construction.py": "f14dafe8d4b8a49cdd8e0da65322f2f8c91432967402d3b32ed05e8a3917eaa7",
+  "../public_release/code/parser.py": "331e596090ca32ff9361e4e35a4123bda9dc53423e2a0352e35a0fb631e61e72",
+  "../public_release/code/deterministic_scoring.py": "3a3f9e9a6faf69213f8cb47fe743af186333b93168407e523452323fda6c7664"
+ }
+}

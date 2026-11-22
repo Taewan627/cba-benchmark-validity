@@ -1,0 +1,10 @@
+{
+ "frozen_at_utc": "2026-11-22T03:36:01Z",
+ "note": "author-controlled hash record, written before the sheet is sent; not a third-party timestamp",
+ "sha256": {
+  "ADJUDICATION_PROTOCOL.md": "f4c2e7191918574f7efa90f2799eb05a7e300af9a9036fc36927329fbac5e301",
+  "Adjudication_Guide.docx": "e0a3bfe57864199834b58df85f94e9437c521b4e84f17343822e44d0621a6795",
+  "annotation_sheet_adjudicator.xlsx": "0e2f46d96168ef55c65110eb48e4a17969dfff0b6b1b15d3e624b3f72775159e",
+  "KEY_ADJ_PRIVATE_do_not_send.json": "5ea5babba0b11ee951e08308131727c64e4dffcffe9a12a290e7f3c17992347a"
+ }
+}

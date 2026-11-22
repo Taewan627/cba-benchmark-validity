@@ -1,0 +1,678 @@
+\documentclass{ieeeaccess}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{url}
+\usepackage[hidelinks]{hyperref}
+\usepackage{bm}
+
+\makeatletter
+\AtBeginDocument{\DeclareMathVersion{bold}
+\SetSymbolFont{operators}{bold}{T1}{times}{b}{n}
+\SetSymbolFont{NewLetters}{bold}{T1}{times}{b}{it}
+\SetMathAlphabet{\mathrm}{bold}{T1}{times}{b}{n}
+\SetMathAlphabet{\mathit}{bold}{T1}{times}{b}{it}
+\SetMathAlphabet{\mathbf}{bold}{T1}{times}{b}{n}
+\SetMathAlphabet{\mathtt}{bold}{OT1}{pcr}{b}{n}
+\SetSymbolFont{symbols}{bold}{OMS}{cmsy}{b}{n}
+\renewcommand\boldmath{\@nomath\boldmath\mathversion{bold}}}
+\makeatother
+
+\renewcommand{\tablebodyfont}{\def\textit##1{{\sffamily\fontshape{it}\selectfont##1}}\sffamily\fontencoding{T1}\fontfamily{formata}\fontseries{n}\fontsize{7}{8.4}\selectfont}
+
+\makeatletter
+\g@addto@macro\UrlBreaks{\do\_}
+\g@addto@macro\UrlBreaks{\do 0\do 1\do 2\do 3\do 4\do 5\do 6\do 7\do 8\do 9\do a\do b\do c\do d\do e\do f\do g\do h\do i\do j\do k\do l\do m\do n\do o\do p\do q\do r\do s\do t\do u\do v\do w\do x\do y\do z\do A\do B\do C\do D\do E\do F\do G\do H\do I\do J\do K\do L\do M\do N\do O\do P\do Q\do R\do S\do T\do U\do V\do W\do X\do Y\do Z}
+\def\UrlBreakPenalty{100}
+\makeatother
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\modelgap}{G}
+\newcommand{\Gordinary}{G_{\mathrm{ordinary}}}
+\newcommand{\Gpoint}{G_{\mathrm{point}}}
+\newcommand{\Gscope}{G_{\mathrm{scope}}}
+\newcommand{\Dscope}{\Delta_{\mathrm{scope}}}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}p{0.24\textwidth}}
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+\newcommand{\thead}[1]{\shortstack[c]{#1}}
+\setlength{\emergencystretch}{3em}
+
+\begin{document}
+
+% Submission-stage placeholders; IEEE assigns final volume and publication metadata.
+\vol{XX}
+\year{2026}
+\history{}
+\doi{}
+\title{Benchmark Validity Before Auditor Attribution: Repair and Label-Coherence Checks for Omission Detection in LLM-Based Narrative Auditing}
+\author{\uppercase{Taewan Kim}\authorrefmark{1} and \uppercase{Taehoon Kim}\authorrefmark{1}}
+\address[1]{Graduate School of Virtual Convergence, Sogang University, Seoul 04107, Republic of Korea}
+\tfootnote{This research was supported by the Institute for Information \& Communications Technology Planning \& Evaluation (IITP) grant funded by the Ministry of Science and ICT (MSIT), Republic of Korea, through the Graduate School of Metaverse Convergence Program (RS-2022-00156318); by the Ministry of Culture, Sports and Tourism (MCST), Republic of Korea, through the Korea Creative Content Agency (KOCCA) under the Culture, Sports and Tourism R\&D Program (RS-2023-00219237 and RS-2026-25506280); and by the National Research Foundation of Korea (NRF) grant funded by the Ministry of Science and ICT (MSIT), Republic of Korea (RS-2026-25481217). This research was also supported by the NVIDIA Academic Grant Program using NVIDIA DGX Spark.}
+\corresp{Corresponding author: Taehoon Kim (e-mail: taehoonkim@sogang.ac.kr).}
+\markboth{MTA Narrative Auditing}{MTA Narrative Auditing}
+
+\begin{abstract}
+Apparent omission blindness in large language model (LLM) auditors is often attributed to the models. We present evidence that, in a matched narrative-auditing benchmark, some of it may reflect item construction: an absent event can leave a conditional rule untriggered, which mimics a commission--omission asymmetry, and state-preservation items may not be label-coherent. Matched-Triplet Auditing (MTA) holds one obligation fixed across CLEAN, COMMISSION, and OMISSION scenes, labeled by a deterministic oracle. In a two-evaluator held-out study, omission recall trailed commission recall by 0.100--0.175, but the frozen decision was inconclusive; an author audit classified all 25 valid omission nondetections as ambiguous renderings, which two annotators reproduced only in part (after third-annotator adjudication of the two split scenes, 19 ambiguous, 6 genuine). A second benchmark failed its CLEAN control (false-positive rate 0.417 any rule, 0.258 target rule). A fresh single-rule benchmark of 60 cases was at ceiling: omission recall 1.000, both structure gaps negative, CLEAN false-positive rate 0.008. Its pooled POINT--SCOPE interaction ($+0.017$) excluded $+0.15$ under the frozen bootstrap but not for Claude alone, under the most conservative interval, or under the later ceiling rule. A pre-registered same-item repair study tested the audit behaviorally: restoring an absent trigger raised omission recall from 0.637 to 0.985 with no CLEAN cost, whereas an explicit-evidence clarification for state-preservation items raised recall from 0.393 to 0.970 but also CLEAN false positives from 0.030 to 0.326, attributed exploratorily to label-incoherent triplets. We recommend that items pass repair and label-coherence checks before failures are attributed to an auditor.
+\end{abstract}
+
+\begin{keywords}
+Automated auditing, benchmark validity, label coherence, large language models, LLM evaluation, minimal-pair repair, narrative content, omission detection.
+\end{keywords}
+
+\titlepgskip=-21pt
+\maketitle
+
+\section{Introduction}
+\label{sec:introduction}
+\PARstart{L}{arge} language models (LLMs) are used to evaluate generated text~\cite{liu2023geval} as well as to produce it. Their use as judges raises questions about bias, consistency, and the relationship between an automated verdict and the property being evaluated~\cite{zheng2023judge,chen2024judgebias}. For generated narrative content, auditing can mean checking whether a scene satisfies stated requirements: an object must be in a specified location, a character must possess an item, or an event must occur within a bounded sequence. Such checks are relevant to components of automated quality assurance (QA), although satisfying these constraints is not equivalent to establishing overall narrative quality.
+
+Error detection need not be symmetric. AbsenceBench reports difficulties locating omitted information~\cite{fu2025absence}, and OmissionBench evaluates omission and commission detection in clinical-note judging~\cite{fox2026omission}. These findings indicate that omission difficulties occur in existing evaluation settings. The question addressed here is how robust apparent commission--omission differences are under tightly matched auditing and benchmark-quality controls.
+
+If a rendered item leaves a trigger, initial state, qualifier, or temporal scope ambiguous, benchmark scoring can mimic or inflate omission-related failure signals. Parser failures can likewise enter conservative error measures without representing substantive model judgments. Artifact-level inspection is therefore part of measuring the auditor rather than a downstream presentation check.
+
+Matched-Triplet Auditing (MTA) evaluates bounded narrative scenes; the name denotes the matched design, not a finding. Each base case has three variants that preserve the audited obligation. An event ledger supplies formal labels, while negative controls assess false alarms. Study 1 separates exploratory observations from held-out confirmation across four protocols and is followed by a case-level audit of its omission nondetections. Study 2 v1 examines a local-checkpoint versus bounded-scope contrast but fails its quality gate. A fresh Study 2b construction addresses the identified validity threats, with design and evaluation assets fixed before execution. Study 3 then returns to the audited Study 1 items and tests the audit behaviorally: a pre-registered minimal edit removes only the diagnosed ambiguity, and the same items are re-evaluated by five evaluators. Figure~\ref{fig:pipeline} summarizes the sequence.
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{fig1_study_pipeline_v3.pdf}
+\caption{Study sequence and decisions. The post-hoc DQ1 audit of Study 1 motivates the pre-registered same-item repair of Study 3; Study 2b evaluates the declared practical interaction on a fresh, defect-informed benchmark. The post-review reruns and Study 2c (right) were frozen separately and again reached ceiling. The author audit's 25 ambiguous rows were reproduced only in part by two annotators (Table~\ref{tab:annotation}).}
+\label{fig:pipeline}
+\end{figure*}
+
+The prospective research questions and the separate post-hoc diagnostic questions are:
+\begin{itemize}
+\item \textbf{RQ1:} What commission--omission differences occur across the tested protocols, and do they satisfy the frozen held-out decision criteria?
+\item \textbf{DQ1---Post-hoc omission-miss validity question:} Do the Study 1 held-out omission nondetections represent unambiguous auditor misses, ambiguous renderings, or evaluation artifacts?
+\item \textbf{DQ2---Post-hoc CLEAN validity question:} What benchmark, ambiguity, and parser issues account for flagged CLEAN cases in Study 2 v1?
+\item \textbf{RQ2:} Under the fresh explicit-rule evaluation, does the pooled POINT--SCOPE interaction reach the pre-specified practical threshold of $+0.15$?
+\item \textbf{RQ3 (pre-registered):} Does a minimal edit that removes only the audited ambiguity restore omission detection on the same items without raising CLEAN false positives?
+\end{itemize}
+DQ1 and DQ2 were formulated after the results of their respective studies were known. RQ3 was formulated after DQ1 and pre-registered before any Study 3 model call.
+
+This paper makes four contributions. 1) A same-obligation CLEAN, COMMISSION, and OMISSION design with negative-control quality gates for controlled narrative auditing. 2) A mechanism, beyond the established finding that label errors and ambiguity inflate apparent model failure (Sec.~\ref{sec:validity}): for conditional-trigger items, rendering ambiguity specific to the OMISSION condition can mimic a commission--omission asymmetry, because a missing event can leave the rule untriggered while a substitution leaves positive contrary evidence; for state-preservation items the evidence instead points to label incoherence across the whole triplet, since the two original annotators did not judge the CLEAN scenes compliant either (a third annotator judged two of them compliant). 3) A pre-registered same-item minimal-repair protocol that tests this diagnosis behaviorally, plus an exploratory label-coherence finding: for state-preservation obligations the matched triplets appear to admit no single reading under which all three labels hold. 4) A fresh single-rule benchmark in which both evaluators detected every omission, so its POINT--SCOPE test reduces to a comparison of three commission nondetections; its frozen data, code, and raw outputs are released with v2.0.0 of the repository.
+
+\section{Related Work and Positioning}
+\subsection{LLM Judges and Omission Detection}
+LLM-as-a-judge work documents presentation biases and reasoning limitations in automated evaluation~\cite{zheng2023judge}. AbsenceBench asks models to recover omitted elements with original and modified documents available~\cite{fu2025absence}, while MED-OMIT extracts source facts and checks for exclusion from summaries~\cite{schumacher2025medomit}, and omission has been analyzed in dialogue summarization~\cite{zou2023omission}. MTA complements these interfaces by holding one authored obligation fixed across intact, commission, and omission variants and auditing the validity of the resulting labels. Explicit fact checking~\cite{min2023factscore,thorne2018fever} further motivates separating evaluator performance from construction quality.
+
+Chen \emph{et al.} compare clean, over-included, and omitted answer keys, including mechanically determined truth, and report instrumentation and parser concerns~\cite{chen2026enumerating}. Their findings reinforce MTA's focus on distinguishing formal labels, rendered semantics, and evaluation infrastructure.
+
+\subsection{Minimal Edits and Benchmark Validity}
+Minimal, label-relevant edits are an established way to probe what an evaluation measures. Contrast sets perturb test instances to change their gold labels and expose local decision boundaries~\cite{gardner2020contrast}, counterfactually augmented data revises documents minimally to flip labels~\cite{kaushik2020counterfactual}, and CheckList organizes behavioral tests around controlled perturbations~\cite{ribeiro2020checklist}. Work on annotation artifacts~\cite{gururangan2018artifacts} and on benchmark design~\cite{bowman2021fix,raji2021everything} shows that construction choices can determine what a benchmark rewards. Study 3 applies minimal editing in the reverse direction: the label stays fixed, and the edit removes only the rendering ambiguity that an audit identified, so a change in evaluator behavior tests the audit's diagnosis on the same items.
+
+\subsection{Benchmark Validity and Label Quality}
+\label{sec:validity}
+Label errors in widely used test sets can destabilize model rankings~\cite{northcutt2021label}, re-annotating MMLU found erroneous or ambiguous items in a notable share of questions~\cite{gema2025mmlu}, ``platinum'' benchmarks are revised to remove label errors and ambiguity so that reliability can be measured~\cite{vendrow2025platinum}, and a review of LLM benchmarks documents weak construct validity~\cite{bean2025construct}. Readers can also reasonably disagree about what a text implies~\cite{pavlick2019disagree}. These results establish that item defects and ambiguity can account for apparent model failure, and we do not claim that general lesson. The narrower claim here is a mechanism for conditional-trigger items: the ambiguity is specific to the OMISSION condition, so construction can produce an apparent commission--omission asymmetry rather than undirected noise, which affects how omission-detection results should be interpreted. For state-preservation items the evidence points instead to triplets whose three labels may not be jointly coherent (Sec.~VII).
+
+\subsection{Comparison with OmissionBench}
+OmissionBench is the primary methodological comparator~\cite{fox2026omission,omissionbench2026}. Both projects evaluate omissions and explicit errors, include intact controls, compare auditing conditions, and inspect benchmark quality. These similarities constitute substantial overlap.
+
+\textbf{Unit and matching:} OmissionBench compares erroneous notes with clean twins from a consultation. MTA compares target-rule detection across three scene variants. OmissionBench's construction selects targets by error type; MTA requires the identical obligation across conditions~\cite{omissionsoftware}. This limits confounding by which requirement is tested, without establishing equal perceived severity or salience.
+
+\textbf{Clean controls and information access:} Both projects use clean (intact) controls, though MTA supplies authored rules while OmissionBench includes transcript-based judging and explicit fact-list interventions~\cite{omissionsoftware}. The distinction concerns how obligations are specified, not priority for explicit checks.
+
+\textbf{Validity and follow-up:} MTA applies case-level audits to Study 1 omission nondetections and Study 2 v1 CLEAN failures, then evaluates a fresh locally frozen follow-up. OmissionBench likewise includes construction-verification procedures in its released benchmark repository~\cite{omissionsoftware}. The shared emphasis is that omission results depend on verified evaluation artifacts. MTA adds a behavioral test of its own diagnoses: the pre-registered same-item repairs of Study 3 check whether the diagnosed defects account for evaluator nondetections, rather than relying on construction review alone.
+
+\textbf{Scope question:} MTA assesses the particular POINT--SCOPE practical threshold rather than rejecting a general mechanism. It complements the omission-detection literature instead of contradicting it.
+
+\subsection{Narrative-Auditing Scope}
+The technical scope covers requirement checking over state, possession, event occurrence, and bounded temporal obligations~\cite{qiu2024temporal}, all relevant to QA for generated interactive content. Li \emph{et al.} study consistency bugs in long LLM-generated stories~\cite{li2026lost}; MTA differs in testing auditors on short scenes with an explicit rule and a deterministic oracle rather than finding inconsistencies in long generated text. Veloso and Prada's Story Validator checks interactive-dialogue consistency across narrative paths~\cite{veloso2021validator}, and PANGeA validates text input against game rules for generated role-playing content~\cite{buongiorno2024pangea}. MTA isolates a narrower component: auditing compact static scenes before extending evaluation to branch traversal, player-dependent reachability, persistent world state, and alternative-path consistency. Plot-hole detection with planted defects~\cite{ahuja2025flawed} and entity tracking~\cite{kim2023entity} are methodologically close to planted-variant auditing and to the state and possession rules used here.
+
+\section{Evaluation Design and Statistical Methods}
+\subsection{Matched Construction and Oracle}
+A base case specifies a scene, an audited rule, one required event, incompatible events, and ordered beats. Variants share setup, rule catalog, target position, and non-target beats:
+\begin{itemize}
+\item \textbf{CLEAN:} the required event occurs and no incompatible event occurs.
+\item \textbf{COMMISSION:} an incompatible event occurs and the required event does not.
+\item \textbf{OMISSION:} neither the required nor incompatible event occurs.
+\end{itemize}
+The deterministic oracle checks event-ledger membership, labeling CLEAN as a nonviolation and both corrupt conditions as violations. It does not use an LLM for the formal answer. Correspondence between event identifiers, rendered text, and all visible rules nevertheless remains a semantic construction obligation. Study 2 v1 illustrates why ledger correctness alone is insufficient. The POINT, SCOPE, and precedence rules correspond to patterns with scopes in the specification-pattern literature~\cite{dwyer1999patterns}. Under the standard precedence semantics (the later event must be preceded by the earlier one if it occurs), an item whose later event never occurs is vacuously satisfied; the Study 1 ordering OMISSION items b13 and b16 have this property, whereas in the replacement ordering cases b41 and b42 the later event stays in the OMISSION scene (omission recall 16/16 versus 7/16 for b13 and b16; both independent annotators nevertheless judged b16 violated, and a third annotator CANNOT TELL), as discussed in Sec.~\ref{sec:study1audit}.
+
+Both corrupt variants leave the same obligation unsatisfied. Commission therefore also entails absence of the required event; the conditions distinguish incompatible evidence from missing event evidence. COMMISSION thus carries two cues (an incompatible event is present and the required event is absent), whereas OMISSION carries one, so a positive gap $G$ is expected from an auditor that treats the two error types alike. In the omission-faithfulness literature a commission error is often added content while the required content may remain present~\cite{fox2026omission,chen2026enumerating}; $G$ here measures how much contradicting evidence adds to detection and is not that construct. A COMMISSION-ADD variant (required event present plus an incompatible event) was not part of Studies 1--2b; it was added in Study 2c (Sec.~\ref{sec:study2c}), where its recall equaled COMMISSION recall (0.996 in both structures). Matching controls requirement identity, position, and surrounding text, not perceived severity, detectability, or salience. Study 1 also specifies a within-triplet word-count tolerance of 10\%. Figure~\ref{fig:matched} depicts this design.
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{fig2_matched_design_new.png}
+\caption{Same-obligation matched design. The formal oracle distinguishes required-event and incompatible-event patterns; artifact audits assess whether the rendered scene supports that formal label.}
+\label{fig:matched}
+\end{figure*}
+
+\Table[t](width=\textwidth,arraystretch=1.12){Terminology Used Throughout \label{tab:terms}}{\setlength{\tabcolsep}{4pt}\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.20\textwidth}L@{}}
+\toprule
+Term & Meaning\\
+\midrule
+CLEAN, COMMISSION, OMISSION & Matched variants of one obligation: required event present; incompatible event present and required absent; neither present\\
+ADD & Study 2c variant: required event present and an incompatible event also present\\
+Target-rule vs.\ any-rule CLEAN FPR & CLEAN case flagged on the audited rule vs.\ on any visible rule; invalid output counts as a false positive in both (conservative)\\
+Recall; $G$ & Target-rule detection rate per condition; $G$ is COMMISSION recall minus OMISSION recall\\
+POINT, SCOPE; $\Delta$ & Obligation at a named checkpoint vs.\ over the whole scene; $\Delta=G_{\mathrm{SCOPE}}-G_{\mathrm{POINT}}$\\
+P1--P4 & Open audit, rule-aware (requirements listed), checklist, and targeted protocols\\
+Study 2 v1, 2b, 2c & Gate-failed POINT/SCOPE study; fresh frozen follow-up; crossed follow-up without evaluative cue words\\
+Ceiling regime & Pooled OMISSION recall above 0.95, so the interaction is labeled uninformative (a rule pre-set for the reruns and Study 2c; frozen Study 2b was decided by the threshold)\\
+Ambiguous rendering; benchmark defect & Competing readings of rule satisfaction remain in the prompt; a concrete construction or label mismatch (codebook in Study 1)\\
+Beat; event ledger & One of the six numbered scene lines (L1--L6); the per-variant list of event identifiers, one per beat, that the oracle compares with the required and incompatible events\\
+Satisfaction semantics & The reading of a rule that decides whether a scene satisfies it (e.g., whether a precedence rule applies when its later event never occurs)\\
+Frozen & Fixed and hashed before any model call; frozen values are not changed after results are seen\\
+Ordinary audit; $G_{\mathrm{ordinary}}$ & Protocols P1 and P2, which neither enumerate requirements as a checklist nor select the target rule; $G_{\mathrm{ordinary}}$ is the mean of their gaps\\
+Intention-to-evaluate & Every planned response is scored; an invalid or unrecovered response counts as a nondetection\\
+Absence witness & In Study 2b POINT OMISSION, an explicit statement that the required item is absent (e.g., an empty label field)\\
+Transport failure; quality gate & A call that returned no model text (e.g., an SSL or provider error), scored invalid; the pre-set CLEAN false-positive and invalid-output limits a study must pass before its contrast is interpreted\\
+Strict vs.\ lenient parser & Parse the response as-is vs.\ after stripping a code fence and taking the first balanced JSON object (sensitivity only)\\
+\bottomrule
+\end{tabularx}}
+
+\subsection{Protocols and Evaluators}
+Table~\ref{tab:terms} defines the terms used throughout, and Appendix~\ref{app:construction} describes case construction. Table~\ref{tab:protocols} defines the four Study 1 protocols.
+\Table[t](width=0.99\columnwidth,arraystretch=1.15){Study 1 Auditing Protocols and Their Interpretive Roles \label{tab:protocols}}{\setlength{\tabcolsep}{4pt}\begin{tabularx}{\columnwidth}{@{}>{\raggedright\arraybackslash}p{0.19\columnwidth}L>{\raggedright\arraybackslash}p{0.30\columnwidth}@{}}
+\toprule
+Protocol & Information and task & Interpretive role\\
+\midrule
+P1: open audit & Setup with embedded requirements and scene; inspect consistency and completeness & No separate extracted catalog\\
+P2: rule-aware & Same inputs plus all applicable rules & Explicit catalog without prescribed enumeration\\
+P3: checklist & Same information as P2; enumerate requirements and verify each & Structured checking condition\\
+P4: targeted & Scene and specifically identified target requirement & Privileged diagnostic comparator\\
+\bottomrule
+\end{tabularx}}
+
+Protocols use structured decisions; P4 additionally requests targeted fulfillment. Oracle identifiers and condition labels are withheld. P1 does not remove requirements from the setup: P1 versus P2 concerns their presentation. P4 supplies target selection and is not an ordinary-audit baseline. Study 2b uses P2 with exactly one rule, so identifying the obligation to check is already resolved.
+
+The recorded evaluator identifiers are \path{google/gemini-3.8-flash} and \path{anthropic/claude-sonnet-5}, called Gemini and Claude below. They were accessed through the OpenRouter gateway (upstream providers recorded per call: Google, Google AI Studio, and Claude Platform on AWS), and the returned model strings equalled the requested identifiers. Runs took place on 2026-09-18 and 2026-09-19 (Appendix~\ref{app:config}). The request body carried temperature 0, JSON-object output, seed 1731, and a 6,000-token output limit in held-out Study 1, Study 2 v1, and Study 2b; whether either provider honored the seed was not verified. No reasoning parameter was sent in these studies: the label ``reasoning\_setting: none'' in the logs was a record field, not a request, so provider defaults applied. Gemini returned reasoning text in 177--229 of 180--240 responses per run (mean 414--1,555 reasoning tokens) and Claude in 5--69 (mean 2--93). Studies 1--2b are therefore reasoning-default runs, not reasoning-disabled runs, and Study 3, which did send a disable flag where accepted, ran under different settings. Temperature 0 does not guarantee determinism on hosted models. Studies 1--2b use one response per cell; Study 3 adds three repetitions.
+
+\subsection{Outcomes and Dependency Structure}
+For a fixed protocol and evaluator, let $C_i$ and $O_i$ denote binary target-violation detections for the commission and omission variants of case $i$. The commission--omission gap over $N$ cases is
+\begin{equation}
+\modelgap=\frac{1}{N}\sum_{i=1}^{N}\left(C_i-O_i\right).
+\label{eq:gap}
+\end{equation}
+Here, $\modelgap>0$ indicates higher commission recall than omission recall, $\modelgap=0$ indicates no average recall gap, and $\modelgap<0$ indicates higher omission recall. Off-target flags do not count as target detection. Formally, for a case with target rule $t$ and flagged-rule set $F$ (empty for an invalid response), target recall is the mean of $\mathbb{1}[\text{valid}\wedge t\in F]$ over COMMISSION (or OMISSION) responses, so an invalid response is a nondetection. Conservative CLEAN FPR is the mean of $\mathbb{1}[\neg\text{valid}\vee F\neq\emptyset]$ over CLEAN responses (a flag on any visible rule counts; \emph{any-rule}); the \emph{target-rule} variant replaces $F\neq\emptyset$ by $t\in F$. The frozen gates used the any-rule variant. Table~\ref{tab:fpr} reports both.
+
+The experimental cluster is \code{base\_case\_id}: variants, protocols, and model evaluations of one case are dependent. Study 1 reports $\Gordinary=(G_{\mathrm{P1}}+G_{\mathrm{P2}})/2$ separately for each evaluator, computed within case before aggregation. Its interval resamples base cases within rule family. The Study 1 analysis also implements paired Newcombe intervals~\cite{newcombe1998paired} for protocol-level decisions; the ordinary-summary confidence intervals (CIs) reported here are cluster-bootstrap intervals.
+
+Study 2b defines POINT as a local checkpoint condition and SCOPE as occurrence anywhere in six beats. POINT can supply an explicit local absence witness, such as an empty hook. SCOPE omits an event from the bounded sequence. Structure is assigned by family, not crossed within the same obligation.
+
+For the primary Study 2b analysis, model decisions are averaged within case:
+\begin{equation}
+\begin{aligned}
+d_i&=\operatorname{mean}_m(C_{im}-O_{im}),\\
+\Dscope&=\Gscope-\Gpoint.
+\end{aligned}
+\label{eq:delta}
+\end{equation}
+$\Gpoint$ and $\Gscope$ average $d_i$ over the respective groups. Equation~\eqref{eq:delta} contrasts two authored case groups over two fixed evaluators. It is not a causal estimate of changing scope while holding rule family constant.
+
+\subsection{Intervals and Quality Gates}
+Study 2b uncertainty uses a percentile cluster bootstrap~\cite{field2007bootstrap} with 10,000 replicates and seed 1732, resampling whole base-case clusters independently within POINT and SCOPE. Each replicate draws 30 cases per structure and computes their mean-gap difference. The 95\% empirical percentile interval uses the 2.5th and 97.5th percentiles with linear interpolation. Within-case averaging retains model pairing. A secondary exact sensitivity analysis permutes the 30 POINT and 30 SCOPE labels over the 60 observed case-level $d_i$ values while preserving each paired evaluator average and the 30/30 group sizes.
+
+Within-structure intervals describe $\Gpoint$ or $\Gscope$; the primary interval describes their difference. A positive interaction upper bound can coexist with nonpositive structure gaps because the two means vary separately in resampling.
+
+Invalid or unrecovered responses remain nondetections in intention-to-evaluate recall. Conservative CLEAN false-positive rate (FPR) counts invalid CLEAN responses as false positives as well as substantive flags. Parser invalidity is reported separately: a conservative false positive is not necessarily a model accusation.
+
+Study 2b thresholds require conservative CLEAN FPR $\leq0.10$ in each structure and invalid fraction $\leq0.05$; execution integrity is checked separately. The practical interaction threshold is $+0.15$. After quality checks, the frozen rules identify a sufficiently large positive interaction only when its interval excludes zero and both models show a positive direction. They identify threshold exclusion when the primary upper bound is below $+0.15$ and otherwise return INCONCLUSIVE. Model sign agreement applies to the positive-effect route, not to the pooled threshold-exclusion route.
+
+The threshold is a design-selected difference of 0.15 between recall gaps, not a calibrated minimum important effect: it was chosen as a difference large enough to matter for a QA decision (about one additional missed obligation in seven), in the spirit of a smallest effect of interest~\cite{lakens2017equivalence}. The exclusion rule is an operational threshold check, not a formal equivalence test. Sampling uncertainty follows the recommendation to report standard errors for evaluations~\cite{miller2024errorbars}.
+
+\subsection{Study Sequence and Frozen Assets}
+Table~\ref{tab:sequence} distinguishes exploratory, held-out, invalidated, and fresh stages.
+\Table[t](width=\textwidth,arraystretch=1.15){Study Sequence, Sample Sizes, and Frozen Outcomes \label{tab:sequence}}{\setlength{\tabcolsep}{5pt}\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.13\textwidth}>{\raggedright\arraybackslash}p{0.18\textwidth}>{\centering\arraybackslash}p{0.08\textwidth}>{\raggedright\arraybackslash}p{0.16\textwidth}L@{}}
+\toprule
+Stage & Base cases & Protocols & Evaluation cells & Role and frozen outcome\\
+\midrule
+Study 1 exploratory & 20 of 40 authored cases; five families overall & P1--P4 & 480 planned & Exploratory; INCONCLUSIVE under invalid-output gate\\
+Study 1 held-out & 20 disjoint cases & P1--P4 & 480 attempts; 478 completed cells & Confirmatory decision INCONCLUSIVE\\
+Study 2 v1 & 60; 30 POINT and 30 SCOPE & P2 & 360 planned & INCONCLUSIVE; CLEAN gate failed\\
+Study 2b & 60 fresh; 30 POINT and 30 SCOPE & P2 & 360 attempted (one provider error) & Pooled $+0.15$ excluded under the frozen bootstrap; not robust to the most conservative interval\\
+Study 2b reruns & 60 base cases (frozen 2b); 180 variants & P2 & 1,260 attempts, 5 evaluators & Ceiling (omission recall 0.995); pooled $\Delta=0.000$, interval $-0.052$ to $+0.062$; uninformative\\
+Study 2c & 24 obligations crossed POINT/SCOPE; 192 variants & P2 & 1,920 attempts, 5 evaluators, 2 repetitions & Ceiling (omission recall 0.996); $\Delta=-0.008$, interval $-0.029$ to $+0.008$; uninformative\\
+Study 3 & 6 audited held-out cases; ORIG and REPAIR triplets & P1--P4 & 1,920/1,920 completed (5 evaluators, 3 repetitions) & Pre-registered; TRIGGER arm SUPPORTED, STATE arm CONFOUNDED\\
+\bottomrule
+\end{tabularx}}
+
+Study 2b design, cases, prompts, parser/scorer, and analysis assets were pre-specified and frozen before execution in the local workflow. The hash record fixes the assets; it does not certify their semantics, which were checked by author QA only. Freezing was local only: no public commit, tag, or archive version predates the runs, and the evidence for timing is file modification times and hashes. The $+0.15$ threshold appears in the Study 2 v1 gate document (modified 2026-09-19 10:59 KST), before the Study 2 v1 run (11:55--12:48 KST), and was carried unchanged into Study 2b. It is a different quantity from the Study 1 threshold of $0.20$, which applies to the single-evaluator gap $G_{\mathrm{ordinary}}$ rather than to the POINT--SCOPE interaction. The Study 3 protocol was frozen on 2026-11-13 (KST), before any Study 3 call, and its hash record is held in an author-controlled, timestamped project document. Throughout, \emph{pre-registered} means that the hypotheses, analysis, and decision rules of a study were written and hash-recorded before its first model call; no third-party registry was used, and the public deposit of these records post-dates the runs.
+
+Table~\ref{tab:changes} summarizes what changed between studies.
+\Table[t](width=\textwidth,arraystretch=1.12){What Changed Between Studies \label{tab:changes}}{\setlength{\tabcolsep}{4pt}\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.12\textwidth}>{\raggedright\arraybackslash}p{0.16\textwidth}>{\raggedright\arraybackslash}p{0.13\textwidth}>{\raggedright\arraybackslash}p{0.18\textwidth}L@{}}
+\toprule
+Study & Cases and rules & Evaluation & CLEAN FPR scope in gate & Other changes\\
+\midrule
+Study 1 held-out & 20 cases, 5 families, 6 beats, 2 rules & P1--P4, 2 evaluators & Any visible rule & Five cases (b41--b45) replaced retired ones; 6,000-token limit\\
+Study 2 v1 & 60 cases, 2 rules (target plus background) & P2, 2 evaluators & Any visible rule & New POINT/SCOPE families; 12 Gemini truncations\\
+Study 2b & 60 fresh cases, 1 rule, no background & P2, 2 evaluators & Target rule (equals any rule) & ``wrong'' cue in SCOPE COMMISSION; explicit absence in POINT OMISSION\\
+Study 2b reruns & Same 60 cases & P2, 5 evaluators & Target rule & Repeated runs; three added evaluators\\
+Study 2c & 24 obligations crossed POINT/SCOPE; 3 rules, ADD variant & P2, 5 evaluators, 2 repetitions & Target rule & No cue words or explicit absence statements; reasoning flag rejected by two models\\
+Study 3 & 6 audited Study 1 cases, ORIG and REPAIR & P1--P4, 5 evaluators, 3 repetitions & Target rule (primary) & Pre-registered; disable-reasoning flag sent where accepted\\
+\bottomrule
+\end{tabularx}}
+
+\section{Study 1: Apparent Asymmetry and Validity Audit}
+Study 1 divides 40 authored cases across five families into exploratory and disjoint held-out sets of 20; five of the held-out cases (b41--b45) were authored after the exploratory run to replace retired cases, under a different OMISSION authoring rule, before the held-out run. Each scene has six beats and two visible rules (the target rule r01 and a background rule r02); Study 2 v1 scenes have the same structure, and Study 2b scenes have six beats and one rule. Each case is evaluated in all three conditions under P1--P4 by both evaluators. The exploratory run (a first pass on the same cases with an 800-token limit and a P4 output-schema error had 222 of 480 invalid responses and was superseded; the rerun used a 2,400-token output limit, of which 17 of 480 responses were truncated and 18 of 480 parser-invalid) showed $\Gordinary=0.325$ for Gemini and $0.125$ for Claude, but remained INCONCLUSIVE under the invalid-output gate. These observations are exploratory; the held-out run raised the limit to 6,000 tokens and had no truncations.
+
+The held-out run records 480 attempts, 478 completed cells, and two transport failures. Its ordinary-audit summaries concern P1/P2; their positive direction did not satisfy the frozen requirements. Figure~\ref{fig:study1} and Table~\ref{tab:study1protocols} report all protocols rather than selecting only P1/P2.
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{fig3_study1_protocols_v3.png}
+\caption{Study 1 held-out results by evaluator and protocol. C and O labels give commission and omission recall. Bars show the gap and conservative CLEAN FPR. Threshold lines span only the protocols they govern. The positive-effect route applies 0.20 to the mean ordinary gap (diamond: P1/P2 mean), additionally requires P1 and P2 CLEAN FPR at most 0.10, and a P3 gap of at least 0.10 with P3 FPR at most 0.10; the small-effect routes require an interval within $\pm0.10$ on the P3 or ordinary-summary gap with recall at least 0.80 and FPR at most 0.10. FPR bars use any visible rule. P4 is diagnostic with no decision threshold. Positive cell-level gaps did not override the frozen INCONCLUSIVE decision.}
+\label{fig:study1}
+\end{figure*}
+
+\Table[t](width=\textwidth,arraystretch=1.12){Held-Out Study 1 Results by Protocol (20 Base Cases and 60 Planned Condition Rows per Table Row) \label{tab:study1protocols}}{\setlength{\tabcolsep}{4pt}\begin{tabularx}{\textwidth}{@{}llrrrrcL@{}}
+\toprule
+Evaluator & Protocol & \thead{Comm.\\recall} & \thead{Omis.\\recall} & $G$ & \thead{CLEAN\\FPR} & \thead{Valid/\\invalid} & Decision relevance\\
+\midrule
+Gemini & P1 & 1.000 & 0.900 & +0.100 & 0.150 & 60/0 & Ordinary aggregate; FPR exceeds 0.10\\
+Gemini & P2 & 1.000 & 0.750 & +0.250 & 0.150 & 60/0 & Ordinary aggregate; FPR exceeds 0.10\\
+Gemini & P3 & 0.950 & 0.850 & +0.100 & 0.150 & 59/1\textsuperscript{T} & Checklist routes; FPR exceeds 0.10\\
+Gemini & P4 & 1.000 & 0.700 & +0.300 & 0.000 & 59/1\textsuperscript{T} & Targeted diagnostic; quality checks only\\
+\addlinespace[3pt]
+Claude & P1 & 1.000 & 0.950 & +0.050 & 0.150 & 60/0 & Ordinary aggregate; FPR exceeds 0.10\\
+Claude & P2 & 1.000 & 0.850 & +0.150 & 0.100 & 60/0 & Ordinary aggregate; FPR at limit\\
+Claude & P3 & 1.000 & 0.800 & +0.200 & 0.100 & 59/1\textsuperscript{F} & Checklist routes; FPR at limit\\
+Claude & P4 & 1.000 & 0.850 & +0.150 & 0.050 & 60/0 & Targeted diagnostic; quality checks only\\
+\bottomrule
+\end{tabularx}}
+
+Table~\ref{tab:study1protocols} reports deterministic point summaries of the frozen scored rows using the existing cell-summary definitions. Recall and CLEAN FPR denominators are 20 per condition. Valid/invalid counts cover all 60 planned condition rows, including unrecovered responses. The three invalid rows are Gemini P3 COMMISSION, Gemini P4 OMISSION, and Claude P3 OMISSION: each is $1/20=0.05$ in its condition cell, and the global fraction is $3/480=0.00625$. Neither strictly exceeds the invalid-output limit. The two transport failures are included in these counts and are not additional observations. In Table~\ref{tab:study1protocols}, superscript T marks the two rows lost to a transport (SSL) error with no response (Gemini P3 COMMISSION b32 and Gemini P4 OMISSION b34), and F marks the one row (Claude P3 OMISSION b18) whose response was a code-fenced JSON object that the strict parser rejects; the fenced response is scored as an invalid nondetection.
+
+P1/P2 constitute the ordinary-audit aggregate in Table~\ref{tab:study1ordinary}. P3/P4 are structured or targeted diagnostic protocols; P3 also enters the frozen decision routes. Positive protocol-level gaps, including Gemini P4, do not override the overall INCONCLUSIVE decision.
+
+\Table[t](width=0.99\columnwidth,arraystretch=1.12){Held-Out Study 1 Ordinary-Audit Summaries (20 Base Cases; Equal-Weight P1/P2) \label{tab:study1ordinary}}{\setlength{\tabcolsep}{4pt}\begin{tabular}{@{}lrrrrr@{}}
+\toprule
+Evaluator & Comm. & Omis. & $\Gordinary$ & 95\% CI & CLEAN FPR\\
+\midrule
+Gemini & 1.000 & 0.825 & +0.175 & [0.050, 0.300] & 0.150\\
+Claude & 1.000 & 0.900 & +0.100 & [0.025, 0.175] & 0.125\\
+\bottomrule
+\end{tabular}}
+
+Both ordinary gaps are below the Study 1 positive-effect threshold of 0.20, and both ordinary CLEAN rates exceed 0.10. The frozen verdict is INCONCLUSIVE because neither the positive-effect criteria nor the bounded small-effect criteria were met.
+
+\subsection{Post-hoc Omission-Miss Validity Audit}
+\label{sec:study1audit}
+The frozen held-out rows contain 27 omission nondetections across seven base cases. A post-hoc audit rechecked every row against its preserved prompt and raw response, the frozen parser outcome, the rendered scene and explicit obligation, and the event-ledger oracle. Twenty-five rows were classified as ambiguous renderings and two as parser or evaluation artifacts; zero were classified as unambiguous genuine auditor misses and zero as likely benchmark defects. The two artifacts were a syntactically fenced response rejected by the strict parser and an SSL transport failure with no returned judgment. The fenced response itself expressed the same ambiguity-consistent nondetection as the other preservation cases. A fence-stripping re-parse recovers the fenced response, which remains a nondetection; the two SSL transport failures have no text, so the frozen Study 1 gaps are unchanged under lenient parsing. These are the author's classifications; independent annotation (below) reproduced them only in part.
+
+Of the 25 valid nondetections, 24 cluster in two semantic patterns (ordering, b13 and b16: 9 rows; preservation, b17, b18, and b22: 15 rows); the remaining row (b08, placement) also involves an absent trigger and is grouped with the trigger cases in Study 3. For the ordering cases b13 and b16, the omission edit removes both the required action and the later triggering event, and the responses explicitly treat the precedence condition as untriggered. For preservation requirements, the rendered scene does not establish the initial required state and shows no contrary state change; responses treat the absence of a change as satisfaction. These readings differ from the event-ledger rule that marks the required event's absence as a violation. The ordering rules are conditional on the later event (for example, ``the vial must be labeled before the dose is drawn''), and the OMISSION edit removes the later event, so under the standard precedence semantics the obligation is vacuously satisfied. We report the recorded code (``ambiguous''); under standard precedence semantics these rows would instead be coded benchmark defects (vacuous satisfaction). We describe them as construction-sensitive rather than as established defects because the two independent annotators judged b13 ambiguous but b16 a genuine omission, while a third annotator judged both CANNOT TELL (below). Two observations bear on the trigger reading: the replacement ordering cases b41 and b42, written after the exploratory run under an authoring rule that keeps the later event in the OMISSION scene, have omission recall 16/16 versus 7/16 for b13 and b16 (Sec.~III-A), and the TRIGGER arm of Study 3 shows behaviorally that restoring the later event changes detection. Accepting a requirement as met without positive evidence for it also resembles the behavior named in~\cite{fox2026omission}; in the author audit the genuine-miss code received no rows, whereas the independent annotators assigned it to some rows (below).
+
+\textbf{Codebook.} One codebook covers both audits. Study 1 omission rows: \emph{genuine auditor miss}, an unambiguous, semantically valid omission together with a valid substantive nondetection; \emph{ambiguous rendering}, competing relevant interpretations of rule satisfaction remain in the actual prompt, judged together with the response's stated reason; \emph{benchmark defect}, concrete scene and rule evidence establishes a construction or label mismatch beyond competing plausible readings; \emph{parser or evaluation artifact}, confirmed parser or transport handling contributes to the nondetection (invalid or failed attempts take this primary code and any rendering concern is recorded separately); \emph{unresolved}, the evidence is inadequate. Study 2 v1 CLEAN rows use a status code (A, evaluator over-strictness; B, benchmark defect or ambiguity; C, parser or scoring artifact) and a quality label (LIKELY DEFECT, AMBIGUOUS, CLEAR CLEAN); ``B/LIKELY DEFECT'' denotes status B with quality LIKELY DEFECT. Decision rule: a row is a genuine miss only if the required event is absent under every reading of the rule and the response states no competing reading; a row is ambiguous if at least one reading of the rule under which the response is correct is supported by the prompt text. The initial classification notes were prepared with AI assistance and finalized by the authors (Acknowledgment). The independent annotators judged the scene and rule without the model responses, and their labels were mapped to categories by a rule fixed beforehand (see below).
+
+The author audit is post-hoc and author-coded, and it does not rescore any row: the gaps in Table~\ref{tab:study1ordinary} remain the frozen result. Section~\ref{sec:study3} tests the audit's classification behaviorally on the same items.
+
+\textbf{Independent annotation.} After the audit, two annotators judged all 96 scenes of a packet (175 rule judgments: SATISFIED, VIOLATED, or CANNOT TELL per rule, with confidence and a one-line reason). The packet held the seven audited Study 1 cases in all three variants, the Study 1 CLEAN variants with false positives, three error-free control cases, 42 Study 2 v1 CLEAN scenes (37 flagged, 5 unflagged), 15 Study 2b scenes, and six attention checks. Coder 1, an external freelance annotator (paid, self-described as fluent in English, no role in case construction), worked under a protocol and packet frozen before sending (author-controlled hash record) and was not told the hypothesis, evaluators, conditions, oracle labels, or source study. The two annotators worked independently on the same item sheet; Coder 2 was added after Coder 1's analysis to provide a second reading, and both are reported in full. Coder 2 was an informal acquaintance of the authors and a native English reader unfamiliar with the research area; the coder reported about 2.5 to 3 hours of work and was not paid, but was treated to a meal afterwards, not contingent on the results. Both reported using no AI tools (self-report) and met the pre-set attention criterion (9 of 10 and 10 of 10). Items were presented in shuffled order, with rule order shuffled per scene and no condition labels; because the packet held all three variants of some cases, an annotator could compare versions of the same scene. Agreement over all 175 judgments was 0.78 (Cohen's $\kappa=0.64$, Krippendorff's $\alpha=0.64$) and over the 90 target-rule judgments 0.79 ($\kappa=0.66$, $\alpha=0.67$); only 2 of 165 non-attention judgments were SATISFIED/VIOLATED reversals, and the rest of the disagreement concerns CANNOT TELL.
+
+Applying the pre-set mechanical mapping to the 27 Study 1 omission nondetections (Table~\ref{tab:annotation}), the annotators agreed on 15 of the 25 valid rows (four of the six scenes; each row inherits the label of its scene): 9 ambiguous (b13, b17) and 6 genuine misses (b08, b16); the 2 parser or transport artifacts are classified mechanically. On the remaining 10 rows (b18, b22; preservation) Coder 1 judged the omission scene VIOLATED and Coder 2 CANNOT TELL; a third annotator judged both scenes CANNOT TELL (below), so the adjudicated split of the 25 valid rows is 19 ambiguous and 6 genuine misses. A post-hoc observation, not pre-registered: Coder 1 treated similar evidential situations differently across preservation cases (b17 CANNOT TELL; b18, b22 VIOLATED), which accounts for the split. For b08, b17, b18, and b22, neither annotator judged the CLEAN counterpart SATISFIED (b08 CANNOT TELL for both; b17, b18, b22 VIOLATED for Coder 1 and CANNOT TELL for Coder 2), so in none of the three preservation cases did either annotator reproduce the oracle pattern of a compliant CLEAN and a violated OMISSION; both did so for b16 and b34. Alone, Coder 1 would classify 16 of the 25 valid rows as genuine misses and Coder 2 six; neither reproduces the author audit's 25 of 25, so the claim that all valid omission nondetections are ambiguous renderings is not supported as stated (agreement with the author audit, whose Study 1 labels are all ``ambiguous'': 9 of 25 for Coder 1 and 19 of 25 for Coder 2; $\kappa=0$ because the author coding has one category). With the trigger cases (b08, b13, b16) recoded as defects, the alternative coding fixed in the annotation plan, agreement was 5 of 25 for Coder 1 ($\kappa=-0.02$) and 15 of 25 for Coder 2 ($\kappa=0.26$). What both annotators support is narrower: b13 and b17 leave the rule open, b08 and b16 contain a genuine omission, and the preservation CLEAN scenes do not clearly establish compliance. For the 17 Study 1 CLEAN false positives (four scenes), 12 had some visible rule not judged SATISFIED by both annotators and 2 were judged SATISFIED on every rule by both (categories use all visible rules of the scene, so a concern about a background rule counts). For the Study 2 v1 flagged CLEAN rows, 24 of the 42 non-artifact rows had some visible rule not judged SATISFIED by both annotators; the author audit counted 1 false alarm, Coder 1 counted 7, and Coder 2 counted 12, and agreement of the derived category with the author audit was $\kappa=0.49$ (Coder 1) and $0.15$ (Coder 2), and between the coders $0.20$. The direction (many CLEAN flags are not simple evaluator false alarms) is supported, but the categorical split is unstable. Annotator--oracle agreement on target rules was 59 of 90 (Coder 1) and 69 of 90 (Coder 2) (Study 1 CLEAN 8 and 8 of 13, COMMISSION 7 and 9 of 10, OMISSION 8 and 5 of 10; Study 2 v1 CLEAN 24 and 33 of 42); in Study 2b it was 12 of 15 and 14 of 15, and both annotators judged the Study 2b q026 COMMISSION scene SATISFIED. In the symmetry check, disagreement with the oracle is not confined to error rows (Study 1 error-free controls: 6 of 9 agreeing for each coder; Study 2 v1 unflagged controls with a rule not judged SATISFIED: 5 of 5 for Coder 1, 2 of 5 for Coder 2), so CANNOT TELL is not confined to flawed scenes. With two coders, one of them informal and added post hoc, the disagreements outside the two adjudicated scenes are reported, not resolved.
+
+\textbf{Adjudication of the two split scenes.} The annotation plan had no adjudication step; one was added post hoc, after both coders' results were known and in response to the reviewers' question about disagreements, as a recorded deviation, and covers only b18 and b22. The protocol, the decision rule, and an 8-item sheet were frozen before sending (author-controlled hash record, 2026-11-22). A third annotator, recruited through a personal contact of the authors and with no prior involvement in the study, judged the b18 and b22 OMISSION scenes, their CLEAN counterparts, two anchors (b13 and b16 OMISSION), and two attention items, in shuffled order with the original guide, labels, and presentation, and was not told about the earlier coders, the hypothesis, the conditions, or which items were of interest. The annotator received a coffee gift voucher, reported about 15 minutes of work, no use of AI, translation, or search tools, and no discussion of the items (self-report), and answered both attention items correctly. The fixed rule applies the adjudicator's target-rule label for a contested scene to all rows of that scene if it is one of the two coders' labels. Both OMISSION scenes were judged CANNOT TELL (in each, the required state is not mentioned in any line), so the 10 rows are ambiguous and the adjudicated split of the 25 valid rows is 19 ambiguous and 6 genuine misses (Table~\ref{tab:annotation}), still short of the author audit's 25 of 25. Descriptively, the adjudicator agreed with both coders on b13 (CANNOT TELL) but judged b16 CANNOT TELL where both coders had judged it VIOLATED, noting that neither the required act nor the later triggering event occurs, which is the precedence reading of the ordering rows above. Because the adjudicator judged all four OMISSION scenes CANNOT TELL, including the anchor that both coders had judged VIOLATED, the adjudicated labels may partly reflect this annotator's threshold for VIOLATED; the unadjudicated two-coder result (9 ambiguous, 6 genuine, 10 split) stands beside it. Unlike both coders, the adjudicator judged the b18 and b22 CLEAN scenes SATISFIED, a condition-specific pattern (compliant CLEAN, open OMISSION) rather than a triplet-wide one; the label-incoherence reading of the preservation items therefore rests on the two original coders, and one annotator on two scenes does not settle it.
+
+\Table[t](width=0.99\columnwidth,arraystretch=1.12){Independent Annotation: Derived Categories per Annotator and Author Audit \label{tab:annotation}}{\setlength{\tabcolsep}{3pt}\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.27\columnwidth}r>{\raggedright\arraybackslash}p{0.19\columnwidth}>{\raggedright\arraybackslash}p{0.19\columnwidth}>{\raggedright\arraybackslash}p{0.19\columnwidth}@{}}
+\toprule
+Row set & $n$ & Coder 1 & Coder 2 & Author audit\\
+\midrule
+Study 1 omission nondetections (valid) & 25 & 16 genuine, 9 ambiguous & 6 genuine, 19 ambiguous & 25 ambiguous\\
+\quad after third-annotator adjudication of b18, b22 & 25 & \multicolumn{2}{>{\raggedright\arraybackslash}p{0.40\columnwidth}}{6 genuine, 19 ambiguous (15 agreed rows plus 10 adjudicated)} & 25 ambiguous\\
+Study 1 CLEAN false positives & 17 & 2 false alarm, 12 defect, 3 ambiguous & 5 false alarm, 6 defect, 6 ambiguous & not audited\\
+Study 2 v1 flagged CLEAN (non-artifact) & 42 & 7 false alarm, 13 defect, 22 ambiguous & 12 false alarm, 9 defect, 21 ambiguous & 1 false alarm, 25 defect, 16 ambiguous\\
+\bottomrule
+\end{tabular}}
+
+\textbf{Per-family view.} The Study 1 gaps concentrate in two of the five rule families (Table~\ref{tab:families}). Preservation and temporal ordering account for 25 of the 27 omission nondetections (16 and 9) in five of the 20 cases; the other three families pooled give commission recall $95/96$, omission recall $94/96$, and a gap of about $+0.01$. Of the 17 any-rule CLEAN false positives, 15 are flags on the background rule (b22, b37, b26) and only 2 are on the target rule (Claude, b04, P1 and P4); these 17 rows were not audited by the authors.
+
+\Table[t](width=0.99\columnwidth,arraystretch=1.12){Study 1 Held-Out Results by Rule Family (4 Cases per Family; 2 Evaluators $\times$ 4 Protocols) \label{tab:families}}{\setlength{\tabcolsep}{4pt}\begin{tabular}{@{}lrrrr@{}}
+\toprule
+Family & Comm. & Omis. & $G$ & Omis. misses\\
+\midrule
+Preservation & 32/32 & 16/32 & +0.500 & 16\\
+Temporal ordering & 32/32 & 23/32 & +0.281 & 9\\
+Placement & 32/32 & 31/32 & +0.031 & 1\\
+Commitment & 32/32 & 31/32 & +0.031 & 1 (transport failure)\\
+Identification & 31/32 & 32/32 & $-0.031$ & 0\\
+\bottomrule
+\end{tabular}}
+
+\Table[t](width=\columnwidth,arraystretch=1.12){Conservative CLEAN FPR Under Any-Rule and Target-Rule Scoring \label{tab:fpr}}{\setlength{\tabcolsep}{4pt}\begin{tabular}{@{}lrrr@{}}
+\toprule
+Study (CLEAN rows) & Any-rule & Target-rule & Off-target only\\
+\midrule
+Study 1 held-out (160) & 17 (10.6\%) & 2 (1.3\%) & 15\\
+Study 2 v1 (120) & 50 (41.7\%) & 31 (25.8\%) & 19\\
+Study 2b (120) & 1 (0.8\%) & 1 (0.8\%) & 0\\
+\bottomrule
+\end{tabular}}
+
+\subsection{Frozen Study 1 Decision Criteria}
+The implemented gate first requires exactly two models, nonmissing P1--P4 cells without incomplete commission/omission pairs, and invalid fractions no greater than 0.05 globally and in every model/protocol/condition cell. Unrecovered responses retained as scored invalid nondetections are not silently dropped. A failed prerequisite returns INCONCLUSIVE. For protocol-level interval tests, the gate uses the paired Newcombe interval unless the accompanying stratified base-case bootstrap interval is wider; ties retain Newcombe. Ordinary-summary tests use the P1/P2 within-case bootstrap interval.
+
+The bounded small-effect routes are evaluated before the positive-effect route. Either small-effect route must hold for both models: 1) the P3 interval lies wholly within $[-0.10,+0.10]$, both P3 recalls are at least 0.80, and P3 conservative CLEAN FPR is at most 0.10; or 2) the ordinary-summary interval lies wholly within $[-0.10,+0.10]$, both ordinary recalls are at least 0.80, and ordinary conservative CLEAN FPR is at most 0.10. These are operational decision criteria rather than a statistical equivalence conclusion.
+
+The positive-effect route requires, for each model, $\Gordinary\geq0.20$ with its interval excluding zero, no opposite signs between P1 and P2 gaps, and conservative CLEAN FPR at most 0.10 in each of P1 and P2. Both models must additionally retain a P3 gap of at least 0.10 with its selected interval excluding zero and P3 conservative CLEAN FPR at most 0.10. P4 has no separate effect-size decision route. If neither the small-effect nor positive-effect pattern holds, the result is INCONCLUSIVE.
+
+Here both ordinary gaps fall below 0.20, both any-rule ordinary FPRs exceed 0.10, and Gemini P3 any-rule FPR exceeds 0.10. The frozen verdict is therefore INCONCLUSIVE. The P3 intervals that the small-effect and positive routes would use are, for Claude, Newcombe $[-0.001,0.416]$ and bootstrap $[0.100,0.300]$, and for Gemini Newcombe $[-0.118,0.318]$ and bootstrap $[-0.050,0.250]$ (10,000 base-case replicates within family, seed 1732, percentile). Recomputing the frozen gate with target-rule CLEAN FPR (post-hoc), every FPR condition passes (cell rates 0.00--0.05), yet the verdict is unchanged: the ordinary gaps (0.100 and 0.175) remain below 0.20 and the P3 intervals are wider than the $\pm0.10$ margin. The verdict therefore does not depend on which FPR scope is used, but the reason it is INCONCLUSIVE does.
+
+\section{Study 2 v1: Measurement-Validity Failure}
+Study 2 v1 evaluates whether $G$ is larger for SCOPE than POINT using 60 cases, P2, and both evaluators. Conservative CLEAN FPR is $50/120=41.7\%$, so the frozen decision is INCONCLUSIVE under the quality gate. Counting only the target rule, the rate is $31/120=25.8\%$ (20.5\%, 23/112, among valid responses only), which still exceeds the 10\% limit. A fence-stripping re-parse recovers 3 of the 15 invalid responses (all Claude): one OMISSION detection and two CLEAN responses with no flag, which lowers the conservative CLEAN rates to 48/120 (any rule) and 29/120 (target rule), so the gate still fails; the 19 off-target-only flags are the background-rule rows below. Target-rule false positives concentrate in the POINT placement family (15 of 20). Figure~\ref{fig:cleanquality} descriptively contrasts quality with Study 2b, which uses a different benchmark.
+
+For transparency, the frozen Study 2 v1 rows yield commission recall $117/120=0.975$, omission recall $115/120=0.958$, and $G=+0.017$, with 15 invalid rows out of 360. POINT and SCOPE each have a descriptive gap of $+0.017$, giving a descriptive interaction of 0.000. These are post-hoc descriptive quantities from a benchmark with failed negative controls; they provide cross-study context rather than valid mechanism evidence.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{fig4_clean_quality_v3.png}
+\caption{Conservative CLEAN FPR in Study 2 v1, Study 2b, the Study 2b reruns, and Study 2c, with a zoom and 95\% Wilson intervals for the three low-rate studies. Study 2 v1 counts any visible rule (its like-for-like target-rule rate is 25.8\%, 31/120); the others count the target rule (equal to any rule in Study 2b). Wilson intervals treat rows as independent and are descriptive. The descriptive contrast spans different case sets and task constructions.}
+\label{fig:cleanquality}
+\end{figure}
+
+\textbf{Post-hoc diagnostic (DQ2):} An author audit conducted after execution assigns the 50 flagged CLEAN rows to benchmark defects/ambiguity (41), parser artifacts (8), and evaluator over-strictness (1). These are row-level classifications, not 50 independent cases or externally adjudicated causal labels.
+
+\subsection{Post-hoc CLEAN False-Positive Diagnostic Procedure}
+The unit was one model response to one CLEAN base case under P2. The audit was a census of all 50 conservatively scored false-positive rows among 120 CLEAN responses, not a sample. Rows from two models on the same case are not independent cases. The audit record identifies each row and records a top-level status, primary and secondary root-cause codes, benchmark quality, and explanatory notes.
+
+The audit assigns one row to author-attributed evaluator over-strictness, 41 to benchmark or construct defects/ambiguity, and eight to parser or scoring artifacts. Two independent annotators reproduced this split only in part (Sec.~\ref{sec:study1audit}, Table~\ref{tab:annotation}): 24 of the 42 non-artifact rows had some visible rule not judged SATISFIED by both annotators. The following operational descriptions reconstruct the recorded assignments from their notes:
+\begin{itemize}
+\item \textbf{Background-rule flags (19):} a visible background rule was contradicted or not clearly established by the CLEAN text (17 concern throughout constraints). All 19 lacked a specific root-cause label, so the category is recovered from their notes.
+\item \textbf{Location/checkpoint qualifiers (16):} the target event was stated, but a qualifier required by the rule was not grounded. The audit labeled these rows AMBIGUOUS rather than proving an actual violation.
+\item \textbf{Temporal/terminal inconsistency (6):} the required event occurred after a stated scope terminal, or subsequent action undermined the required terminal state. The target-event ledger could still label the item CLEAN.
+\item \textbf{Parser/schema artifacts (8):} the stored parser result was INVALID, including truncated or fenced output. Conservative scoring counted these as false positives without requiring a substantive accusation.
+\item \textbf{Evaluator over-strictness (1):} the authors attributed the flag to an overly restrictive reading of a rule; the sole row nevertheless retained an AMBIGUOUS quality label.
+\end{itemize}
+
+Classification was based on author inspection of the literal rule, CLEAN narrative, raw evaluator response, and oracle record, without an independent adjudicator.
+
+For example, in case c02 the background rule was ``the bench must stay clear throughout the shift,'' while the evaluated scene included ``L2: The worker clears the bench.'' Claude flagged the background rule because clearing the bench implies that it was not clear beforehand. The authors assigned B/LIKELY DEFECT because that reading conflicts with the throughout requirement, although the target bell event satisfied the formal oracle. Appendix~\ref{app:examples} provides this and four additional examples with exact response-row identifiers.
+
+Table~\ref{tab:auditcategories} gives the complete category counts.
+\Table[t](width=0.99\columnwidth,arraystretch=1.12){Study 2 v1 Post-hoc Author-Audit Categories (All 50 Flagged CLEAN Rows) \label{tab:auditcategories}}{\setlength{\tabcolsep}{4pt}\begin{tabularx}{\columnwidth}{@{}>{\raggedright\arraybackslash}p{0.27\columnwidth}rcc>{\raggedright\arraybackslash}p{0.24\columnwidth}@{}}
+\toprule
+Category & $n$ & Status & Quality label & Interpretation\\
+\midrule
+Background-rule flags & 19 & B & LIKELY DEFECT & Background rule contradicted/unclear\\
+Location/checkpoint qualifiers & 16 & B & AMBIGUOUS & Rule and scene differ in specificity\\
+Temporal/terminal & 6 & B & LIKELY DEFECT & Event ordering conflicts with scope\\
+Parser/schema & 8 & C & CLEAR CLEAN & Unusable structured output\\
+Evaluator over-strictness & 1 & A & AMBIGUOUS & Author-attributed evaluator behavior\\
+\bottomrule
+\end{tabularx}}
+
+Status A, B, and C are over-strictness, benchmark-attributed, and parser or scoring artifact; the quality label is nested within the category in this audit (each category carries a single label), so the two columns are not independent evidence. By structure the 50 rows are 24 POINT and 26 SCOPE, and by evaluator 34 Gemini and 16 Claude; by category and evaluator, Gemini contributed 18 B/LIKELY DEFECT, 10 B/AMBIGUOUS, and 6 C rows, and Claude 7, 6, and 2 such rows plus the single A row. Separate quality labels are 25 LIKELY DEFECT, 17 AMBIGUOUS, and eight CLEAR CLEAN. The 19 background-rule entries have explanatory notes but no specific root-cause label.
+
+A target-event oracle can coexist with invalid negative controls: a CLEAN formal target does not guarantee that every visible rule is satisfied. Qualifier grounding and temporal ordering also require semantic inspection. Parser failures must be distinguished from substantive judgments. These findings preclude interpreting Study 2 v1 as a substantive scope result.
+
+\section{Study 2b: Fresh Frozen Follow-Up}
+\subsection{Construction}
+\label{sec:study2bconstruction}
+The follow-up benchmark contains 60 fresh base cases: 30 POINT and 30 SCOPE, 10 per family, each with three variants and six beats. All 30 SCOPE COMMISSION variants contain the word ``wrong'' (for example, ``checks the wrong gate''), whereas none of the 30 POINT variants do; this evaluative cue labels the error for the evaluator and confounds the structure comparison. In POINT, OMISSION variants state the absence explicitly (for example, ``the gatekeeper's hand is empty''). Case q026 is referentially ambiguous: its rule asks for the ticket in the gatekeeper's hand and its COMMISSION variant says ``the guard holds the ticket'' without establishing that the guard is not the gatekeeper. This yields 180 variants and 360 evaluator calls; new identifiers are q001--q060.
+
+Each case has one target rule and no background throughout constraint. POINT rules and variants repeat checkpoint qualifiers. SCOPE rules refer to six beats without an intervening terminal beat. POINT families concern identity, placement, and recipient; SCOPE families concern bounded event occurrence and resolution. The construction also changes the task, including rule count, so it is not a controlled intervention on the same items; Study 3 supplies that intervention.
+
+\subsection{Execution and Negative Controls}
+All 360 calls were attempted. One Gemini call (q043) returned a provider error (an upstream rate limit) and was not retried; no truncations or model mismatches were recorded. Two invalid responses (one fenced JSON, one provider error) give 0.56\% invalidity. Conservative pooled CLEAN FPR is 0.83\% ($1/120$): 0.00\% for POINT and 1.67\% for SCOPE. Evaluator totals are 0.00\% for Gemini and 1.67\% for Claude. Quality thresholds were satisfied.
+
+The difference between Study 2 v1's 41.7\% and Study 2b's 0.83\% is descriptive: the benchmarks differ in cases, rule count, and wording.
+
+\subsection{Gaps and Interaction}
+Figure~\ref{fig:study2b} and Table~\ref{tab:study2bpooled} report the pooled results.
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{fig5_study2b_v3.pdf}
+\caption{Study 2b recall by structure (left) and POINT--SCOPE interaction estimates with 95\% cluster bootstrap intervals (right) for frozen Study 2b, the Study 2b reruns, and Study 2c, against the design-selected $+0.15$ threshold (the frozen decision threshold for Study 2b only; shown for reference in the reruns and Study 2c). All three are in a ceiling regime (omission recall above 0.99), so the intervals describe saturated performance and are not tests of smaller effects in harder settings.}
+\label{fig:study2b}
+\end{figure*}
+
+\Table[t](width=\textwidth,arraystretch=1.12){Study 2b Pooled Results With Models Averaged Within Case \label{tab:study2bpooled}}{\setlength{\tabcolsep}{6pt}\begin{tabular}{@{}lcrrrrc@{}}
+\toprule
+Quantity & \thead{Base\\cases} & \thead{Comm.\\recall} & \thead{Omis.\\recall} & Estimate & \thead{95\% bootstrap\\CI} & \thead{Conservative\\CLEAN FPR}\\
+\midrule
+$\Gpoint$ & 30 & 0.967 & 1.000 & $-0.033$ & [$-0.083$, 0.000] & 0.00\%\\
+$\Gscope$ & 30 & 0.983 & 1.000 & $-0.017$ & [$-0.050$, 0.000] & 1.67\%\\
+$\Dscope$ & 60 total & --- & --- & $+0.017$ & [$-0.033$, 0.067] & 0.83\% pooled\\
+\bottomrule
+\end{tabular}}
+
+The structure intervals describe separate within-structure gaps; the final interval concerns the primary interaction. Omission recall is 1.000 in both structures for both evaluators, so each case gap is zero or negative, both structure gaps are negative, and the interaction reduces to a comparison of the commission recalls in SCOPE and POINT. It is set by three commission nondetections: q001 (Claude, POINT), a fenced JSON response that the strict parser rejected and a fence-stripping parser recovers as a correct detection; q043 (Gemini, SCOPE), a provider error with no returned text; and q026 (Claude, POINT), a substantive nondetection whose stated reason was ``The guard (gatekeeper) holds the ticket at the turnstile, satisfying the requirement'' (both independent annotators also read this COMMISSION scene as satisfying the rule). Re-scoring with the fence-stripping parser gives $\Dscope=0.000$ (bootstrap $[-0.050,+0.050]$). The Study 2b test is therefore a ceiling-regime result, not a test of whether omission becomes harder under SCOPE; because the interaction rests on these three responses, one of them on the referentially ambiguous q026 and the SCOPE side on items carrying the ``wrong'' cue, the value of Study 2b is diagnostic rather than confirmatory. The interaction interval includes zero, but its upper bound is below $+0.15$. Under the frozen analysis it excludes a positive pooled interaction as large as the declared threshold, rather than establishing an exactly zero effect.
+
+The secondary exact sensitivity analysis permutes the 30 POINT and 30 SCOPE labels over the observed case-level paired averages. The observed interaction remains $+0.017$; its one-sided permutation~\cite{good2005permutation} $p$-value is 0.500 and its two-sided $p$-value is 1.000. The exact attainable range is $[-0.050,+0.050]$. With three nonzero case values of $-0.5$, any relabelling lies in that range whatever the true effect, so the range restates the observed data. It is a conditional sensitivity check, not an interval estimate for new cases and not independent evidence about $+0.15$.
+
+The percentile bootstrap cannot generate omission misses that were never observed, so we add intervals that handle zero-event cells (post-hoc). A Jeffreys-prior Bayesian interval is $[-0.054,+0.091]$ with $P(\Dscope\ge0.15)=0.001$; a MOVER-Wilson score interval treating the 60 model responses per cell as independent is $[-0.080,+0.118]$; and the same interval with one unit per case (30 per cell, the most conservative treatment) is $[-0.154,+0.192]$. The exclusion of $+0.15$ therefore holds under the first two but not the third. A simulation under the observed recalls (30 cases per structure, two evaluators, independent responses, so optimistic) puts the power to detect a true interaction of $+0.15$ at about 55\% and at 80\% near $+0.20$; the frozen exclusion rule fires with probability 0.98 when the true interaction is zero and 0.17 when it is $+0.10$. This design could rule out large interactions but not moderate ones.
+
+Table~\ref{tab:study2bmodels} reports evaluator-specific results.
+\Table[t](width=0.99\columnwidth,arraystretch=1.12){Evaluator-Specific Study 2b Results (30 Base Cases per Structure) \label{tab:study2bmodels}}{\setlength{\tabcolsep}{4pt}\begin{tabular}{@{}lrrrrc@{}}
+\toprule
+Evaluator & $\Gpoint$ & $\Gscope$ & $\Dscope$ & \thead{95\% CI for\\$\Dscope$} & \thead{CLEAN FPR\\POINT/SCOPE}\\
+\midrule
+Gemini & 0.000 & $-0.033$ & $-0.033$ & [$-0.100$, 0.000] & 0/30 / 0/30\\
+Claude & $-0.067$ & 0.000 & $+0.067$ & [0.000, 0.167] & 0/30 / 1/30\\
+\bottomrule
+\end{tabular}}
+
+Directions differ between evaluators, and Claude's upper bound exceeds $+0.15$; the exclusion applies to the pooled estimand only, which the decision rule reaches without requiring the two evaluators to agree in sign, so exclusion is easier to reach than a positive finding.
+
+\subsection{Frozen Decision}
+The pre-specified decision rule excludes a pooled interaction as large as $+0.15$ because the primary upper bound falls below that threshold after quality checks. The result is specific to the tested operationalization and pooled estimand; smaller interactions and effects under other tasks remain compatible.
+
+\subsection{Follow-Up Studies: Study 2b Reruns and Study 2c}
+\label{sec:study2c}
+Two post-review studies were frozen before any call (pre-registration, SHA-256 hashes, and an author-controlled hash record dated 2026-11-19, with no third-party timestamp; deviations are logged). Both used P2, the frozen renderer, parser, and scorer, and the same ceiling rule: if pooled OMISSION recall exceeds 0.95, the interaction is labeled uninformative rather than excluded. The rule was set after Study 2b; applied to Study 2b (OMISSION recall 1.000), it would label that result uninformative as well.
+
+\textbf{Study 2b reruns.} The frozen Study 2b cases (180 variants) were rerun for repeatability and evaluator breadth: Gemini and Claude with two further repetitions under the original request body (720 calls), and three further evaluators (GPT, DeepSeek, Qwen) with one repetition (540 calls). Invalid outputs were 0.3\%, pooled CLEAN target-rule FPR was 0.007, and pooled OMISSION recall was 0.995 (POINT 0.990, SCOPE 1.000), so the ceiling rule applied. The pooled interaction was $\Delta=0.000$ (95\% cluster bootstrap interval $-0.052$ to $+0.062$). The two original evaluators alone gave $\Delta=0.000$ ($-0.042$ to $+0.050$). COMMISSION recall was 0.971 (POINT) and 0.981 (SCOPE), below OMISSION recall, driven mainly by two items (q026 and q036). The two original evaluators' repetitions agreed on the primary outcome in 355 of 360 cells (all five disagreements were Claude's). The frozen run's q001 (fenced) and q043 (provider error) nondetections did not recur: every rerun detected both. q026 recurred: Claude missed it in both repetitions, as did DeepSeek, GPT, and Qwen, and only Gemini flagged it, which matches the annotators' reading of that scene. The two POINT OMISSION nondetections were Claude outputs wrapped in code fences that did flag the violation; under lenient parsing OMISSION recall was 420/420 and $\Delta=+0.005$ ($-0.043$ to $+0.067$). The three added evaluators alone, one repetition each, gave $\Delta=0.000$ ($-0.078$ to $+0.089$). The ceiling and the near-zero estimate therefore recurred across runs and five evaluators. Request bodies differed by part: the original-body calls used seeds 1732 and 1733, and the added evaluators used the Study 3 body.
+
+\textbf{Study 2c.} Study 2c rebuilt the contrast to remove the artifacts listed for Study 2b. It crossed structure within obligation (24 obligations, each as POINT and SCOPE with the same target slot), used a conjunctive target rule plus two satisfied background rules, contained no evaluative cue words or explicit absence statements (checked by a validator), and added an ADD variant (the contrary event appears in addition to the required one), which separates contrary evidence from absence. It comprised 192 variants and 1,920 calls (five evaluators, two repetitions). Invalid outputs were 0.3\% and pooled CLEAN target-rule FPR was 0.004. Recall was at ceiling in every cell: COMMISSION 0.996 and 0.996, OMISSION 0.992 and 1.000, and ADD 0.996 and 0.996 (POINT and SCOPE). Claude, DeepSeek, and GPT detected every violation variant in both structures; Gemini and Qwen missed at most two of 48 rows per cell. The pooled interaction was $\Delta=-0.008$ ($-0.029$ to $+0.008$), and the ADD-based interaction was identical. Under the pre-specified rule this is labeled uninformative (ceiling); the narrow interval describes this saturated regime and is not a test of smaller effects in harder settings. Lenient parsing gave the same result. Eight rows were errors: six were invalid outputs (five malformed JSON from Qwen and one empty Gemini response) and two were valid nondetections (Gemini, both repetitions, on one POINT OMISSION case). That case's script does not mention the checkpoint named in the rule, and Gemini reasoned that the condition therefore did not apply; POINT OMISSION items thus carry the trigger ambiguity diagnosed in Study 1, and this one item accounts for the whole negative $\Delta$. Requests used the Study 3 body with seeds 1731 and 1732: the disable-reasoning flag was rejected for Gemini and GPT (provider default used; Gemini returned reasoning text in nearly all calls), and temperature 0 was not sent for Claude or GPT.
+
+These results do not establish that structure and cue never matter. They show that the ceiling recurred in a construction without the ``wrong'' cue, the non-crossed design, the single rule, or the two-evaluator limit; because Study 2c changed these together with the scene content, it does not identify what produced the ceiling in Study 2b. Detection in this regime was saturated for the five models tested. Study 1 remains the evidence that omission failures can occur and Study 3 the evidence about where they arise.
+
+\section{Study 3: Pre-registered Same-Item Minimal Repair}
+\label{sec:study3}
+\subsection{Design}
+Study 3 tests the DQ1 audit by intervention rather than by inspection. It re-uses the six held-out base cases whose omission nondetections the author audit classified as ambiguous renderings; b34 is excluded because its only audited nondetection was a transport failure. Each case contributes an ORIG triplet (the frozen original Study 1 variants, unchanged) and a REPAIR triplet. Oracle labels are identical in both versions. One edit type was pre-specified per audited pattern:
+\begin{itemize}
+\item \textbf{TRIGGER arm} (b08, b13, b16). Responses treated the obligation as untriggered because the triggering event was absent. The repair makes the trigger occur and leaves the required act absent in OMISSION. In b08 the trigger occurred in no variant, so L6 becomes ``The botanist starts the noon watering.'' in all three. In b13 and b16 the original omission edit had removed the trigger together with the required act, so only the OMISSION target beat changes (``The nurse draws the dose.''; ``The driver opens the cargo doors.''). Their CLEAN and COMMISSION variants are unchanged.
+\item \textbf{STATE arm} (b17, b18, b22). Responses read the absence of a contrary change as satisfaction although the scene never established the required state. The repair appends one sentence to the setup of all three variants: ``A required state counts as maintained only if a line explicitly shows it.''
+\end{itemize}
+All 36 variants pass the frozen leakage checks and the Study 1 10\% within-triplet word-count tolerance.
+
+Five evaluators were accessed through the same gateway: the two Study 1 evaluators and three additional families (openai/gpt-6.1-sol, deepseek/deepseek-v4.1-flash-1017, qwen/qwen3.8-27b). Each evaluated every variant under P1--P4 three times, using the frozen renderer, parser, and scorer. Temperature 0 and disabled reasoning were requested where accepted; Gemini and GPT reject disabled reasoning, so their calls used the provider default, recorded per call. Identical prompts were called once and scored for both versions.
+
+The primary outcome is OMISSION target recall on P1--P3, aggregated over case $\times$ evaluator units. The specificity controls are the CLEAN target-rule conservative false-positive rate (a flag on the target rule or an invalid response) and COMMISSION recall. The target-rule CLEAN rate was pre-specified as primary because the required state of the b22 background rule is never shown in any variant (the rule itself is printed in the setup), so the STATE sentence could legitimately raise off-target flags. An arm is SUPPORTED when 1) ORIG recall is at most 0.85 (the misses reproduce); 2) recall rises by at least 0.20 overall, rises for at least four of five evaluators, and falls in no case; 3) the REPAIR CLEAN target-rule rate is at most 0.10 and no more than 0.05 above ORIG, with REPAIR COMMISSION recall at least 0.90; and 4) REPAIR recall is at least 0.85. If criterion 2 holds but criterion 3 fails, the arm is CONFOUNDED. The pre-registration, cases, and code were hashed before the first call, and the hash record was stored in an author-controlled, timestamped project document (not a third-party timestamp).
+
+\subsection{Results}
+All 1,920 calls completed (USD 4.62; 30 of 2,160 scored version-cells, 1.39\%, parser-invalid). Table~\ref{tab:study3} and Figure~\ref{fig:study3} report the results; strict and fence-stripping parses give the same verdicts. The change interval is a percentile bootstrap over the 15 case $\times$ evaluator units (10,000 resamples, seed 1733); units share cases and evaluators, so the interval is descriptive. In the TRIGGER arm only b08 changes its CLEAN variant; the CLEAN prompts of b13 and b16 are identical in both versions and were scored once, so the TRIGGER CLEAN comparison rests on b08.
+
+\Table[t](width=\textwidth,arraystretch=1.12){Study 3 Pre-registered Results (P1--P3; Units Are Case $\times$ Evaluator) \label{tab:study3}}{\setlength{\tabcolsep}{4pt}\begin{tabular}{@{}lcccccccc@{}}
+\toprule
+Arm & \thead{OMISSION recall\\ORIG} & \thead{OMISSION recall\\REPAIR} & \thead{Change\\{[}95\% bootstrap{]}} & \thead{Evaluators\\improved} & \thead{Cases\\non-negative} & \thead{CLEAN target FPR\\ORIG$\rightarrow$REPAIR} & \thead{COMMISSION recall\\ORIG$\rightarrow$REPAIR} & Verdict\\
+\midrule
+TRIGGER & 0.637 & 0.985 & $+0.348$ [0.148, 0.563] & 4/5 & 3/3 & 0.015$\rightarrow$0.000 & 0.970$\rightarrow$1.000 & SUPPORTED\\
+STATE & 0.393 & 0.970 & $+0.578$ [0.385, 0.763] & 5/5 & 3/3 & 0.030$\rightarrow$0.326 & 0.993$\rightarrow$0.970 & CONFOUNDED\\
+\bottomrule
+\end{tabular}}
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{fig6_study3_repair.png}
+\caption{Study 3 same-item repair by evaluator. Open circles: original items; filled circles: repaired items. Restoring the trigger raises omission recall to 0.985 without CLEAN target-rule false positives (top). The explicit-evidence sentence restores omission detection but also raises CLEAN target-rule false positives for three evaluators (bottom).}
+\label{fig:study3}
+\end{figure*}
+
+In the TRIGGER arm the original misses reproduced (ORIG recall 0.637) and the repair largely removed them: recall reached 0.985 (133 of 135 primary OMISSION responses), all three cases improved (b08 $+0.18$, b13 $+0.42$, b16 $+0.44$), and the CLEAN target-rule rate fell to 0.000. The largest changes were for Gemini (0.15 to 1.00) and GPT (0.26 to 1.00). Claude was at 1.00 on these items in both versions; its single Study 1 miss among them (b16) did not reproduce. This result does not by itself distinguish a label defect from a reading ambiguity; what it rules out is that the evaluators cannot register the absence of the required act once the rule is triggered. The privileged P4 protocol showed the same pattern (0.533 to 1.000; CLEAN 0.022 in both versions). The pre-registered verdict is SUPPORTED.
+
+In the STATE arm, recall rose from 0.393 to 0.970 for every evaluator and case (b17 $+0.51$, b18 $+0.53$, b22 $+0.69$), but the CLEAN target-rule rate rose from 0.030 to 0.326 (44 of 135 conservative positives, 42 of them substantive flags), failing the specificity criterion. The pre-registered secondary outcome, the any-rule CLEAN rate, rose from 0.289 to 0.593 in the STATE arm and fell from 0.015 to 0.000 in the TRIGGER arm; the difference from the target-rule rate comes from flags on the background rule. The pre-registered verdict is CONFOUNDED: the sentence increased flagging of intact items as well as omitted ones.
+
+\subsection{Exploratory Diagnosis of the STATE Confound}
+This analysis was not pre-registered. The CLEAN flags concentrate in b17 (25 of 45 responses), b22 (9), and b18 (8), and their rationales give the same reason, for example: ``Gate is confirmed shut only once at L2; no further confirmation that it stayed closed through the rest of the inspection (L3--L6)'' (Claude, b17, P1). The original CLEAN preservation scenes confirm the required state at a single beat. Their CLEAN label therefore presupposes an inertia reading, in which a state persists unless changed, whereas the OMISSION label presupposes rejecting that same reading. Under inertia the OMISSION variant is not a violation; under explicit evidence the CLEAN variant is. No reading we identified makes all three labels correct. Evaluators also differ in their default reading: with the sentence present, Gemini flagged the CLEAN target in every P1--P3 response, whereas DeepSeek and Qwen flagged none.
+
+\section{Discussion}
+\subsection{Conditional Evidence}
+Study 1 contains a frozen numerical commission--omission asymmetry, and the post-hoc author audit classified all 25 valid omission nondetections as involving ambiguous satisfaction semantics, with the remaining two rows evaluation artifacts. Independent annotation supports this only in part (9 rows ambiguous by both annotators and 6 genuine misses by both; a third annotator judged the 10 split rows ambiguous, giving 19 and 6). Study 3 tests the trigger part of the classification behaviorally. For the trigger pattern, a one-line repair raised omission recall on the same items to 0.93--1.00 for every evaluator, with no cost on the primary CLEAN target-rule rate. For the preservation pattern, the tested repair raised recall but failed specificity, which an exploratory diagnosis attributes to triplets that may not be label-coherent. For the trigger pattern, detection was restored when the trigger was present; whether the original misses are defects or genuine misses depends on the reading of the conditional rule: both original annotators read b08 and b16 as violated, whereas the third annotator judged b16 CANNOT TELL. For the preservation pattern the evidence is exploratory, the two annotators did not agree on whether b18 and b22 are genuine misses, and a third annotator judged them CANNOT TELL. Study 2b, with explicit single rules, documents omission recall at ceiling in an explicit-rule regime.
+
+\subsection{Benchmark Validity Before Auditor Attribution}
+Across Study 1 and Study 2 v1, formal event-ledger labels, rendered-text validity, and parsing are distinct sources of observed error. Conditional triggers and unstated initial states dominated the audited Study 1 omission nondetections. Background constraints, temporal inconsistencies, and ungrounded qualifiers dominated the Study 2 v1 CLEAN failures. These audits identify how benchmark construction can mimic auditor asymmetry, and Study 3 shows that the trigger-pattern misses largely disappear (recall 0.985) when the triggering event is present; the two original annotators read b08 and b16 as violations (a third annotator judged b16 CANNOT TELL), so whether those misses are defects depends on the reading of the conditional rule.
+
+\subsection{Label Coherence as a Benchmark Requirement}
+A matched triplet is only interpretable if one reading of its rule makes all three labels correct. For the tested preservation items we found no such reading (exploratory: the third annotator judged the b18 and b22 CLEAN scenes compliant, as a coherent reading requires, but their OMISSION scenes CANNOT TELL rather than violated), and the problem is invisible to ledger-based checks because each label is internally consistent with its own event list. This suggests two checks. A repair check asks whether a minimal edit that removes a diagnosed ambiguity restores the expected behavior on the same items. A coherence check asks whether that edit preserves the behavior on the intact item. The TRIGGER repair raised recall without CLEAN cost; the STATE repair raised recall but also CLEAN false positives, so it failed specificity. Benchmarks for omission detection can run both checks before reporting evaluator failure rates, and divergent default readings across evaluators (Figure~\ref{fig:study3}) mean that such failure rates can otherwise reflect each evaluator's interpretive default rather than its detection ability.
+
+\subsection{Value of the Bounded Negative Result}
+Study 2b evaluates a declared practical effect on fresh cases using fixed assets after an earlier instrument failed. Its primary interval constrains a large pooled scope-related contrast in this setting; the permutation range is only a conditional sensitivity check. With omission responses at ceiling, observed gap variation comes from three commission nondetections, one of them substantive, and the result is not robust to the most conservative interval. Study 3 is consistent with this ceiling: once triggers were present, or the preservation instruction was given, the tested evaluators detected the omitted obligations almost without exception, although the instruction also raised CLEAN false positives.
+
+\subsection{Explicit-Rule Auditing as a Tested Operating Regime}
+A short, closed-world scene with one explicit obligation yielded omission recall 1.000 and low conservative CLEAN FPR for the tested evaluators. Because content, background constraints, and task demands changed together, the cross-study contrast does not isolate the effect of supplying rules.
+
+\subsection{Limits of the Contrast}
+Same-obligation matching controls the error-type comparison within case, not the structure comparison across families. POINT and SCOPE differ in requirement content and local absence cues. The fresh construction addresses identified threats without proving that all semantic ambiguities were removed. Low observed FPR is performance evidence, not certification of a fully validated benchmark.
+
+\subsection{Narrative and Game QA Implications}
+Generated scenes can encode rule-constrained events, state and possession constraints, temporal obligations, and event occurrence or non-occurrence within bounded scopes. Evaluating these properties requires test scenes that satisfy their claimed labels. For example, a quest rule such as ``the gate must be unlocked before the player enters the vault'' is vacuously satisfied on a branch in which the player never enters the vault; a checker that reports a missing unlock on that branch files a false bug, which is the trigger ambiguity of Study 1 in production form. The results support reporting CLEAN behavior alongside recall, checking visible rules against rendered events, and separating malformed output from substantive false alarms.
+
+Practical uses follow from the design: matched CLEAN, COMMISSION, and OMISSION triplets can serve as regression tests for an automated scene checker; the repair and label-coherence checks can gate a benchmark before it is used to compare auditors; and reporting target-rule and any-rule CLEAN false-positive rates separately shows whether a checker accuses scenes for the right reason. Real narratives are longer, carry several interacting rules, and leave more room for referential and temporal ambiguity than the six-beat scenes tested here, so the recall measured here describes performance on the tested six-beat scenes and should not be extrapolated to such settings.
+
+These are implications for evaluation practice, not a tested deployment prescription. Full games introduce branching, persistent state, player choices, and interacting obligations absent here. The study informs a component of potential narrative QA rather than validating an end-to-end game-auditing system.
+
+\subsection{Relationship to OmissionBench}
+MTA complements prior omission-difficulty findings. A single authored obligation and compact scene differ from completeness assessment over clinical source material; target recall differs from note-level paired discrimination. High recall here does not overturn the difficulty findings reported under those interfaces. Shared controls and checking practices mean the contribution lies in the specific matched construction, validity analysis, and bounded follow-up result~\cite{fox2026omission,omissionbench2026,omissionsoftware}.
+
+OmissionBench includes fact-list and per-fact interventions, and the title of~\cite{fox2026omission} refers to what recovers omission detection. A single explicit rule is a minimal form of such an intervention, so omission recall at ceiling in Study 2b is in the direction that work would predict; this paper does not replicate its results. Study 1 appears to conflict: P2 and P3 supplied the rules and omission misses still occurred. The audit and Study 3 reconcile the two: the misses concentrate in ordering and preservation items, where evaluators treated the violation as not determinable from the scene, as the two original annotators did for b13 and b17 but not for b08 and b16 (a precedence rule is vacuously satisfied when its later event is absent, and a persistence rule is satisfied under an inertia reading). When the trigger was present, or an explicit-evidence instruction was added for the state items, omission recall rose to 0.970--0.985, the latter with a CLEAN false-positive cost. Explicit rules may recover omission detection mainly when the scene supports a determinate verdict; Study 3 shows this for the trigger items only.
+
+\section{Limitations}
+Table~\ref{tab:threats} consolidates the threats to validity; the paragraphs below give details.
+\Table[t](width=\textwidth,arraystretch=1.12){Threats to Validity and Their Handling \label{tab:threats}}{\setlength{\tabcolsep}{4pt}\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.17\textwidth}>{\raggedright\arraybackslash}p{0.27\textwidth}L@{}}
+\toprule
+Threat & Where it appears & Handling and residual risk\\
+\midrule
+Construct: oracle label vs.\ rendered text & Study 1 ordering and preservation items; Study 2 v1 background rules & Post-hoc audits and Study 3 repair; label coherence is exploratory; two independent annotators reproduce the author categories only in part (Sec.~\ref{sec:study1audit}); residual: one external and one informal coder; only two scenes adjudicated\\
+Construct: cues and absence statements & Study 2b ``wrong'' cue; explicit absence in POINT OMISSION & Disclosed; Study 2c removes them, but all 24 POINT OMISSION scripts omit the checkpoint named in the rule (disclosed); residual: structure still differs in wording\\
+Internal: ceiling & Studies 2b, 2b reruns, 2c & Frozen Study 2b outcome was threshold exclusion; the ceiling rule was pre-set only for the reruns and Study 2c, which are reported as uninformative; no off-ceiling contrast was obtained\\
+Statistical: few clusters, zero cells & Study 2b, Study 3 & Cluster bootstrap, Jeffreys and MOVER-Wilson intervals, power simulation (about 55\% at $+0.15$); the most conservative interval ($-0.154$ to $+0.192$) does not exclude $+0.15$\\
+Procedural: freezing and settings & Studies 1--2b local freezing only; reasoning defaults; unverified seeds & Hash records, disclosed settings; new studies have author-controlled records only\\
+Measurement: parser strictness & Fenced JSON counted invalid & Lenient re-score as sensitivity; invalid outputs were rare except in Study 2 v1 (15/360, 12 of them truncations)\\
+Construct: AI-drafted scenes, same model families as evaluators & Study 1, 2 v1, 2b scenes (candidate text AI-drafted, author-finalized) & Disclosed; deterministic oracle and fixed rules, not model judgment, define labels; residual: stylistic overlap between drafting and evaluating models cannot be excluded\\
+External: scenes, models, humans & Six-beat synthetic scenes; five evaluators; no human comparison & Bounds claims to explicit-rule auditing; real narratives untested\\
+\bottomrule
+\end{tabularx}}
+
+Studies 1, 2 v1, and the original Study 2b run used two evaluators and one execution per cell; Study 3 used five evaluators and three repetitions but only six base cases, three per arm, so its results concern these items rather than a population of scenes. In the TRIGGER arm, b13 and b16 changed only in the OMISSION variant, so the CLEAN specificity check for that arm rests mainly on b08. Two Study 3 evaluators could not disable reasoning, and Claude's single Study 1 miss on the trigger items did not reproduce. The STATE-arm diagnosis is exploratory.
+
+Study 2b omission recall is at ceiling in both structures, limiting sensitivity to smaller omission effects (the ceiling persisted in the Study 2b reruns and in Study 2c, which was crossed and had no evaluative cue words or explicit absence statements, so neither follow-up made the contrast informative within explicit-rule P2 for the five evaluators tested); the design had about 55\% power at a true $+0.15$; all SCOPE commission variants contain an evaluative cue (``wrong''); and the $+0.15$ threshold has no independent operational-cost rationale. Freezing was local only. No reasoning parameter was sent in Studies 1--2b, so provider reasoning defaults applied. POINT/SCOPE structure is confounded with family, content, and explicit local absence witnesses.
+
+The Study 1 and Study 2 v1 audits are post-hoc and author-coded; independent annotation by one external and one informal coder (Sec.~\ref{sec:study1audit}) reproduced the categories only in part; only the two split Study 1 scenes were adjudicated, by one further annotator. Study 3 tests the Study 1 classification behaviorally but does not replace independent adjudication of every row. The annotators labeled synthetic text and were not research participants; no data about them were analyzed, and the study includes no comparison with human evaluators. Synthetic compact scenes and explicit single-rule auditing restrict ecological validity; branching, persistent state, and interacting obligations remain untested.
+
+\section{Conclusion}
+In this benchmark, the evidence suggests that some apparent omission failures depended on how the items were constructed, most clearly for conditional-trigger items; for the preservation items the evidence remains unresolved. Study 1 produced a numerical commission--omission gap whose 25 valid omission misses the author audit classified as ambiguous renderings, a classification two independent annotators reproduced only in part. A pre-registered same-item repair tested the diagnosis behaviorally for the trigger pattern, raising omission recall from 0.637 to 0.985 across five evaluators with no CLEAN false-positive cost, and an exploratory diagnosis suggested that the preservation items may not be label-coherent. A fresh single-rule benchmark built with explicit rules was at ceiling, with omission recall 1.000 and a CLEAN false-positive rate of 0.008 (both evaluators detected every omission; both structure gaps were negative) and excluded a pooled POINT--SCOPE interaction as large as $+0.15$ under the frozen bootstrap, though not for Claude alone, not under the most conservative interval, and not under the ceiling rule set for the later studies. A crossed follow-up without evaluative cue words was also at ceiling, so the POINT--SCOPE question (RQ2) remains open.
+
+Evaluating an LLM auditor requires validating the evaluation artifact first. We recommend that omission benchmarks report CLEAN behavior alongside recall, separate parser failures from substantive judgments, and subject suspected item defects to same-item repair and label-coherence checks before attributing failures to the auditor.
+
+\appendices
+\section{Worked Post-hoc CLEAN Diagnostics}
+\label{app:examples}
+These five illustrative rows were selected from the existing 50-row census to expose the recorded category assignments; they are not an additional sample or validation exercise. All are Claude CLEAN/P2 responses. Quoted rules, numbered scene excerpts, and response reasons are verbatim. Every corresponding case has \code{oracle\_label: false}, meaning ``no violation''; this is the target-event oracle label, not certification of all visible rules. The identifiers r01 and r02 are per-rule judgment indices in the evaluator output: r01 is the target rule and r02 the background rule. ``B/LIKELY DEFECT'' is audit status B (benchmark-attributed) with quality label LIKELY DEFECT; status A is evaluator over-strictness and status C a parser or scoring artifact.
+
+\subsection{Background-Rule Flag}
+\raggedright Row: \path{c02__CLEAN__P2__anthropic_claude-sonnet-5}. Target rule: ``before the shift ends, the worker must ring the bell at least once.'' Background rule: ``the bench must stay clear throughout the shift.'' Scene excerpt: ``L1: The worker rings the bell. L2: The worker clears the bench. L6: The worker reaches the shift end.'' The evaluator's r02 judgment was \code{violation\_detected: true}: ``The act of clearing the bench at L2 implies it was not clear prior to that action, meaning the bench was not clear throughout the shift.'' The authors classified the row as a likely benchmark defect because that reading conflicts with the throughout requirement.
+
+\subsection{Location Qualifier Ambiguity}
+\raggedright Row: \path{p12__CLEAN__P2__anthropic_claude-sonnet-5}. Target rule: ``the book must be placed on the shelf by the desk.'' Background rule: ``the lamp must be dimmed before the study closes.'' Scene excerpt: ``L1: The reader places the book on the shelf.'' The evaluator's r01 judgment was \code{violation\_detected: true}: ``The scene states the book is placed on `the shelf' but never confirms this shelf is the one by the desk, so the specific requirement is not explicitly satisfied.'' The authors classified the row as ambiguous because an ordinary referential reading and the evaluator's literal reading compete.
+
+\subsection{Temporal/Terminal Inconsistency}
+\raggedright Row: \path{c08__CLEAN__P2__anthropic_claude-sonnet-5}. Target rule: ``before the briefing ends, the officer must mark the map at least once.'' Background rule: ``the pointer must stay on the stand throughout the briefing.'' Scene excerpt: ``L5: The officer closes the briefing. L6: The officer marks the map.'' The evaluator's r01 judgment was \code{violation\_detected: true}: ``The briefing closes at L5 before the officer marks the map at L6, so the map was not marked before the briefing ended.'' The authors classified the row as a likely benchmark defect because marking the map follows the explicit briefing closure despite the ledger recording the required event.
+
+\subsection{Parser Artifact}
+\raggedright Row: \path{p03__CLEAN__P2__anthropic_claude-sonnet-5}. Target rule: ``the roster must record the name K. Ortiz and no other name.'' Background rule: ``the roster must record the match time.'' Scene excerpt: ``L1: The registrar writes the name K. Ortiz on the roster. L2: The registrar writes the match time.'' The evaluator's r01 judgment was \code{violation\_detected: false}: ``The roster records only the name K. Ortiz, with no other name written.'' The authors classified the semantic content as clearly clean. The response was wrapped in a Markdown JSON fence and ended with \code{finish\_reason = stop}. Both substantive judgments were false, but the recorded parsed prediction was INVALID and counted conservatively as a false positive.
+
+\subsection{Over-Strictness With Competing Ambiguity}
+\raggedright Row: \path{p10__CLEAN__P2__anthropic_claude-sonnet-5}. Target rule: ``the recipe note must read salt and no other word.'' Background rule: ``the recipe note must show the step number.'' Scene excerpt: ``L1: The cook writes the step number. L5: The cook writes salt on the recipe note.'' The evaluator's r01 judgment was \code{violation\_detected: true}: ``The recipe note contains both the step number and the word `salt,' not salt alone as required.'' The authors attributed the flag to evaluator over-strictness while retaining an ambiguous quality label: requiring a step number need not add another word, but the text does not specify how that number is written.
+
+\section{Benchmark Construction}
+\label{app:construction}
+\textbf{Authoring.} The Study 1, Study 2 v1, and Study 2b scenes were written under the authors' rules, structure, and direction, with candidate text drafted with AI assistance and then reviewed, edited, and finalized by the authors; Study 2c scenes were generated by a deterministic template builder written for this study. A base case fixes the setup sentence, the rule catalog, one required event, one or more incompatible events, a neutral replacement event, and six ordered beats; the three variants differ only in the target slot. The ledger lists the event identifier of each beat; the deterministic oracle labels CLEAN a nonviolation and COMMISSION and OMISSION violations by comparing the ledger with the required and incompatible events, and never reads the rendered text. Oracle identifiers and condition labels are withheld from every prompt, which the released leakage check enforces.
+
+\textbf{Study 1 families.} The five families, four held-out cases each, and their formal forms are: placement (an object must be at a location at the terminal state), temporal ordering (action A before action B), preservation (an object or state must remain intact throughout), identification (a record must carry one identity and no other), and commitment (an obligation must be delivered to a recipient). In the placement, identification, and commitment families COMMISSION supplies an incompatible terminal fact and OMISSION a neutral action, so that the same obligation is unmet in both; in the temporal-ordering and preservation families the COMMISSION scene instead reverses the order or breaks the state. The replacement cases b41--b45 follow a different OMISSION authoring rule (see the Study 1 design). Target positions were balanced across the 20 held-out cases (6 early, 8 middle, 6 late). Five cases (b12, b15, b20, b25, b31) were retired before the held-out run: b12 and b15 for detectability confounds (a physically awkward reversed ordering; an unsafe salient reversal), b20 because its throughout-state was not cleanly rendered as a single obligation, and b25 and b31 because the severity of a wrong versus a blank name differs strongly. Cases b41--b45 replaced them and were written after the exploratory run.
+
+\textbf{Study 2 v1 and Study 2b families.} Each study has 60 base cases, 30 POINT and 30 SCOPE, ten per family. POINT families are identity checkpoint (a record must show a given identity at a checkpoint), placement checkpoint (an object must be on a location at a checkpoint), and recipient checkpoint (an item must be in a recipient's hands at a checkpoint). SCOPE families are any-of scope obligation (an action must occur at least once during the six beats), by-end resolution (an obligation must be resolved by the end), and across-scope required event (an event must occur somewhere across the beats).
+
+\textbf{Study 2c.} Twenty-four obligations (eight recipient, eight location, eight identity) were each rendered as POINT and SCOPE with the same target slot (balanced over the six positions), with three rules (a conjunctive target rule and two satisfied background rules) and four variants. A deterministic builder and validator will be included in release v2.0.0; the validator checks six beats, absence of evaluative cue words and absence statements, expected presence or absence of each target event per variant, oracle labels, and matching target slots.
+
+\textbf{Example triplet (Study 1, case b36, commitment family).} Setup: ``Scene: an engineer at a plant desk after an incident. The briefing lists two rules: (r01) the incident report must be submitted to the safety office (r02) the report must be signed by the shift supervisor first. No events occur outside the described beats.'' Beats: L1 ``The engineer gets the supervisor's signature.''; L2 ``The engineer scans the report.''; L3 (target) CLEAN ``The engineer submits the incident report to the safety office.'', COMMISSION ``The engineer submits the incident report to the front desk.'', OMISSION ``The engineer organizes the desk drawer and the tray.''; L4 ``The engineer staples the pages.''; L5 ``The engineer sets the folder down.''; L6 ``The engineer taps the badge reader.'' The oracle labels CLEAN a nonviolation and both edits violations of r01.
+
+\textbf{Example triplet (Study 2b POINT, case q002, identity checkpoint).} Setup: ``Scene: a porter labeling a crate in a depot. The briefing lists one rule: (r01) at the depot desk, the crate label must show the word glass. No events occur outside the described beats.'' Beats: L1 ``The porter lifts the crate.''; L2 (target) CLEAN ``At the depot desk, the crate label shows the word glass.'', COMMISSION ``\ldots shows the word wood.'', OMISSION ``At the depot desk, the crate label field is empty.'' (an explicit absence statement, disclosed as a Study 2b artifact); L3 ``The porter tapes the flap.''; L4 ``The porter checks the weight.''; L5 ``The porter stamps the corner.''; L6 ``The porter sets the crate aside.''
+
+\textbf{Example triplet (Study 2b SCOPE, case q031, any-of scope obligation).} Setup: ``Scene: a player exploring a six-beat chapter. The briefing lists one rule: (r01) during the six-beat chapter, the player must report the symbol to Mira at least once. No events occur outside the described beats.'' Beats: L1 ``The player walks the chapter hall.''; L2 (target) CLEAN ``The player reports the symbol to Mira.'', COMMISSION ``The player reports the symbol to the wrong scout.'' (the evaluative ``wrong'' cue disclosed in Sec.~\ref{sec:study2bconstruction}), OMISSION ``The player adjusts the lantern wick.''; L3 ``The player reads a wall note.''; L4 ``The player climbs a stair.''; L5 ``The player peers into an alcove.''; L6 ``The player pauses to look around.''
+
+\textbf{Length adherence.} Study 1 specifies a within-triplet word-count tolerance of 10\%. Measured as (maximum minus minimum) over minimum on beat text without line identifiers, the largest within-triplet difference in the released cases is 8.1\% in held-out Study 1 (mean 3.0\%; none above 10\%), 10.0\% in Study 2b (mean 3.4\%; none above 10\%), and 10.3\% in Study 2 v1 (mean 3.5\%; one triplet above 10\%); the stored word-count field, which includes line identifiers, gives 7.0, 8.3, and 8.6\% with none above 10\%. In Study 2c the ADD variant replaces a filler beat with the incompatible event and OMISSION uses a short neutral beat, so lengths are not equated; the spread is reported by the validator and was not used as a gate. By condition, mean beat-text length (CLEAN, COMMISSION, OMISSION) is 40.2, 40.2, and 40.4 words in held-out Study 1; 32.3, 32.8, and 32.5 in Study 2 v1; and 33.0, 33.2, and 32.2 in Study 2b.
+
+\textbf{Quality assurance.} Author QA used categorical checklists recorded in frozen files (hashes in the freeze records; the files will be added to release v2.0.0). Study 1: four checks (same rule, comparable importance, no detectability confound, naturalness) applied to the seven cases flagged as medium severity risk; five were retired and two kept with a written rationale. Study 2 v1 and Study 2b: five checks, (A) the case is genuinely a POINT or a SCOPE verification, (B) the SCOPE omission cannot be detected from a single beat, (C) POINT and SCOPE cases are comparable in difficulty, (D) the commission and omission variants are semantically matched, and (E) the oracle logically entails the omission label; a family passed a check when the author's judgment on its representative example went in the intended direction (no numeric threshold). All checks for all six families were recorded as PASS, in Study 2b after one recorded repair (16 SCOPE OMISSION target beats that duplicated another beat of the same scene were replaced); check D was recorded as PASS in Study 2b although the SCOPE COMMISSION variants carry the ``wrong'' cue disclosed above; the replacement cases b41--b45 received only an offline structural check, not this checklist; the Study 2b freeze record was written while its QA was still marked pending. The checklists are categorical rather than numeric and were not applied to every case. Study 2 v1 passed this QA and then failed its CLEAN gate, so the checklist did not detect the defects later found by the post-hoc audits, which are the semantic checks reported in this paper; Study 3 tests part of them behaviorally.
+
+\section{Prompt Templates, Output Schema, and Parser Rules}
+All studies used the frozen renderer of the released code (\code{protocol\_construction.py}). The system message and task sentences are given verbatim; the scene blocks are labeled ``Scene setup:'', ``Applicable requirements:'', ``Scene:'', and ``Requirement to verify:''.
+
+\textbf{Messages.} Each call has two messages. System message: ``You are a meticulous auditor of a short, bounded narrative scene. Judge only the events explicitly described in the scene; do not invent events, assume events outside the described beats, or rely on external knowledge. Every line is labeled with an id such as L1, L2. Respond with a single JSON object and nothing else, using the schema described in the instructions.'' The user message concatenates, in order: the scene setup; for P2 and P3 the list of applicable requirements (rule identifier and text); the scene lines; for P4 the single requirement to verify; a task sentence; and the output schema.
+
+\textbf{Protocols (task sentences).} P1 (no requirement list): ``Inspect the scene below for consistency and completeness. Report every requirement stated in the scene that is violated.'' P2: ``Below is the scene and the full list of applicable requirements. Report every requirement that is violated.'' P3: ``Below is the scene and the full list of applicable requirements. First enumerate each requirement you intend to check in the expectations field, then verify each one against the scene and emit one judgment per enumerated requirement.'' P4: ``Below is the scene and one specific requirement. Determine whether that requirement is fulfilled. Emit exactly one judgment for the requirement, with a boolean fulfilled field (true if fulfilled, false if violated).'' P1--P3 request one judgment per requirement judged; P4 requests exactly one judgment with a boolean fulfilled field.
+
+\textbf{Output schema (P1--P3).} A JSON object with a judgments list; each entry has rule\_id, a boolean violation\_detected, an optional violation\_type (wrong\_state, missing\_state, or null), evidence\_line\_ids, and a brief reason; P3 additionally uses an expectations list. P4 entries carry fulfilled and violation\_detected, which must be opposite.
+
+\textbf{Strict parser (primary).} The raw text must be a single JSON object parseable as-is; a code-fenced object is invalid. The output is invalid if: it is not an object or lacks judgments; judgments is not a list; an entry lacks rule\_id or violation\_detected; violation\_detected is not a JSON boolean (hedged values and numbers are not coerced); rule\_id is not in the case's catalog; the same rule is reported twice with conflicting booleans; (P4) there is not exactly one judgment, fulfilled is not boolean, or violation\_detected contradicts fulfilled; or an expectation entry is malformed. An unknown violation\_type is not invalid and never affects detection. An empty judgment list with an explicit abstention is valid and yields no flags. A rule that is simply not reported is a valid nondetection.
+
+\textbf{Scoring.} A violation case is detected if the output is valid and the target rule is flagged; flags on other rules do not count toward recall. A CLEAN case is a target-rule false positive if the output is invalid or flags the target rule, and an any-rule false positive if it is invalid or flags any rule (conservative counting). Reason text, evidence lines, and violation type never affect these decisions.
+
+\textbf{Lenient parser (sensitivity only).} The lenient variant strips an enclosing code fence and takes the first balanced JSON object in the text, then applies the same strict rules. It was never used for a frozen decision. In Study 2c, Study 2b reruns, and later analyses, an output so deeply nested that the parser exceeds the recursion limit is counted as invalid.
+
+\section{Run Configuration}
+\label{app:config}
+Study 2c and the three added evaluators of the Study 2b reruns used the Study 3 request body (reasoning-disable flag rejected for Gemini and GPT; temperature 0 not sent for Claude or GPT; seeds as noted in Sec.~\ref{sec:study2c}); the 720 rerun calls of the two original evaluators used the original request body with seeds 1732 and 1733. All earlier runs used the OpenRouter gateway with temperature 0, JSON-object output, and seed 1731 (honoring unverified); no reasoning parameter was sent in Studies 1--2b. Held-out Study 1: 2026-09-18 23:40 to 2026-09-19 00:22 UTC, 6,000-token limit, two SSL transport failures, 0 truncations. Exploratory Study 1: 2026-09-18 19:11--19:55 UTC, 2,400-token limit, 17 truncations. Study 2 v1: 2026-09-19 02:55--03:48 UTC, 6,000-token limit, 12 truncations (Gemini). Study 2b: 2026-09-19 05:50--06:12 UTC, 6,000-token limit, one provider error. Returned model strings equalled the requested identifiers in all runs. Prompt templates and the output schema are in the released code (\code{protocol\_construction.py}); the parser accepts a single JSON object with boolean \code{violation\_detected} for known rule identifiers and rejects anything else, including Markdown-fenced JSON. Re-parsing the raw responses of Study 2 v1 and Study 2b (included in release v2.0.0) with this single parser reproduces every frozen validity flag (720 of 720), so the two studies used the same parser behavior.
+
+\section*{Artifact Availability}
+Reproducibility artifacts, including benchmark definitions, evaluator configurations, parsing and scoring code, frozen result manifests, post-hoc audit records, sanitized Study 1 model outputs, figure-generation scripts, and offline verification scripts, are publicly available on Zenodo (DOI: 10.5281/zenodo.23192501) and in the accompanying GitHub repository at \url{https://github.com/Taewan627/cba-benchmark-validity}. Release v2.0.0 of the repository (to be tagged at resubmission) will add the Study 3, Study 2b rerun, and Study 2c materials (pre-registrations, hash records, cases, raw responses, and analysis code), the author QA checklists, the independent-annotation materials (protocol, labels, and analysis scripts), sanitized raw responses of Study 2 v1 and Study 2b, and a script that recomputes the Study 2 v1 and Study 2b statistics from the scored rows with the frozen analysis functions.
+
+\section*{Conflicts of Interest}
+The authors declare no conflicts of interest.
+
+\section*{Acknowledgment}
+The research questions, study designs, obligation rules, scoring, and decision criteria are the authors' own, and the authors directed the work and made all design, analysis, and reporting decisions. As assistive tools under that direction, OpenAI ChatGPT/Codex and Anthropic Claude/Claude Code supported language editing throughout the manuscript, drafting of candidate scenes (the authors set the direction, rules, and structure of the scenes and reviewed and finalized them), implementation and verification code, figure and table generation, consistency checks of the manuscript, and the initial classification notes of the post-hoc Study 1 omission-miss audit, which the authors reviewed and finalized (Anthropic Claude is also one of the evaluators under test). All AI-assisted outputs were reviewed and verified by the authors, who take full responsibility for the final content. The authors thank three independent annotators for rule-judgment labeling.
+
+% ORCID: no verified ORCIDs available; intentionally omitted from the manuscript.
+
+\begin{thebibliography}{00}
+\bibitem{liu2023geval} Y. Liu, D. Iter, Y. Xu, S. Wang, R. Xu, and C. Zhu, ``G-Eval: NLG evaluation using GPT-4 with better human alignment,'' in \emph{Proc. 2023 Conf. Empirical Methods Natural Lang. Process. (EMNLP)}, Singapore, 2023, pp. 2511--2522, doi: 10.18653/v1/2023.emnlp-main.153.
+\bibitem{zheng2023judge} L. Zheng \emph{et al.}, ``Judging LLM-as-a-judge with MT-Bench and Chatbot Arena,'' in \emph{Proc. Neural Inf. Process. Syst. Track Datasets Benchmarks}, 2023, arXiv:2306.05685, doi: 10.48550/arXiv.2306.05685.
+\bibitem{chen2024judgebias} G. H. Chen, S. Chen, Z. Liu, F. Jiang, and B. Wang, ``Humans or LLMs as the judge? A study on judgement bias,'' in \emph{Proc. 2024 Conf. Empirical Methods Natural Lang. Process. (EMNLP)}, Miami, FL, USA, 2024, pp. 8301--8327, doi: 10.18653/v1/2024.emnlp-main.474.
+\bibitem{fu2025absence} H. Y. Fu, A. Shrivastava, J. Moore, P. West, C. Tan, and A. Holtzman, ``Absence Bench: Language models can't see what's missing,'' in \emph{Proc. Adv. Neural Inf. Process. Syst. (NeurIPS) Datasets Benchmarks Track}, vol. 38, 2025, arXiv:2506.11440, doi: 10.52202/085713-1277.
+\bibitem{fox2026omission} S. Fox, L. Markham, R. Lail, and M. Karotsieris, ``LLM judges verify presence, not absence: Omission blindness in AI clinical notes and what recovers it,'' arXiv:2608.31016, 2026, doi: 10.48550/arXiv.2608.31016.
+\bibitem{schumacher2025medomit} E. Schumacher, D. Rosenthal, D. Naik, V. Nair, L. Price, G. Tso, and A. Kannan, ``MED-OMIT: Extrinsically-focused evaluation metric for omissions in medical summarization,'' in \emph{Proc. 4th Mach. Learn. Health Symp.}, ser. Proc. Mach. Learn. Res., vol. 259, 2025, pp. 897--922.
+\bibitem{zou2023omission} Y. Zou \emph{et al.}, ``Towards understanding omission in dialogue summarization,'' in \emph{Proc. 61st Annu. Meeting Assoc. Comput. Linguistics (ACL)}, Toronto, Canada, 2023, pp. 14268--14286, doi: 10.18653/v1/2023.acl-long.798.
+\bibitem{min2023factscore} S. Min \emph{et al.}, ``FActScore: Fine-grained atomic evaluation of factual precision in long form text generation,'' in \emph{Proc. 2023 Conf. Empirical Methods Natural Lang. Process. (EMNLP)}, Singapore, 2023, pp. 12076--12100, doi: 10.18653/v1/2023.emnlp-main.741.
+\bibitem{thorne2018fever} J. Thorne, A. Vlachos, C. Christodoulopoulos, and A. Mittal, ``FEVER: A large-scale dataset for fact extraction and verification,'' in \emph{Proc. 2018 Conf. North Amer. Chapter Assoc. Comput. Linguistics: Human Lang. Technol. (NAACL-HLT)}, New Orleans, LA, USA, 2018, pp. 809--819, doi: 10.18653/v1/N18-1074.
+\bibitem{chen2026enumerating} W. Chen, J. Chen, Z. Lin, P. Long, and C. M. Vong, ``Judging is not enumerating: Silent omissions in LLM-authored acceptable sets,'' arXiv:2608.01000, 2026, doi: 10.48550/arXiv.2608.01000.
+\bibitem{gardner2020contrast} M. Gardner \emph{et al.}, ``Evaluating models' local decision boundaries via contrast sets,'' in \emph{Findings Assoc. Comput. Linguistics: EMNLP 2020}, 2020, pp. 1307--1323, doi: 10.18653/v1/2020.findings-emnlp.117.
+\bibitem{kaushik2020counterfactual} D. Kaushik, E. Hovy, and Z. C. Lipton, ``Learning the difference that makes a difference with counterfactually-augmented data,'' in \emph{Proc. Int. Conf. Learn. Represent. (ICLR)}, 2020, arXiv:1909.12434.
+\bibitem{ribeiro2020checklist} M. T. Ribeiro, T. Wu, C. Guestrin, and S. Singh, ``Beyond accuracy: Behavioral testing of NLP models with CheckList,'' in \emph{Proc. 58th Annu. Meeting Assoc. Comput. Linguistics (ACL)}, 2020, pp. 4902--4912, doi: 10.18653/v1/2020.acl-main.442.
+\bibitem{gururangan2018artifacts} S. Gururangan, S. Swayamdipta, O. Levy, R. Schwartz, S. Bowman, and N. A. Smith, ``Annotation artifacts in natural language inference data,'' in \emph{Proc. 2018 Conf. North Amer. Chapter Assoc. Comput. Linguistics: Human Lang. Technol. (NAACL-HLT)}, vol. 2, 2018, pp. 107--112, doi: 10.18653/v1/N18-2017.
+\bibitem{bowman2021fix} S. R. Bowman and G. Dahl, ``What will it take to fix benchmarking in natural language understanding?,'' in \emph{Proc. 2021 Conf. North Amer. Chapter Assoc. Comput. Linguistics: Human Lang. Technol. (NAACL-HLT)}, 2021, pp. 4843--4855, doi: 10.18653/v1/2021.naacl-main.385.
+\bibitem{raji2021everything} I. D. Raji, E. M. Bender, A. Paullada, E. Denton, and A. Hanna, ``AI and the everything in the whole wide world benchmark,'' in \emph{Proc. Neural Inf. Process. Syst. Track Datasets Benchmarks}, 2021, arXiv:2111.15366.
+\bibitem{northcutt2021label} C. G. Northcutt, A. Athalye, and J. Mueller, ``Pervasive label errors in test sets destabilize machine learning benchmarks,'' in \emph{Proc. Neural Inf. Process. Syst. Track Datasets Benchmarks}, 2021, arXiv:2103.14749, doi: 10.48550/arXiv.2103.14749.
+\bibitem{gema2025mmlu} A. P. Gema \emph{et al.}, ``Are we done with MMLU?,'' in \emph{Proc. 2025 Conf. Nations Americas Chapter Assoc. Comput. Linguistics: Human Lang. Technol. (NAACL)}, Albuquerque, NM, USA, 2025, pp. 5069--5096, doi: 10.18653/v1/2025.naacl-long.262.
+\bibitem{vendrow2025platinum} J. Vendrow, E. Vendrow, S. Beery, and A. Madry, ``Do large language model benchmarks test reliability?,'' arXiv:2502.03461, 2025, doi: 10.48550/arXiv.2502.03461.
+\bibitem{bean2025construct} A. M. Bean \emph{et al.}, ``Measuring what matters: Construct validity in large language model benchmarks,'' in \emph{Proc. Adv. Neural Inf. Process. Syst. (NeurIPS) Datasets Benchmarks Track}, vol. 38, 2025, arXiv:2511.04703, doi: 10.52202/085713-0590.
+\bibitem{pavlick2019disagree} E. Pavlick and T. Kwiatkowski, ``Inherent disagreements in human textual inferences,'' \emph{Trans. Assoc. Comput. Linguistics}, vol. 7, pp. 677--694, 2019, doi: 10.1162/tacl\_a\_00293.
+\bibitem{omissionbench2026} ComposoAI, ``OmissionBench,'' dataset version factorial-v1, 2026. [Online]. Available: \url{https://huggingface.co/datasets/ComposoAI/OmissionBench}. Accessed: Sep. 19, 2026.
+\bibitem{omissionsoftware} ComposoAI, ``OmissionBench source code (benchmark/hard\_negatives\_master.py, judges/w2\_factlist.py, judges/w2\_pipeline.py, benchmark/verify\_omissions\_v2.py),'' repository composo-ai/omission-bench, commit \path{5c42e1056fbcb27e67ab9b312c5c4398b2757714}, 2026. [Online]. Available: \url{https://github.com/composo-ai/omission-bench/tree/5c42e1056fbcb27e67ab9b312c5c4398b2757714}. Accessed: Sep. 19, 2026.
+\bibitem{qiu2024temporal} Y. Qiu, Z. Zhao, Y. Ziser, A. Korhonen, E. Ponti, and S. B. Cohen, ``Are large language model temporally grounded?,'' in \emph{Proc. 2024 Conf. North Amer. Chapter Assoc. Comput. Linguistics: Human Lang. Technol. (NAACL)}, Mexico City, Mexico, 2024, pp. 7064--7083, doi: 10.18653/v1/2024.naacl-long.391.
+\bibitem{li2026lost} J. Li, X. Guo, Y. Wu, R. K.-W. Lee, H. Li, and Y. Xie, ``Lost in stories: Consistency bugs in long story generation by LLMs,'' in \emph{Findings Assoc. Comput. Linguistics: ACL 2026}, San Diego, CA, USA, 2026, pp. 8400--8428, doi: 10.18653/v1/2026.findings-acl.410.
+\bibitem{veloso2021validator} C. Veloso and R. Prada, ``Validating the plot of interactive narrative games,'' in \emph{Proc. 2021 IEEE Conf. Games (CoG)}, Copenhagen, Denmark, 2021, pp. 1--8, doi: 10.1109/CoG52621.2021.9618897.
+\bibitem{buongiorno2024pangea} S. Buongiorno, L. Klinkert, Z. Zhuang, T. Chawla, and C. Clark, ``PANGeA: Procedural artificial narrative using generative AI for turn-based, role-playing video games,'' \emph{Proc. AAAI Conf. Artif. Intell. Interact. Digit. Entertainment}, vol. 20, no. 1, pp. 156--166, 2024, doi: 10.1609/aiide.v20i1.31876.
+\bibitem{ahuja2025flawed} K. Ahuja, M. Sclar, and Y. Tsvetkov, ``Finding flawed fictions: Evaluating complex reasoning in language models via plot hole detection,'' in \emph{Proc. Conf. Lang. Model. (COLM)}, 2025, arXiv:2504.11900, doi: 10.48550/arXiv.2504.11900.
+\bibitem{kim2023entity} N. Kim and S. Schuster, ``Entity tracking in language models,'' in \emph{Proc. 61st Annu. Meeting Assoc. Comput. Linguistics (ACL)}, Toronto, Canada, 2023, pp. 3835--3855, doi: 10.18653/v1/2023.acl-long.213.
+\bibitem{dwyer1999patterns} M. B. Dwyer, G. S. Avrunin, and J. C. Corbett, ``Patterns in property specifications for finite-state verification,'' in \emph{Proc. 21st Int. Conf. Softw. Eng. (ICSE)}, Los Angeles, CA, USA, 1999, pp. 411--420, doi: 10.1145/302405.302672.
+\bibitem{newcombe1998paired} R. G. Newcombe, ``Improved confidence intervals for the difference between binomial proportions based on paired data,'' \emph{Statist. Med.}, vol. 17, no. 22, pp. 2635--2650, 1998, doi: 10.1002/(SICI)1097-0258(19981130)17:22\textless 2635::AID-SIM954\textgreater 3.0.CO;2-C.
+\bibitem{field2007bootstrap} C. A. Field and A. H. Welsh, ``Bootstrapping clustered data,'' \emph{J. Roy. Statist. Soc. Ser. B Statist. Methodol.}, vol. 69, no. 3, pp. 369--390, 2007, doi: 10.1111/j.1467-9868.2007.00593.x.
+\bibitem{lakens2017equivalence} D. Lakens, ``Equivalence tests: A practical primer for $t$ tests, correlations, and meta-analyses,'' \emph{Social Psychol. Personality Sci.}, vol. 8, no. 4, pp. 355--362, 2017, doi: 10.1177/1948550617697177.
+\bibitem{miller2024errorbars} E. Miller, ``Adding error bars to evals: A statistical approach to language model evaluations,'' arXiv:2411.00640, 2024, doi: 10.48550/arXiv.2411.00640.
+\bibitem{good2005permutation} P. Good, \emph{Permutation, Parametric, and Bootstrap Tests of Hypotheses}, 3rd ed. New York, NY, USA: Springer, 2005, doi: 10.1007/b138696.
+\end{thebibliography}
+
+\begin{biography}[{\includegraphics[width=1in,height=1.25in,keepaspectratio]{../photo/Taewan_KIM.jpg}}]{Taewan Kim}
+received the bachelor's degree in fine arts from Pusan National University, Busan, Republic of Korea, in 2002, and the master's degree in game studies from Gachon University, Seongnam, Republic of Korea, in 2018. He is currently pursuing the Ph.D. degree with the Graduate School of Virtual Convergence, Sogang University, Seoul, Republic of Korea. He has more than 20 years of professional experience in game development and level design. His research interests include game level design, AI-assisted game content creation, procedural content generation, interactive storytelling, human-AI interaction, and generative artificial intelligence.
+\end{biography}
+
+\begin{biography}[{\includegraphics[width=1in,height=1.25in,keepaspectratio]{../photo/Taehoon_KIM.jpg}}]{Taehoon Kim}
+received the B.S. degree in computer science and communications from Sogang University, Seoul, Republic of Korea, in 2018, and the Ph.D. degree in computer science from Sogang University in 2021. He is currently an Assistant Professor with the Graduate School of Virtual Convergence, Sogang University. From 2020 to 2021, he was a research intern with LG AI Research, where he was a research scientist from 2021 to 2024. His research interests include multimodal artificial intelligence, computer vision, vision--language models, generative models, image captioning, efficient deep learning, and agentic artificial intelligence.
+\end{biography}
+\vfill
+
+\EOD
+\end{document}

@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "If you use these artifacts, please cite the associated manuscript."
-title: "Benchmark Validity and Commission–Omission Asymmetry in LLM-Based Narrative Auditing"
+title: "Benchmark Validity Before Auditor Attribution: Repair and Label-Coherence Checks for Omission Detection in LLM-Based Narrative Auditing"
 type: software
 authors:
   - family-names: "Kim"
@@ -13,7 +13,10 @@ year: 2026
 repository-code: "https://github.com/Taewan627/cba-benchmark-validity"
 identifiers:
   - type: doi
+    value: "10.5281/zenodo.23192500"
+    description: "Zenodo concept DOI (all versions of the artifact release; not the manuscript DOI)"
+  - type: doi
     value: "10.5281/zenodo.23192501"
-    description: "Zenodo archive of the v1.0.0 artifact release (not the manuscript DOI)"
-version: "v1.0.0"
-notes: "Reproducibility artifacts for a manuscript prepared for submission to IEEE Access."
+    description: "Zenodo archive of the v1.0.0 artifact release"
+version: "v2.0.0"
+notes: "Revision materials for the IEEE Access resubmission (Access-2026-51134); v1.0.0 content is unchanged under public_release/."

@@ -1,0 +1,218 @@
+{
+ "summary": {
+  "study1": {
+   "n_attempts": 480,
+   "mismatch_vs_published": 0,
+   "agg": {
+    "gemini-3.8-flash|strict": {
+     "n_CLEAN": 80,
+     "invalid": 2,
+     "clean_any": 9,
+     "clean_tgt": 0,
+     "clean_any_validonly": 9,
+     "clean_tgt_validonly": 0,
+     "n_COMMISSION": 80,
+     "det_COMMISSION": 79,
+     "n_OMISSION": 80,
+     "det_OMISSION": 64
+    },
+    "gemini-3.8-flash|lenient": {
+     "n_CLEAN": 80,
+     "invalid": 2,
+     "clean_any": 9,
+     "clean_tgt": 0,
+     "clean_any_validonly": 9,
+     "clean_tgt_validonly": 0,
+     "n_COMMISSION": 80,
+     "det_COMMISSION": 79,
+     "n_OMISSION": 80,
+     "det_OMISSION": 64
+    },
+    "claude-sonnet-5|strict": {
+     "n_CLEAN": 80,
+     "invalid": 1,
+     "clean_any": 8,
+     "clean_tgt": 2,
+     "clean_any_validonly": 8,
+     "clean_tgt_validonly": 2,
+     "n_COMMISSION": 80,
+     "det_COMMISSION": 80,
+     "n_OMISSION": 80,
+     "det_OMISSION": 69
+    },
+    "claude-sonnet-5|lenient": {
+     "n_CLEAN": 80,
+     "invalid": 0,
+     "clean_any": 8,
+     "clean_tgt": 2,
+     "clean_any_validonly": 8,
+     "clean_tgt_validonly": 2,
+     "n_COMMISSION": 80,
+     "det_COMMISSION": 80,
+     "n_OMISSION": 80,
+     "det_OMISSION": 69
+    }
+   }
+  },
+  "study2v1": {
+   "n_attempts": 360,
+   "mismatch_vs_published": 0,
+   "agg": {
+    "gemini-3.8-flash|strict": {
+     "n_CLEAN": 60,
+     "invalid": 12,
+     "clean_any": 34,
+     "clean_tgt": 19,
+     "clean_any_validonly": 28,
+     "clean_tgt_validonly": 13,
+     "n_COMMISSION": 60,
+     "det_COMMISSION": 58,
+     "n_OMISSION": 60,
+     "det_OMISSION": 56
+    },
+    "gemini-3.8-flash|lenient": {
+     "n_CLEAN": 60,
+     "invalid": 12,
+     "clean_any": 34,
+     "clean_tgt": 19,
+     "clean_any_validonly": 28,
+     "clean_tgt_validonly": 13,
+     "n_COMMISSION": 60,
+     "det_COMMISSION": 58,
+     "n_OMISSION": 60,
+     "det_OMISSION": 56
+    },
+    "claude-sonnet-5|strict": {
+     "n_CLEAN": 60,
+     "invalid": 3,
+     "clean_any": 16,
+     "clean_tgt": 12,
+     "clean_any_validonly": 14,
+     "clean_tgt_validonly": 10,
+     "n_COMMISSION": 60,
+     "det_COMMISSION": 59,
+     "n_OMISSION": 60,
+     "det_OMISSION": 59
+    },
+    "claude-sonnet-5|lenient": {
+     "n_CLEAN": 60,
+     "invalid": 0,
+     "clean_any": 14,
+     "clean_tgt": 10,
+     "clean_any_validonly": 14,
+     "clean_tgt_validonly": 10,
+     "n_COMMISSION": 60,
+     "det_COMMISSION": 59,
+     "n_OMISSION": 60,
+     "det_OMISSION": 60
+    }
+   }
+  },
+  "study2b": {
+   "n_attempts": 360,
+   "mismatch_vs_published": 0,
+   "agg": {
+    "gemini-3.8-flash|strict": {
+     "n_CLEAN": 60,
+     "invalid": 1,
+     "clean_any": 0,
+     "clean_tgt": 0,
+     "clean_any_validonly": 0,
+     "clean_tgt_validonly": 0,
+     "n_COMMISSION": 60,
+     "det_COMMISSION": 59,
+     "n_OMISSION": 60,
+     "det_OMISSION": 60
+    },
+    "gemini-3.8-flash|lenient": {
+     "n_CLEAN": 60,
+     "invalid": 1,
+     "clean_any": 0,
+     "clean_tgt": 0,
+     "clean_any_validonly": 0,
+     "clean_tgt_validonly": 0,
+     "n_COMMISSION": 60,
+     "det_COMMISSION": 59,
+     "n_OMISSION": 60,
+     "det_OMISSION": 60
+    },
+    "claude-sonnet-5|strict": {
+     "n_CLEAN": 60,
+     "invalid": 1,
+     "clean_any": 1,
+     "clean_tgt": 1,
+     "clean_any_validonly": 1,
+     "clean_tgt_validonly": 1,
+     "n_COMMISSION": 60,
+     "det_COMMISSION": 58,
+     "n_OMISSION": 60,
+     "det_OMISSION": 60
+    },
+    "claude-sonnet-5|lenient": {
+     "n_CLEAN": 60,
+     "invalid": 0,
+     "clean_any": 1,
+     "clean_tgt": 1,
+     "clean_any_validonly": 1,
+     "clean_tgt_validonly": 1,
+     "n_COMMISSION": 60,
+     "det_COMMISSION": 59,
+     "n_OMISSION": 60,
+     "det_OMISSION": 60
+    }
+   }
+  }
+ },
+ "validity_flips": [
+  [
+   "study1",
+   "b18",
+   "OMISSION",
+   "P3",
+   "claude-sonnet-5",
+   "stop",
+   "strict_valid=False lenient_valid=True",
+   "lenient_target_flag=False"
+  ],
+  [
+   "study2v1",
+   "c11",
+   "OMISSION",
+   "P2",
+   "claude-sonnet-5",
+   "stop",
+   "strict_valid=False lenient_valid=True",
+   "lenient_target_flag=True"
+  ],
+  [
+   "study2v1",
+   "p03",
+   "CLEAN",
+   "P2",
+   "claude-sonnet-5",
+   "stop",
+   "strict_valid=False lenient_valid=True",
+   "lenient_target_flag=False"
+  ],
+  [
+   "study2v1",
+   "p14",
+   "CLEAN",
+   "P2",
+   "claude-sonnet-5",
+   "stop",
+   "strict_valid=False lenient_valid=True",
+   "lenient_target_flag=False"
+  ],
+  [
+   "study2b",
+   "q001",
+   "COMMISSION",
+   "P2",
+   "claude-sonnet-5",
+   "stop",
+   "strict_valid=False lenient_valid=True",
+   "lenient_target_flag=True"
+  ]
+ ]
+}
